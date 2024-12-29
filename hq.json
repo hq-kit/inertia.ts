@@ -1,0 +1,5 @@
+{
+  "$schema": "https://hq-ui.vercel.app",
+  "ui": "resources/js/components/ui",
+  "css": "resources/css/app.css"
+}
