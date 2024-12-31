@@ -1,14 +1,13 @@
 import { Button, Form, TextField } from '@/components/ui';
 import GuestLayout from '@/layouts/guest-layout';
-import { Head, useForm } from '@inertiajs/react';
-import { FormEventHandler } from 'react';
+import { useForm } from '@inertiajs/react';
 
 export default function ForgotPassword({ status }: { status?: string }) {
     const { data, setData, post, processing, errors } = useForm({
         email: '',
     });
 
-    const submit: FormEventHandler = (e) => {
+    const submit = (e: { preventDefault: () => void }) => {
         e.preventDefault();
 
         post(route('password.email'));
@@ -16,8 +15,6 @@ export default function ForgotPassword({ status }: { status?: string }) {
 
     return (
         <>
-            <Head title="Forgot Password" />
-
             {status && (
                 <div className="mb-4 text-sm font-medium text-success">
                     {status}

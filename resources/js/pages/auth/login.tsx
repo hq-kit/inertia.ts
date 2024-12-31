@@ -1,7 +1,7 @@
 import { Button, Checkbox, Form, Link, TextField } from '@/components/ui';
 import GuestLayout from '@/layouts/guest-layout';
-import { Head, useForm } from '@inertiajs/react';
-import { FormEventHandler } from 'react';
+import { useForm } from '@inertiajs/react';
+import React from 'react';
 
 export default function Login({
     status,
@@ -18,18 +18,19 @@ export default function Login({
         remember: false,
     });
 
-    const submit: FormEventHandler = (e) => {
-        e.preventDefault();
+    React.useEffect(() => {
+        return () => {
+            reset('password');
+        };
+    }, []);
 
-        post(route('login'), {
-            onFinish: () => reset('password'),
-        });
+    const submit = (e: { preventDefault: () => void }) => {
+        e.preventDefault();
+        post(route('login'));
     };
 
     return (
         <>
-            <Head title="Log in" />
-
             {status && (
                 <div className="mb-4 text-sm font-medium text-success">
                     {status}

@@ -1,12 +1,11 @@
 import { Button, Form, Link } from '@/components/ui';
 import GuestLayout from '@/layouts/guest-layout';
-import { Head, useForm } from '@inertiajs/react';
-import { FormEventHandler } from 'react';
+import { useForm } from '@inertiajs/react';
 
 export default function VerifyEmail({ status }: { status?: string }) {
     const { post, processing } = useForm({});
 
-    const submit: FormEventHandler = (e) => {
+    const submit = (e: { preventDefault: () => void }) => {
         e.preventDefault();
 
         post(route('verification.send'));
@@ -14,8 +13,6 @@ export default function VerifyEmail({ status }: { status?: string }) {
 
     return (
         <>
-            <Head title="Email Verification" />
-
             {status === 'verification-link-sent' && (
                 <div className="mb-4 text-sm font-medium text-success">
                     A new verification link has been sent to the email address

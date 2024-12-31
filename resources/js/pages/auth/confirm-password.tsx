@@ -1,14 +1,13 @@
 import { Button, Form, TextField } from '@/components/ui';
 import GuestLayout from '@/layouts/guest-layout';
-import { Head, useForm } from '@inertiajs/react';
-import { FormEventHandler } from 'react';
+import { useForm } from '@inertiajs/react';
 
 export default function ConfirmPassword() {
     const { data, setData, post, processing, errors, reset } = useForm({
         password: '',
     });
 
-    const submit: FormEventHandler = (e) => {
+    const submit = (e: { preventDefault: () => void }) => {
         e.preventDefault();
 
         post(route('password.confirm'), {
@@ -18,8 +17,6 @@ export default function ConfirmPassword() {
 
     return (
         <>
-            <Head title="Confirm Password" />
-
             <Form
                 validationErrors={errors}
                 onSubmit={submit}

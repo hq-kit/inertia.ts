@@ -1,7 +1,7 @@
 import { Button, Form, Link, TextField } from '@/components/ui';
 import GuestLayout from '@/layouts/guest-layout';
-import { Head, useForm } from '@inertiajs/react';
-import { FormEventHandler } from 'react';
+import { useForm } from '@inertiajs/react';
+import React from 'react';
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -11,18 +11,20 @@ export default function Register() {
         password_confirmation: '',
     });
 
-    const submit: FormEventHandler = (e) => {
+    React.useEffect(() => {
+        return () => {
+            reset('password', 'password_confirmation');
+        };
+    }, []);
+
+    const submit = (e: { preventDefault: () => void }) => {
         e.preventDefault();
 
-        post(route('register'), {
-            onFinish: () => reset('password', 'password_confirmation'),
-        });
+        post(route('register'));
     };
 
     return (
         <>
-            <Head title="Register" />
-
             <Form
                 validationErrors={errors}
                 onSubmit={submit}

@@ -1,7 +1,6 @@
 import { Button, Form, TextField } from '@/components/ui';
 import GuestLayout from '@/layouts/guest-layout';
-import { Head, useForm } from '@inertiajs/react';
-import { FormEventHandler } from 'react';
+import { useForm } from '@inertiajs/react';
 
 export default function ResetPassword({
     token,
@@ -17,7 +16,7 @@ export default function ResetPassword({
         password_confirmation: '',
     });
 
-    const submit: FormEventHandler = (e) => {
+    const submit = (e: { preventDefault: () => void }) => {
         e.preventDefault();
 
         post(route('password.store'), {
@@ -27,8 +26,6 @@ export default function ResetPassword({
 
     return (
         <>
-            <Head title="Reset Password" />
-
             <Form
                 validationErrors={errors}
                 className="grid gap-4"
