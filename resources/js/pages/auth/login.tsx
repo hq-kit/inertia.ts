@@ -13,7 +13,7 @@ export default function Login({
     canRegister: boolean;
 }) {
     const { data, setData, post, processing, errors, reset } = useForm({
-        email: '',
+        username: '',
         password: '',
         remember: false,
     });
@@ -42,16 +42,15 @@ export default function Login({
                 className="grid gap-4"
             >
                 <TextField
-                    id="email"
-                    type="email"
-                    name="email"
-                    value={data.email}
-                    label="Email"
-                    autoComplete="email"
+                    id="credential"
+                    name="credential"
+                    value={data.username}
+                    label="Username / Email"
+                    autoComplete="username"
                     autoFocus
-                    onChange={(e) => setData('email', e)}
-                    errorMessage={errors?.email}
-                    isInvalid={!!errors?.email}
+                    onChange={(e) => setData('username', e)}
+                    errorMessage={errors?.username}
+                    isInvalid={!!errors?.username}
                 />
                 <TextField
                     isRevealable

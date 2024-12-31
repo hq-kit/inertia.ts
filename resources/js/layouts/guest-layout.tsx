@@ -1,4 +1,6 @@
+import AppLogo from '@/components/app-logo';
 import { Card } from '@/components/ui';
+import { Link } from '@inertiajs/react';
 
 export default function GuestLayout({
     title,
@@ -15,6 +17,12 @@ export default function GuestLayout({
                 <div className="flex w-full max-w-xl items-center justify-center px-4 py-12 lg:px-8">
                     <Card className="mx-auto w-full lg:border-none lg:shadow-none">
                         <Card.Header>
+                            <Link
+                                href={route('home')}
+                                className="w-fit hover:fill-danger"
+                            >
+                                <AppLogo className="mb-4 size-10" />
+                            </Link>
                             <Card.Title>{title}</Card.Title>
                             <Card.Description>{description}</Card.Description>
                         </Card.Header>

@@ -1,15 +1,15 @@
 /** @type {import('tailwindcss').Config} */
-import { withTV } from 'tailwind-variants/transformer'
-import ta from 'tailwindcss-animate'
-import trac from 'tailwindcss-react-aria-components'
-import { fontFamily } from 'tailwindcss/defaultTheme'
+import { withTV } from 'tailwind-variants/transformer';
+import ta from 'tailwindcss-animate';
+import trac from 'tailwindcss-react-aria-components';
+import { fontFamily } from 'tailwindcss/defaultTheme';
 
 const config = withTV({
     content: [
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
-        './resources/js/**/*.tsx'
+        './resources/js/**/*.tsx',
     ],
     darkMode: 'class',
     theme: {
@@ -17,15 +17,15 @@ const config = withTV({
             center: true,
             padding: {
                 DEFAULT: '1rem',
-                sm: '2rem'
+                sm: '2rem',
             },
             screens: {
-                '2xl': '1400px'
-            }
+                '2xl': '1400px',
+            },
         },
         fontFamily: {
-            sans: ['Figtree', ...fontFamily.sans],
-            mono: ['Fira Code', ...fontFamily.mono]
+            sans: ['Inter', ...fontFamily.sans],
+            mono: ['Fira Code', ...fontFamily.mono],
         },
         extend: {
             colors: {
@@ -33,52 +33,52 @@ const config = withTV({
                 foreground: 'hsl(var(--foreground))',
                 primary: {
                     DEFAULT: 'hsl(var(--primary))',
-                    foreground: 'hsl(var(--primary-foreground))'
+                    foreground: 'hsl(var(--primary-foreground))',
                 },
                 secondary: {
                     DEFAULT: 'hsl(var(--secondary))',
-                    foreground: 'hsl(var(--secondary-foreground))'
+                    foreground: 'hsl(var(--secondary-foreground))',
                 },
                 danger: {
                     DEFAULT: 'hsl(var(--danger))',
-                    foreground: 'hsl(var(--danger-foreground))'
+                    foreground: 'hsl(var(--danger-foreground))',
                 },
                 success: {
                     DEFAULT: 'hsl(var(--success))',
-                    foreground: 'hsl(var(--success-foreground))'
+                    foreground: 'hsl(var(--success-foreground))',
                 },
                 info: {
                     DEFAULT: 'hsl(var(--info))',
-                    foreground: 'hsl(var(--info-foreground))'
+                    foreground: 'hsl(var(--info-foreground))',
                 },
                 warning: {
                     DEFAULT: 'hsl(var(--warning))',
-                    foreground: 'hsl(var(--warning-foreground))'
+                    foreground: 'hsl(var(--warning-foreground))',
                 },
                 dark: {
                     DEFAULT: 'hsl(var(--dark))',
-                    foreground: 'hsl(var(--dark-foreground))'
+                    foreground: 'hsl(var(--dark-foreground))',
                 },
                 muted: {
                     DEFAULT: 'hsl(var(--muted))',
-                    foreground: 'hsl(var(--muted-foreground))'
+                    foreground: 'hsl(var(--muted-foreground))',
                 },
                 chart: {
                     primary: 'hsl(var(--primary-chart))',
                     secondary: 'hsl(var(--secondary-chart))',
                     tertiary: 'hsl(var(--tertiary-chart))',
                     highlight: 'hsl(var(--highlight-chart))',
-                    accent: 'hsl(var(--accent-chart))'
-                }
+                    accent: 'hsl(var(--accent-chart))',
+                },
             },
             borderRadius: {
                 lg: 'var(--radius)',
                 md: 'calc(var(--radius) - 2px)',
-                sm: 'calc(var(--radius) - 4px)'
-            }
-        }
+                sm: 'calc(var(--radius) - 4px)',
+            },
+        },
     },
-    plugins: [ta, trac]
-})
+    plugins: [ta, trac],
+});
 
-export default config
+export default config;
