@@ -1,5 +1,6 @@
 import CommandPalette from '@/components/command-palette';
 import { ThemeToggle } from '@/components/theme-toggle';
+import { ToastMessage } from '@/components/toast-message';
 import {
     Avatar,
     Button,
@@ -39,6 +40,7 @@ export default function AppLayout({
     }, [setOpenCommand]);
     return (
         <Navbar>
+            <ToastMessage />
             <Navbar.Nav>
                 <Navbar.Logo href="#">
                     <IconBrandLaravel className="size-5" />

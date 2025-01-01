@@ -2,8 +2,9 @@ import { SearchField, Select, cn } from '@/components/ui';
 import { router, usePage } from '@inertiajs/react';
 import React from 'react';
 import { type Key } from 'react-aria-components';
+import { useDebouncedCallback } from 'use-debounce';
 
-const PerPages = [
+const Shows = [
     { value: 10, label: '10' },
     { value: 20, label: '20' },
     { value: 50, label: '50' },
@@ -15,7 +16,7 @@ interface Props {
 }
 
 interface PageOptions {
-    per_page: number;
+    show: number;
     search: string;
 }
 
@@ -23,44 +24,57 @@ export default function PageOptions({ className }: Props) {
     // @ts-expect-error no-type
     const { page_options } = usePage<{ page_options: PageOptions }>().props;
 
-    const [perPage, setPerPage] = React.useState<Key>(
-        page_options.per_page || 10,
-    );
+    const [show, setShow] = React.useState<Key>(page_options.show || 10);
     const [search, setSearch] = React.useState<string>(
         page_options.search || '',
     );
 
     function handlePerPage(value: Key) {
-        setPerPage(value);
+        setShow(value);
         if (search.length === 0)
             router.get(
                 route(route().current() as string),
-                { per_page: value },
+                { show: value },
                 { preserveState: true },
             );
         else
             router.get(
                 route(route().current() as string),
-                { q: search, per_page: value },
+                { q: search, show: value },
                 { preserveState: true },
             );
     }
 
-    function handleSearch(value: string) {
+    const handleSearch = useDebouncedCallback((value) => {
         setSearch(value);
-        if (perPage === 10)
-            router.get(
-                route(route().current() as string),
-                { q: value },
-                { preserveState: true },
-            );
-        else
-            router.get(
-                route(route().current() as string),
-                { q: value, per_page: perPage },
-                { preserveState: true },
-            );
-    }
+        if (value) {
+            if (show === 10)
+                router.get(
+                    route(route().current() as string),
+                    { q: value },
+                    { preserveState: true },
+                );
+            else
+                router.get(
+                    route(route().current() as string),
+                    { q: value, show },
+                    { preserveState: true },
+                );
+        } else {
+            if (show === 10)
+                router.get(
+                    route(route().current() as string),
+                    {},
+                    { preserveState: true },
+                );
+            else
+                router.get(
+                    route(route().current() as string),
+                    { show },
+                    { preserveState: true },
+                );
+        }
+    }, 300);
 
     return (
         <div
@@ -72,8 +86,8 @@ export default function PageOptions({ className }: Props) {
             <Select
                 className="w-fit"
                 aria-label="Per Page"
-                items={PerPages}
-                selectedKey={perPage}
+                items={Shows}
+                selectedKey={show}
                 onSelectionChange={handlePerPage}
             >
                 {(item) => (
@@ -82,11 +96,7 @@ export default function PageOptions({ className }: Props) {
                     </Select.Item>
                 )}
             </Select>
-            <SearchField
-                aria-label="Search"
-                value={search}
-                onChange={handleSearch}
-            />
+            <SearchField aria-label="Search" onChange={handleSearch} />
         </div>
     );
 }

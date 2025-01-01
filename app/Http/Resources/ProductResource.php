@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AuthUserResource extends JsonResource
+class ProductResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,12 +17,15 @@ class AuthUserResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'username' => $this->username,
-            'email' => $this->email,
-            'email_verified_at' => $this->email_verified_at,
-            'role' => $this->role,
-            'avatar' => $this->avatar ? asset($this->avatar) : 'https://www.gravatar.com/avatar/' . md5(strtolower(trim($this->email))) . '?s=200&d=mp',
+            'owner' => $this->owner,
+            'buy_price' => $this->buy_price,
+            'sell_price' => $this->sell_price,
+            'stock' => $this->stock,
+            'category_id' => $this->category_id,
+            'category' => new CategoryResource($this->whenLoaded('category')),
+            'unit' => $this->unit,
             'created_at' => $this->created_at->format('d M Y'),
+            'updated_at' => $this->updated_at->format('d M Y'),
         ];
     }
 }

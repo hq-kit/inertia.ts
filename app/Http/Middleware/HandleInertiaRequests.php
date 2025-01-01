@@ -39,7 +39,7 @@ class HandleInertiaRequests extends Middleware
                 'location' => $request->url(),
                 'query' => $request->query(),
             ],
-            'flash_message' => fn() => [
+            'toast' => fn() => [
                 'type' => $request->session()->get('type') ?? 'success',
                 'message' => $request->session()->get('message'),
             ],

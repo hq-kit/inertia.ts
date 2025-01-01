@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-import { IconChevronDown, IconLoader, IconMenu } from 'hq-icons'
+import { IconChevronDown, IconLoader, IconMenu } from 'hq-icons';
 import {
     Button,
     Cell,
@@ -19,34 +19,34 @@ import {
     type TableHeaderProps,
     Table as TablePrimitive,
     type TableProps as TablePrimitiveProps,
-    useTableOptions
-} from 'react-aria-components'
-import { tv } from 'tailwind-variants'
+    useTableOptions,
+} from 'react-aria-components';
+import { tv } from 'tailwind-variants';
 
-import { Checkbox } from './checkbox'
-import { cn } from './utils'
+import { Checkbox } from './checkbox';
+import { cn } from './utils';
 
 interface TableProps extends TablePrimitiveProps {
-    className?: string
-    allowResize?: boolean
+    className?: string;
+    allowResize?: boolean;
 }
 
 const TableContext = React.createContext<TableProps>({
-    allowResize: false
-})
+    allowResize: false,
+});
 
-const useTableContext = () => React.useContext(TableContext)
+const useTableContext = () => React.useContext(TableContext);
 
 const Table = ({ children, className, ...props }: TableProps) => (
     <TableContext.Provider value={props}>
-        <div className='relative w-full overflow-auto'>
+        <div className="relative w-full overflow-auto">
             {props.allowResize ? (
-                <ResizableTableContainer className='overflow-auto'>
+                <ResizableTableContainer className="overflow-auto">
                     <TablePrimitive
                         {...props}
                         className={cn(
-                            'table [&_[data-drop-target]]:border [&_[data-drop-target]]:border-primary w-full caption-bottom border-spacing-0 text-sm outline-none',
-                            className
+                            'table w-full caption-bottom border-spacing-0 text-sm outline-none [&_[data-drop-target]]:border [&_[data-drop-target]]:border-primary',
+                            className,
                         )}
                     >
                         {children}
@@ -56,8 +56,8 @@ const Table = ({ children, className, ...props }: TableProps) => (
                 <TablePrimitive
                     {...props}
                     className={cn(
-                        'table [&_[data-drop-target]]:border [&_[data-drop-target]]:border-primary w-full caption-bottom border-spacing-0 text-sm outline-none',
-                        className
+                        'table w-full caption-bottom border-spacing-0 text-sm outline-none [&_[data-drop-target]]:border [&_[data-drop-target]]:border-primary',
+                        className,
                     )}
                 >
                     {children}
@@ -65,84 +65,91 @@ const Table = ({ children, className, ...props }: TableProps) => (
             )}
         </div>
     </TableContext.Provider>
-)
+);
 
 const ColumnResizer = ({ className, ...props }: ColumnResizerProps) => (
     <ColumnResizerPrimitive
         {...props}
         className={cn(
-            'touch-none absolute [&[data-resizing]>div]:bg-primary right-0 top-0 bottom-0 w-px px-1 grid place-content-center [&[data-resizable-direction=both]]:cursor-ew-resize &[data-resizable-direction=left]:cursor-e-resize &[data-resizable-direction=right]:cursor-w-resize',
-            className
+            '&[data-resizable-direction=left]:cursor-e-resize &[data-resizable-direction=right]:cursor-w-resize absolute bottom-0 right-0 top-0 grid w-px touch-none place-content-center px-1 [&[data-resizable-direction=both]]:cursor-ew-resize [&[data-resizing]>div]:bg-primary',
+            className,
         )}
     >
-        <div className='bg-muted h-full w-px py-3' />
+        <div className="h-full w-px bg-muted py-3" />
     </ColumnResizerPrimitive>
-)
+);
 
 const Body = <T extends object>(props: TableBodyProps<T>) => (
     <TableBody {...props} className={cn('[&_.tr:last-child]:border-0')} />
-)
+);
 
 interface TableCellProps extends CellProps {
-    className?: string
+    className?: string;
 }
 
 const cellStyles = tv({
     base: 'whitespace-nowrap group px-3 py-3 outline-none',
     variants: {
         allowResize: {
-            true: 'overflow-hidden truncate'
-        }
-    }
-})
+            true: 'overflow-hidden truncate',
+        },
+    },
+});
 const TableCell = ({ children, className, ...props }: TableCellProps) => {
-    const { allowResize } = useTableContext()
+    const { allowResize } = useTableContext();
     return (
         <Cell {...props} className={cellStyles({ allowResize, className })}>
             {children}
         </Cell>
-    )
-}
+    );
+};
 
 const columnStyles = tv({
     base: 'whitespace-nowrap relative allows-sorting:cursor-pointer px-3 py-3 text-left dragging:cursor-grabbing font-medium outline-none [&:has([slot=selection])]:pr-0',
     variants: {
         isResizable: {
-            true: 'overflow-hidden truncate'
-        }
-    }
-})
+            true: 'overflow-hidden truncate',
+        },
+    },
+});
 
 interface TableColumnProps extends ColumnProps {
-    className?: string
-    isResizable?: boolean
+    className?: string;
+    isResizable?: boolean;
 }
 
-const TableColumn = ({ children, isResizable = false, className, ...props }: TableColumnProps) => {
+const TableColumn = ({
+    children,
+    isResizable = false,
+    className,
+    ...props
+}: TableColumnProps) => {
     return (
         <Column
             {...props}
             className={columnStyles({
                 isResizable,
-                className
+                className,
             })}
         >
             {({ allowsSorting, sortDirection, isHovered }) => (
-                <div className='flex [&_svg]:shrink-0 items-center gap-2'>
+                <div className="flex items-center gap-2 [&_svg]:shrink-0">
                     <>
                         {children as React.ReactNode}
                         {allowsSorting && (
                             <>
                                 <span
                                     className={cn(
-                                        'flex-none rounded-lg transition bg-transparent text-foreground [&>svg]:shrink-0 [&>svg]:size-3.5 [&>svg]:transition-transform size-[1.15rem] grid place-content-center shrink-0',
+                                        'grid size-[1.15rem] flex-none shrink-0 place-content-center rounded-lg bg-transparent text-foreground transition [&>svg]:size-3.5 [&>svg]:shrink-0 [&>svg]:transition-transform',
                                         isHovered && 'bg-muted',
-                                        className
+                                        className,
                                     )}
                                 >
                                     <IconChevronDown
                                         className={
-                                            sortDirection === 'ascending' ? 'rotate-180' : ''
+                                            sortDirection === 'ascending'
+                                                ? 'rotate-180'
+                                                : ''
                                         }
                                     />
                                 </span>
@@ -153,30 +160,38 @@ const TableColumn = ({ children, isResizable = false, className, ...props }: Tab
                 </div>
             )}
         </Column>
-    )
-}
+    );
+};
 
 interface HeaderProps<T extends object> extends TableHeaderProps<T> {
-    className?: string
+    className?: string;
 }
 
-const Header = <T extends object>({ children, className, columns, ...props }: HeaderProps<T>) => {
-    const { selectionBehavior, selectionMode, allowsDragging } = useTableOptions()
+const Header = <T extends object>({
+    children,
+    className,
+    columns,
+    ...props
+}: HeaderProps<T>) => {
+    const { selectionBehavior, selectionMode, allowsDragging } =
+        useTableOptions();
     return (
         <TableHeader {...props} className={cn('border-b', className)}>
-            {allowsDragging && <Column className='w-0' />}
+            {allowsDragging && <Column className="w-0" />}
             {selectionBehavior === 'toggle' && (
-                <Column className='pl-4 w-0'>
-                    {selectionMode === 'multiple' && <Checkbox slot='selection' />}
+                <Column className="w-0 pl-4">
+                    {selectionMode === 'multiple' && (
+                        <Checkbox slot="selection" />
+                    )}
                 </Column>
             )}
             <Collection items={columns}>{children}</Collection>
         </TableHeader>
-    )
-}
+    );
+};
 
 interface TableRowProps<T extends object> extends RowProps<T> {
-    className?: string
+    className?: string;
 }
 
 const TableRow = <T extends object>({
@@ -186,7 +201,7 @@ const TableRow = <T extends object>({
     id,
     ...props
 }: TableRowProps<T>) => {
-    const { selectionBehavior, allowsDragging } = useTableOptions()
+    const { selectionBehavior, allowsDragging } = useTableOptions();
     return (
         <Row
             id={id}
@@ -194,44 +209,44 @@ const TableRow = <T extends object>({
             className={cn(
                 'tr group relative cursor-default border-b text-foreground/70 outline-none ring-primary focus-visible:ring-1 selected:bg-primary/20 selected:hover:bg-primary/20',
                 'href' in props ? 'cursor-pointer hover:bg-secondary/50' : '',
-                className
+                className,
             )}
         >
             {allowsDragging && (
-                <Cell className='ring-primary pr-0 group cursor-grab dragging:cursor-grabbing'>
+                <Cell className="group cursor-grab pr-0 ring-primary dragging:cursor-grabbing">
                     <Button
-                        className='relative bg-transparent pl-3.5 py-1.5 text-muted-foreground pressed:text-foreground'
-                        slot='drag'
+                        className="relative bg-transparent py-1.5 pl-3.5 text-muted-foreground pressed:text-foreground"
+                        slot="drag"
                     >
                         <IconMenu />
                     </Button>
                 </Cell>
             )}
             {selectionBehavior === 'toggle' && (
-                <Cell className='pl-4'>
+                <Cell className="pl-4">
                     <span
                         aria-hidden
-                        className='absolute inset-y-0 left-0 hidden h-full w-0.5 bg-primary group-selected:block'
+                        className="absolute inset-y-0 left-0 hidden h-full w-0.5 bg-primary group-selected:block"
                     />
-                    <Checkbox slot='selection' />
+                    <Checkbox slot="selection" />
                 </Cell>
             )}
             <Collection items={columns}>{children}</Collection>
         </Row>
-    )
-}
+    );
+};
 
 const TableEmpty = () => (
-    <div className='grid place-content-center p-10'>
-        <IconLoader className='animate-spin' />
+    <div className="grid place-content-center p-10">
+        <IconLoader className="animate-spin" />
     </div>
-)
+);
 
-Table.Body = Body
-Table.Cell = TableCell
-Table.Column = TableColumn
-Table.Header = Header
-Table.Row = TableRow
-Table.Empty = TableEmpty
+Table.Body = Body;
+Table.Cell = TableCell;
+Table.Column = TableColumn;
+Table.Header = Header;
+Table.Row = TableRow;
+Table.Empty = TableEmpty;
 
-export { Table }
+export { Table };

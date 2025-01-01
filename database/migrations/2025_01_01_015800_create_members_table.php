@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('nickname')->nullable();
             $table->string('phone')->nullable();
             $table->float('voucher')->default(0);
+            $table->timestamps();
         });
     }
 

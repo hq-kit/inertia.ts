@@ -22,7 +22,7 @@ class CategorySeeder extends Seeder
             'Office',
             'Other'
         ])->each(function ($category) {
-            Category::query()->insert(['name' => $category, 'slug' => str()->slug($category)]);
+            Category::query()->create(['name' => $category, 'slug' => str()->slug($category)]);
         });
     }
 }

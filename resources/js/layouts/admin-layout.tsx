@@ -4,17 +4,22 @@ import React from 'react';
 
 import {
     IconBrandLaravel,
+    IconBuildings,
     IconChevronDown,
     IconCircleUser,
     IconGauge,
+    IconLayoutList,
     IconLogOut,
     IconMoon,
+    IconPackage,
     IconSearch,
     IconSun,
+    IconUsers,
 } from 'hq-icons';
 
 import CommandPalette from '@/components/command-palette';
 import { useTheme } from '@/components/providers';
+import { ToastMessage } from '@/components/toast-message';
 import {
     Avatar,
     Button,
@@ -24,6 +29,7 @@ import {
     Sidebar,
     useSidebar,
 } from '@/components/ui';
+import { middleware } from '@/lib/utils';
 import { User } from '@/types';
 import { usePage } from '@inertiajs/react';
 
@@ -48,6 +54,7 @@ export default function AdminLayout({
     }, [setOpenCommand]);
     return (
         <Sidebar.Provider>
+            <ToastMessage />
             <CommandPalette isOpen={openCommand} setIsOpen={setOpenCommand} />
             <AppSidebar user={user} />
             <Sidebar.Inset>
@@ -134,6 +141,34 @@ function AppSidebar({ user }: { user: User }) {
                         textValue="Dashboard"
                     />
                 </Sidebar.Section>
+                {middleware(['admin', 'manager']) && (
+                    <>
+                        <Sidebar.Section title="Data">
+                            <SidebarItem
+                                icon={IconUsers}
+                                route={'members.index'}
+                                textValue="Members"
+                            />
+                            <SidebarItem
+                                icon={IconBuildings}
+                                route={'suppliers.index'}
+                                textValue="Suppliers"
+                            />
+                        </Sidebar.Section>
+                        <Sidebar.Section title="Products">
+                            <SidebarItem
+                                icon={IconLayoutList}
+                                route={'categories.index'}
+                                textValue="Category"
+                            />
+                            <SidebarItem
+                                icon={IconPackage}
+                                route={'products.index'}
+                                textValue="Products"
+                            />
+                        </Sidebar.Section>
+                    </>
+                )}
             </Sidebar.Content>
             <Sidebar.Footer className="hidden items-center lg:flex lg:flex-row">
                 <Menu>
@@ -194,7 +229,7 @@ function SidebarItem({
     return (
         <Sidebar.Item
             href={route(props.route)}
-            isCurrent={route().current(props.route)}
+            isCurrent={route().current(props.route.split('.')[0] + '*')}
             icon={Icon}
             {...props}
         />

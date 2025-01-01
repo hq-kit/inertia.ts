@@ -1,12 +1,12 @@
-import React from 'react'
+import React from 'react';
 
 import {
     IconChevronLeft,
     IconChevronRight,
     IconChevronsLeft,
     IconChevronsRight,
-    IconEllipsis
-} from 'hq-icons'
+    IconEllipsis,
+} from 'hq-icons';
 import {
     ListBox,
     ListBoxItem,
@@ -14,13 +14,12 @@ import {
     Separator,
     type ListBoxItemProps,
     type ListBoxProps,
-    type ListBoxSectionProps
-} from 'react-aria-components'
-import { tv, type VariantProps } from 'tailwind-variants'
+    type ListBoxSectionProps,
+} from 'react-aria-components';
+import { tv, type VariantProps } from 'tailwind-variants';
 
-import { buttonVariants } from './button'
-import { cn } from './utils'
-import { cr } from './utils'
+import { buttonVariants } from './button';
+import { cn, cr } from './utils';
 
 const paginationStyles = tv({
     slots: {
@@ -36,9 +35,10 @@ const paginationStyles = tv({
         itemEllipsisIcon: 'flex size-9 items-center justify-center',
         defaultItem:
             'focus-visible:border-primary focus:outline-none size-9 tabular-nums font-normal cursor-pointer disabled:cursor-default focus-visible:bg-primary/10 focus-visible:ring-4 focus-visible:ring-primary/20 disabled:opacity-100',
-        itemSeparatorLine: 'h-5 w-[1.5px] bg-secondary-foreground/40 rotate-[14deg] shrink-0'
-    }
-})
+        itemSeparatorLine:
+            'h-5 w-[1.5px] bg-secondary-foreground/40 rotate-[14deg] shrink-0',
+    },
+});
 
 const {
     pagination,
@@ -50,49 +50,62 @@ const {
     itemEllipsis,
     itemEllipsisIcon,
     defaultItem,
-    itemSeparatorLine
-} = paginationStyles()
+    itemSeparatorLine,
+} = paginationStyles();
 
 const Pagination = ({ className, ...props }: React.ComponentProps<'nav'>) => (
     <nav
-        role='navigation'
-        aria-label='pagination'
+        role="navigation"
+        aria-label="pagination"
         className={pagination({ className })}
         {...props}
     />
-)
+);
 
-const PaginationSection = <T extends object>({ className, ...props }: ListBoxSectionProps<T>) => (
+const PaginationSection = <T extends object>({
+    className,
+    ...props
+}: ListBoxSectionProps<T>) => (
     <ListBoxSection {...props} className={section({ className })} />
-)
+);
 
 const List = <T extends object>({ className, ...props }: ListBoxProps<T>) => {
     return (
         <ListBox
-            orientation='horizontal'
+            orientation="horizontal"
             aria-label={props['aria-label'] || 'Pagination'}
-            layout='grid'
+            layout="grid"
             className={cr(className, (className) => list({ className }))}
             {...props}
         />
-    )
-}
+    );
+};
 
 const renderListItem = (
     props: ListBoxItemProps & {
-        textValue?: string
-        'aria-current'?: string | undefined
-        isDisabled?: boolean
-        className?: string
+        textValue?: string;
+        'aria-current'?: string | undefined;
+        isDisabled?: boolean;
+        className?: string;
     },
-    children: React.ReactNode
-) => <ListBoxItem {...props}>{children}</ListBoxItem>
+    children: React.ReactNode,
+) => <ListBoxItem {...props}>{children}</ListBoxItem>;
 
-interface PaginationItemProps extends ListBoxItemProps, VariantProps<typeof buttonVariants> {
-    children?: React.ReactNode
-    className?: string
-    isCurrent?: boolean
-    role?: 'label' | 'separator' | 'ellipsis' | 'default' | 'last' | 'first' | 'previous' | 'next'
+interface PaginationItemProps
+    extends ListBoxItemProps,
+        VariantProps<typeof buttonVariants> {
+    children?: React.ReactNode;
+    className?: string;
+    isCurrent?: boolean;
+    role?:
+        | 'label'
+        | 'separator'
+        | 'ellipsis'
+        | 'default'
+        | 'last'
+        | 'first'
+        | 'previous'
+        | 'next';
 }
 
 const Item = ({
@@ -109,7 +122,7 @@ const Item = ({
             ? children
             : typeof children === 'number'
               ? children.toString()
-              : undefined
+              : undefined;
 
     const renderPaginationIndicator = (indicator: React.ReactNode) =>
         renderListItem(
@@ -121,14 +134,14 @@ const Item = ({
                     buttonVariants({
                         variant: 'outline',
                         size: 'sm',
-                        className: itemButton()
+                        className: itemButton(),
                     }),
-                    className
+                    className,
                 ),
-                ...props
+                ...props,
             },
-            indicator
-        )
+            indicator,
+        );
 
     switch (role) {
         case 'label':
@@ -136,38 +149,41 @@ const Item = ({
                 {
                     textValue: textValue,
                     className: itemLabel({ className }),
-                    ...props
+                    ...props,
                 },
-                children
-            )
+                children,
+            );
         case 'separator':
             return renderListItem(
                 {
                     textValue: 'Separator',
                     className: itemSeparator({ className }),
-                    ...props
+                    ...props,
                 },
-                <Separator orientation='vertical' className={itemSeparatorLine()} />
-            )
+                <Separator
+                    orientation="vertical"
+                    className={itemSeparatorLine()}
+                />,
+            );
         case 'ellipsis':
             return renderListItem(
                 {
                     textValue: 'More pages',
                     className: itemEllipsis({ className }),
-                    ...props
+                    ...props,
                 },
                 <span aria-hidden className={itemEllipsisIcon({ className })}>
                     <IconEllipsis />
-                </span>
-            )
+                </span>,
+            );
         case 'previous':
-            return renderPaginationIndicator(<IconChevronLeft />)
+            return renderPaginationIndicator(<IconChevronLeft />);
         case 'next':
-            return renderPaginationIndicator(<IconChevronRight />)
+            return renderPaginationIndicator(<IconChevronRight />);
         case 'first':
-            return renderPaginationIndicator(<IconChevronsLeft />)
+            return renderPaginationIndicator(<IconChevronsLeft />);
         case 'last':
-            return renderPaginationIndicator(<IconChevronsRight />)
+            return renderPaginationIndicator(<IconChevronsRight />);
         default:
             return renderListItem(
                 {
@@ -178,19 +194,19 @@ const Item = ({
                         buttonVariants({
                             variant: isCurrent ? 'primary' : variant,
                             size,
-                            className: defaultItem({ className })
+                            className: defaultItem({ className }),
                         }),
-                        className
+                        className,
                     ),
-                    ...props
+                    ...props,
                 },
-                children
-            )
+                children,
+            );
     }
-}
+};
 
-Pagination.Item = Item
-Pagination.List = List
-Pagination.Section = PaginationSection
+Pagination.Item = Item;
+Pagination.List = List;
+Pagination.Section = PaginationSection;
 
-export { Pagination }
+export { Pagination };

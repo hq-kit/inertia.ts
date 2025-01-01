@@ -22,7 +22,9 @@ class MemberSeeder extends Seeder
                 'name' => $member['name'],
                 'nickname' => $member['nickname'],
                 'phone' => null,
-                'voucher' => 0
+                'voucher' => 0,
+                'created_at' => now(),
+                'updated_at' => now(),
             ];
         }
         foreach (array_chunk($data, 50) as $chunk) {
