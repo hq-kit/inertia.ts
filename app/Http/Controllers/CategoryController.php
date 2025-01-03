@@ -11,7 +11,7 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request, Category $category = null)
+    public function index(Request $request, ?Category $category = null)
     {
         $show = $request->show ?? 10;
         $search = $request->q ?? null;
@@ -23,8 +23,8 @@ class CategoryController extends Controller
             ->paginate($show);
 
         return inertia('categories/index', [
-            'categories' => fn() => CategoryResource::collection($categories),
-            'category' => $category ? CategoryResource::make($category) : new Category(),
+            'categories' => fn () => CategoryResource::collection($categories),
+            'category' => $category ? CategoryResource::make($category) : new Category,
             'form' => [
                 'title' => $category ? 'Edit Category' : 'Create Category',
                 'route' => $category ? route('categories.update', $category->id) : route('categories.store'),
@@ -33,7 +33,7 @@ class CategoryController extends Controller
             'page_options' => [
                 'show' => $show,
                 'search' => $search,
-            ]
+            ],
         ]);
     }
 
@@ -67,7 +67,7 @@ class CategoryController extends Controller
     public function show(Category $category)
     {
         return inertia('categories/show', [
-            'category' => CategoryResource::make($category)
+            'category' => CategoryResource::make($category),
         ]);
     }
 
@@ -85,7 +85,7 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255', 'unique:categories,name,' . $category->id],
+            'name' => ['required', 'string', 'max:255', 'unique:categories,name,'.$category->id],
         ]);
         $validated['slug'] = str()->slug($validated['name']);
 

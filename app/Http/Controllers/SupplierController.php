@@ -11,7 +11,7 @@ class SupplierController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request, Supplier $supplier = null)
+    public function index(Request $request, ?Supplier $supplier = null)
     {
         $show = $request->show ?? 10;
         $search = $request->q ?? null;
@@ -23,8 +23,8 @@ class SupplierController extends Controller
             ->paginate($show);
 
         return inertia('suppliers/index', [
-            'suppliers' => fn() => SupplierResource::collection($suppliers),
-            'supplier' => $supplier ? SupplierResource::make($supplier) : new Supplier(),
+            'suppliers' => fn () => SupplierResource::collection($suppliers),
+            'supplier' => $supplier ? SupplierResource::make($supplier) : new Supplier,
             'form' => [
                 'title' => $supplier ? 'Edit Supplier' : 'Create Supplier',
                 'route' => $supplier ? route('suppliers.update', $supplier->id) : route('suppliers.store'),
@@ -33,7 +33,7 @@ class SupplierController extends Controller
             'page_options' => [
                 'show' => $show,
                 'search' => $search,
-            ]
+            ],
         ]);
     }
 
@@ -68,7 +68,7 @@ class SupplierController extends Controller
     public function show(Supplier $supplier)
     {
         return inertia('suppliers/show', [
-            'supplier' => SupplierResource::make($supplier)
+            'supplier' => SupplierResource::make($supplier),
         ]);
     }
 
@@ -86,7 +86,7 @@ class SupplierController extends Controller
     public function update(Request $request, Supplier $supplier)
     {
         $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255', 'unique:suppliers,name,' . $supplier->id],
+            'name' => ['required', 'string', 'max:255', 'unique:suppliers,name,'.$supplier->id],
             'phone' => ['nullable', 'string', 'max:255'],
             'address' => ['nullable', 'string', 'max:255'],
         ]);

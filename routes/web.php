@@ -3,14 +3,13 @@
 use App\Http\Controllers;
 use Illuminate\Support\Facades\Route;
 
-
 if (! app()->isProduction()) {
     Route::get('dev/login/{id}', function ($id = null) {
         auth()->login(\App\Models\User::find($id));
+
         return redirect('/');
     });
 }
-
 
 Route::get('/', Controllers\HomeController::class)->name('home');
 
@@ -29,10 +28,11 @@ Route::middleware('auth')->group(function () {
 
         Route::resource('categories', Controllers\CategoryController::class);
         Route::resource('products', Controllers\ProductController::class);
+
+        Route::resource('purchases', Controllers\PurchaseController::class);
     });
 });
 
 Route::get('all-members', [Controllers\MemberController::class, 'getAll'])->name('members.all');
 
-
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

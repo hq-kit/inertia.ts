@@ -21,7 +21,7 @@ class AuthUserResource extends JsonResource
             'email' => $this->email,
             'email_verified_at' => $this->email_verified_at,
             'role' => $this->role,
-            'avatar' => $this->avatar ? asset($this->avatar) : 'https://www.gravatar.com/avatar/' . md5(strtolower(trim($this->email))) . '?s=200&d=mp',
+            'avatar' => $this->avatar ? asset($this->avatar) : 'https://www.gravatar.com/avatar/'.md5(strtolower(trim($this->email))).'?s=200&d=mp',
             'created_at' => $this->created_at->format('d M Y'),
         ];
     }

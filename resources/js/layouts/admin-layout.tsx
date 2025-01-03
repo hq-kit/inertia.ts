@@ -11,6 +11,7 @@ import {
     IconLayoutList,
     IconLogOut,
     IconMoon,
+    IconNotebookPen,
     IconPackage,
     IconSearch,
     IconSun,
@@ -165,6 +166,13 @@ function AppSidebar({ user }: { user: User }) {
                                 icon={IconPackage}
                                 route={'products.index'}
                                 textValue="Products"
+                            />
+                        </Sidebar.Section>
+                        <Sidebar.Section title="Transactions">
+                            <SidebarItem
+                                icon={IconNotebookPen}
+                                route={'purchases.index'}
+                                textValue="Pembelian"
                             />
                         </Sidebar.Section>
                     </>

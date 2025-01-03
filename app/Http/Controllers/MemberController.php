@@ -11,7 +11,7 @@ class MemberController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request, Member $member = null)
+    public function index(Request $request, ?Member $member = null)
     {
         $show = $request->show ?? 10;
         $search = $request->q ?? null;
@@ -23,8 +23,8 @@ class MemberController extends Controller
             ->paginate($show);
 
         return inertia('members/index', [
-            'members' => fn() => MemberResource::collection($members),
-            'member' => $member ? MemberResource::make($member) : new Member(),
+            'members' => fn () => MemberResource::collection($members),
+            'member' => $member ? MemberResource::make($member) : new Member,
             'form' => [
                 'title' => $member ? 'Edit Member' : 'Create Member',
                 'route' => $member ? route('members.update', $member->id) : route('members.store'),
@@ -33,7 +33,7 @@ class MemberController extends Controller
             'page_options' => [
                 'show' => $show,
                 'search' => $search,
-            ]
+            ],
         ]);
     }
 
@@ -68,7 +68,7 @@ class MemberController extends Controller
     public function show(Member $member)
     {
         return inertia('members/show', [
-            'member' => MemberResource::make($member)
+            'member' => MemberResource::make($member),
         ]);
     }
 
@@ -86,7 +86,7 @@ class MemberController extends Controller
     public function update(Request $request, Member $member)
     {
         $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255', 'unique:members,name,' . $member->id],
+            'name' => ['required', 'string', 'max:255', 'unique:members,name,'.$member->id],
             'nickname' => ['nullable', 'string', 'max:255'],
             'phone' => ['nullable', 'string', 'max:255'],
         ]);

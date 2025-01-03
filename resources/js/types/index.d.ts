@@ -84,6 +84,56 @@ export interface Product {
     created_at: string;
 }
 
+export interface PurchaseDetail {
+    id: number;
+    purchase_id: number;
+    purchase: Purchase;
+    product_id: number;
+    product: Product;
+    quantity: number;
+    price: number;
+    subtotal: number;
+    created_at: string;
+}
+
+export interface Purchase {
+    id: number;
+    supplier_id: number;
+    supplier: Supplier;
+    user_id: number;
+    user: User;
+    created_at: string;
+    purchase_details: PurchaseDetail[];
+    total: number;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface SaleDetail {
+    id: number;
+    sale_id: number;
+    sale: Sale;
+    product_id: number;
+    product: Product;
+    quantity: number;
+    price: number;
+    subtotal: number;
+    created_at: string;
+}
+
+export interface Sale {
+    id: number;
+    member_id?: number;
+    member?: Member;
+    user_id: number;
+    user: User;
+    created_at: string;
+    sale_details: SaleDetail[];
+    total: number;
+    created_at: string;
+    updated_at: string;
+}
+
 export type PageProps<
     T extends Record<string, unknown> = Record<string, unknown>,
 > = T & {

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Purchase extends Model
 {
-    protected $fillable = ['supplier_id', 'total'];
+    protected $fillable = ['supplier_id', 'total', 'created_at', 'updated_at'];
 
     public function supplier(): BelongsTo
     {

@@ -35,11 +35,11 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user() ? AuthUserResource::make($request->user()) : null,
             ],
-            'ziggy' => fn() => [
+            'ziggy' => fn () => [
                 'location' => $request->url(),
                 'query' => $request->query(),
             ],
-            'toast' => fn() => [
+            'toast' => fn () => [
                 'type' => $request->session()->get('type') ?? 'success',
                 'message' => $request->session()->get('message'),
             ],

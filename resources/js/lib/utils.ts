@@ -4,6 +4,15 @@ import { usePage } from '@inertiajs/react';
 const wait = (number: number = 1000) =>
     new Promise((resolve) => setTimeout(resolve, number));
 
+const formatDate = (input: string | number): string => {
+    const date = new Date(input);
+    return date.toLocaleDateString('id-ID', {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric',
+    });
+};
+
 const middleware = (role: string | string[]) => {
     const { auth } = usePage<PageProps>().props;
     if (typeof role === 'string') {
@@ -19,4 +28,4 @@ const rupiah = (number: number) =>
         maximumFractionDigits: 0,
     });
 
-export { middleware, rupiah, wait };
+export { formatDate, middleware, rupiah, wait };

@@ -12,7 +12,7 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request, Product $product = null)
+    public function index(Request $request, ?Product $product = null)
     {
         $show = $request->show ?? 10;
         $search = $request->q ?? null;
@@ -27,9 +27,9 @@ class ProductController extends Controller
         $categories = Category::query()->select('id', 'name')->get();
 
         return inertia('products/index', [
-            'products' => fn() => ProductResource::collection($products),
-            'product' => $product ? ProductResource::make($product->load('category')) : new Product(),
-            'categories' => fn() => $categories,
+            'products' => fn () => ProductResource::collection($products),
+            'product' => $product ? ProductResource::make($product->load('category')) : new Product,
+            'categories' => fn () => $categories,
             'form' => [
                 'title' => $product ? 'Edit Product' : 'Create Product',
                 'route' => $product ? route('products.update', $product->id) : route('products.store'),
@@ -38,7 +38,7 @@ class ProductController extends Controller
             'page_options' => [
                 'show' => $show,
                 'search' => $search,
-            ]
+            ],
         ]);
     }
 
@@ -78,7 +78,7 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         return inertia('products/show', [
-            'product' => ProductResource::make($product)
+            'product' => ProductResource::make($product),
         ]);
     }
 
@@ -99,7 +99,7 @@ class ProductController extends Controller
             'category_id' => ['required', 'exists:categories,id'],
             'owner' => ['nullable', 'string', 'max:255'],
             'owner_price' => ['required_with:owner', 'numeric'],
-            'name' => ['required', 'string', 'max:255', 'unique:products,name,' . $product->id],
+            'name' => ['required', 'string', 'max:255', 'unique:products,name,'.$product->id],
             'buy_price' => ['required', 'numeric', 'min:0'],
             'sell_price' => ['required', 'numeric', 'min:0'],
             'stock' => ['required', 'numeric'],
