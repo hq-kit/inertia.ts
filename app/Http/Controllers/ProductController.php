@@ -98,7 +98,6 @@ class ProductController extends Controller
         $validated = $request->validate([
             'category_id' => ['required', 'exists:categories,id'],
             'owner' => ['nullable', 'string', 'max:255'],
-            'owner_price' => ['required_with:owner', 'numeric'],
             'name' => ['required', 'string', 'max:255', 'unique:products,name,'.$product->id],
             'buy_price' => ['required', 'numeric', 'min:0'],
             'sell_price' => ['required', 'numeric', 'min:0'],
@@ -121,5 +120,20 @@ class ProductController extends Controller
         toast('success', 'Product deleted successfully');
 
         return to_route('products.index');
+    }
+
+    public function getAll(Request $request)
+    {
+        $search = $request->q ?? null;
+        $products = Product::query()
+            ->when($search, function ($query, $search) {
+                $query->where('name', 'like', "%{$search}%");
+            })
+            ->with('category')
+            ->select('id', 'name', 'stock', 'unit', 'sell_price', 'buy_price', 'category_id')
+            ->limit(7)
+            ->get();
+
+        return response()->json($products);
     }
 }

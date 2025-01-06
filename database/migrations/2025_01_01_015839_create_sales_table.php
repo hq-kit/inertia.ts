@@ -15,7 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('member_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
-            $table->float('total');
+            $table->float('subtotal')->default(0);
+            $table->float('discount')->default(0);
+            $table->float('total')->default(0);
+            $table->boolean('cashless')->nullable();
             $table->timestamps();
         });
     }

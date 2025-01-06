@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('sale_details', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('sale_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('sale_id')->nullable()->constrained()->cascadeOnDelete();
             $table->foreignId('product_id')->nullable()->constrained()->nullOnDelete();
             $table->integer('quantity');
             $table->float('price');
             $table->float('subtotal');
+            $table->float('modal');
+            $table->float('profit')->default(0);
             $table->timestamps();
         });
     }

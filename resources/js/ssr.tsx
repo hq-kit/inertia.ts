@@ -23,7 +23,6 @@ createServer((page) =>
                 // @ts-expect-error no-type
                 route(name, params, absolute, {
                     ...ziggy,
-                    // @ts-expect-error no-type
                     location: new URL(page.props.ziggy.location),
                 });
 

@@ -86,14 +86,14 @@ export interface Product {
 
 export interface PurchaseDetail {
     id: number;
-    purchase_id: number;
-    purchase: Purchase;
+    purchase_id?: number;
+    purchase?: Purchase;
     product_id: number;
     product: Product;
     quantity: number;
     price: number;
     subtotal: number;
-    created_at: string;
+    created_at?: string;
 }
 
 export interface Purchase {
@@ -101,9 +101,13 @@ export interface Purchase {
     supplier_id: number;
     supplier: Supplier;
     user_id: number;
-    user: User;
+    user: string;
     created_at: string;
     purchase_details: PurchaseDetail[];
+    discount: number;
+    tax: number;
+    shipping: number;
+    subtotal: number;
     total: number;
     created_at: string;
     updated_at: string;
@@ -118,6 +122,7 @@ export interface SaleDetail {
     quantity: number;
     price: number;
     subtotal: number;
+    modal: number;
     created_at: string;
 }
 
@@ -125,11 +130,16 @@ export interface Sale {
     id: number;
     member_id?: number;
     member?: Member;
+    customer: string;
     user_id: number;
-    user: User;
+    user: string;
     created_at: string;
     sale_details: SaleDetail[];
+    subtotal: number;
+    discount: number;
     total: number;
+    profit: number;
+    cashless: boolean;
     created_at: string;
     updated_at: string;
 }

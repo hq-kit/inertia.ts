@@ -4,6 +4,7 @@ import { FormSetting, ModalProps, Supplier } from '@/types';
 import { router, useForm, usePage } from '@inertiajs/react';
 
 export default function SuppliersForm({ isOpen, setIsOpen }: ModalProps) {
+    // @ts-expect-error no-type
     const { supplier, form } = usePage<{
         supplier: Supplier;
         form: FormSetting;

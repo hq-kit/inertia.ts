@@ -23,6 +23,7 @@ export * from './dropdown';
 export * from './field';
 export * from './file-trigger';
 export * from './form';
+export * from './grid';
 export * from './grid-list';
 export * from './heading';
 export * from './keyboard';

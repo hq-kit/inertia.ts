@@ -238,6 +238,12 @@ const TableRow = <T extends object>({
 
 const TableEmpty = () => (
     <div className="grid place-content-center p-10">
+        <span className="text-muted-foreground">No results.</span>
+    </div>
+);
+
+const TableLoading = () => (
+    <div className="grid place-content-center p-10">
         <IconLoader className="animate-spin" />
     </div>
 );
@@ -248,5 +254,6 @@ Table.Column = TableColumn;
 Table.Header = Header;
 Table.Row = TableRow;
 Table.Empty = TableEmpty;
+Table.Loading = TableLoading;
 
 export { Table };

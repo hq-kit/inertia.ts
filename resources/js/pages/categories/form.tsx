@@ -4,6 +4,7 @@ import { Category, FormSetting, ModalProps } from '@/types';
 import { router, useForm, usePage } from '@inertiajs/react';
 
 export default function CategoriesForm({ isOpen, setIsOpen }: ModalProps) {
+    // @ts-expect-error no-type
     const { category, form } = usePage<{
         category: Category;
         form: FormSetting;

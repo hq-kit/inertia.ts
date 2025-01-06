@@ -13,8 +13,11 @@ const formatDate = (input: string | number): string => {
     });
 };
 
+const today = new Date().toISOString().split('T')[0];
+
 const middleware = (role: string | string[]) => {
     const { auth } = usePage<PageProps>().props;
+    if (auth.user.role === 'admin') return true;
     if (typeof role === 'string') {
         return auth.user.role === role;
     }
@@ -28,4 +31,4 @@ const rupiah = (number: number) =>
         maximumFractionDigits: 0,
     });
 
-export { formatDate, middleware, rupiah, wait };
+export { formatDate, middleware, rupiah, today, wait };

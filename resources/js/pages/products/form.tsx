@@ -18,6 +18,7 @@ import React from 'react';
 export default function ProductsForm({ isOpen, setIsOpen }: ModalProps) {
     const [titipan, setTitipan] = React.useState(false);
     const [members, setMembers] = React.useState<Member[]>([]);
+    // @ts-expect-error no-type
     const { product, form, categories } = usePage<{
         product: Product;
         form: FormSetting;
@@ -64,7 +65,7 @@ export default function ProductsForm({ isOpen, setIsOpen }: ModalProps) {
                     </Modal.Description>
                 </Modal.Header>
                 <Form onSubmit={onSubmit} validationErrors={errors}>
-                    <Modal.Body className="grid grid-cols-6 gap-3">
+                    <Modal.Body className="grid gap-3 lg:grid-cols-6">
                         <TextField
                             className="col-span-2"
                             id="name"
@@ -110,10 +111,10 @@ export default function ProductsForm({ isOpen, setIsOpen }: ModalProps) {
                                     placeholder="Pemilik"
                                     aria-label="Member"
                                     name="owner"
-                                    selectedKey={data.owner}
                                     onSelectionChange={(e) =>
                                         setData('owner', String(e))
                                     }
+                                    onInputChange={(e) => setData('owner', e)}
                                     items={members}
                                     errorMessage={errors?.owner}
                                 >

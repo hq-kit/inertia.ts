@@ -11,23 +11,24 @@ import {
 } from '@/components/ui';
 import AdminLayout from '@/layouts/admin-layout';
 import { today } from '@/lib/utils';
-import { FormSetting, Purchase, Supplier } from '@/types';
+import { FormSetting, Member, Sale } from '@/types';
 import { useForm } from '@inertiajs/react';
 import { IconArrowLeft } from 'hq-icons';
 import React from 'react';
 
 interface Props {
-    purchase: Purchase;
+    sale: Sale;
     form: FormSetting;
-    suppliers: Supplier[];
+    members: Member[];
 }
 
-export default function PurchasesForm({ purchase, form, suppliers }: Props) {
+export default function SalesForm({ sale, form, members }: Props) {
     const { data, setData, post, processing, errors, reset } = useForm({
         _method: form.method,
-        supplier_id: purchase?.supplier_id || '',
-        total: purchase?.total || 0,
-        created_at: purchase?.created_at || today,
+        member_id: sale?.member_id || '',
+        user_id: sale?.user_id || '',
+        total: sale?.total || 0,
+        created_at: sale?.created_at || today,
     });
 
     function onSubmit(e: { preventDefault: () => void }) {
@@ -35,18 +36,20 @@ export default function PurchasesForm({ purchase, form, suppliers }: Props) {
         post(form.route, { onSuccess: () => reset() });
     }
 
+    const customers = [...members, { id: '', name: 'Anonim' }];
+
     return (
         <>
             <div className="mb-4 flex items-center justify-between">
                 <div>
-                    <Heading className="text-xl">Pembelian Baru</Heading>
+                    <Heading className="text-xl">Penjualan Baru</Heading>
                     <Description>Isi form di bawah ini</Description>
                 </div>
                 <div className="flex flex-row gap-2">
                     <Link
                         variant="unstyled"
                         className={buttonVariants({ variant: 'success' })}
-                        href={route('purchases.index')}
+                        href={route('sales.index')}
                     >
                         <IconArrowLeft />
                         Kembali
@@ -58,7 +61,7 @@ export default function PurchasesForm({ purchase, form, suppliers }: Props) {
                     <div className="flex w-full items-start gap-4">
                         <TextField
                             autoFocus
-                            aria-label="Tanggal Pembelian"
+                            aria-label="Tanggal Penjualan"
                             name="created_at"
                             type="date"
                             value={data.created_at}
@@ -67,17 +70,17 @@ export default function PurchasesForm({ purchase, form, suppliers }: Props) {
                             isRequired
                         />
                         <ComboBox
-                            isRequired
                             className="gap-0"
-                            placeholder="Supplier"
-                            aria-label="Supplier"
-                            name="supplier_id"
-                            selectedKey={data.supplier_id}
+                            placeholder="Customer"
+                            aria-label="Customer"
+                            name="member_id"
+                            allowsCustomValue
+                            selectedKey={data.member_id}
                             onSelectionChange={(e) =>
-                                setData('supplier_id', e!)
+                                setData('member_id', Number(e))
                             }
-                            items={suppliers}
-                            errorMessage={errors?.supplier_id}
+                            items={customers}
+                            errorMessage={errors?.member_id}
                         >
                             {(item) => (
                                 <ComboBox.Item
@@ -103,6 +106,4 @@ export default function PurchasesForm({ purchase, form, suppliers }: Props) {
     );
 }
 
-PurchasesForm.layout = (page: React.ReactNode) => (
-    <AdminLayout children={page} />
-);
+SalesForm.layout = (page: React.ReactNode) => <AdminLayout children={page} />;

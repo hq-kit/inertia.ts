@@ -5,6 +5,7 @@ import React from 'react';
 import {
     IconBrandLaravel,
     IconBuildings,
+    IconCalendarTime,
     IconChevronDown,
     IconCircleUser,
     IconGauge,
@@ -13,6 +14,7 @@ import {
     IconMoon,
     IconNotebookPen,
     IconPackage,
+    IconReceiptRupiah,
     IconSearch,
     IconSun,
     IconUsers,
@@ -142,41 +144,55 @@ function AppSidebar({ user }: { user: User }) {
                         textValue="Dashboard"
                     />
                 </Sidebar.Section>
-                {middleware(['admin', 'manager']) && (
-                    <>
-                        <Sidebar.Section title="Data">
-                            <SidebarItem
-                                icon={IconUsers}
-                                route={'members.index'}
-                                textValue="Members"
-                            />
-                            <SidebarItem
-                                icon={IconBuildings}
-                                route={'suppliers.index'}
-                                textValue="Suppliers"
-                            />
-                        </Sidebar.Section>
-                        <Sidebar.Section title="Products">
-                            <SidebarItem
-                                icon={IconLayoutList}
-                                route={'categories.index'}
-                                textValue="Category"
-                            />
-                            <SidebarItem
-                                icon={IconPackage}
-                                route={'products.index'}
-                                textValue="Products"
-                            />
-                        </Sidebar.Section>
-                        <Sidebar.Section title="Transactions">
-                            <SidebarItem
-                                icon={IconNotebookPen}
-                                route={'purchases.index'}
-                                textValue="Pembelian"
-                            />
-                        </Sidebar.Section>
-                    </>
-                )}
+
+                <Sidebar.Section title="Data">
+                    <SidebarItem
+                        allowed={middleware('manager')}
+                        icon={IconUsers}
+                        route={'members.index'}
+                        textValue="Members"
+                    />
+                    <SidebarItem
+                        allowed={middleware('manager')}
+                        icon={IconBuildings}
+                        route={'suppliers.index'}
+                        textValue="Suppliers"
+                    />
+                </Sidebar.Section>
+                <Sidebar.Section title="Products">
+                    <SidebarItem
+                        allowed={middleware('admin')}
+                        icon={IconLayoutList}
+                        route={'categories.index'}
+                        textValue="Category"
+                    />
+                    <SidebarItem
+                        allowed={middleware('manager')}
+                        icon={IconPackage}
+                        route={'products.index'}
+                        textValue="Products"
+                    />
+                </Sidebar.Section>
+                <Sidebar.Section title="Transaction">
+                    <SidebarItem
+                        allowed={middleware('manager')}
+                        icon={IconNotebookPen}
+                        route={'purchases.index'}
+                        textValue="Pembelian"
+                    />
+                    <SidebarItem
+                        icon={IconReceiptRupiah}
+                        route={'sales.index'}
+                        textValue="Penjualan"
+                    />
+                </Sidebar.Section>
+                <Sidebar.Section title="Report">
+                    <SidebarItem
+                        icon={IconCalendarTime}
+                        route={'timeline'}
+                        textValue="Timeline"
+                    />
+                </Sidebar.Section>
             </Sidebar.Content>
             <Sidebar.Footer className="hidden items-center lg:flex lg:flex-row">
                 <Menu>
@@ -232,8 +248,15 @@ function AppSidebar({ user }: { user: User }) {
 
 function SidebarItem({
     icon: Icon,
+    allowed = true,
     ...props
-}: React.ComponentProps<typeof Sidebar.Item> & { route: string }) {
+}: React.ComponentProps<typeof Sidebar.Item> & {
+    route: string;
+    allowed?: boolean;
+}) {
+    if (!allowed) {
+        return null;
+    }
     return (
         <Sidebar.Item
             href={route(props.route)}

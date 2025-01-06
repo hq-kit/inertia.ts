@@ -11,6 +11,6 @@ class HomeController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return inertia('home');
+        return to_route('dashboard');
     }
 }

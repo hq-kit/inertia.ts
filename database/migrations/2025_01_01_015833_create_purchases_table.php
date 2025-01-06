@@ -15,7 +15,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('supplier_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
-            $table->float('total');
+            $table->float('subtotal')->default(0);
+            $table->float('discount')->default(0);
+            $table->float('tax')->default(0);
+            $table->float('shipping')->default(0);
+            $table->float('total')->default(0);
             $table->timestamps();
         });
     }

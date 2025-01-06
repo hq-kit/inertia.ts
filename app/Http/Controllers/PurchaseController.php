@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PurchaseDetailResource;
 use App\Http\Resources\PurchaseResource;
-use App\Models\Product;
 use App\Models\Purchase;
+use App\Models\PurchaseDetail;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 
@@ -16,11 +17,15 @@ class PurchaseController extends Controller
     public function index(Request $request)
     {
         $show = $request->show ?? 10;
-        $search = $request->q ?? null;
+        $from = $request->from ?? null;
+        $to = $request->to ?? null;
 
         $purchases = Purchase::query()->with('supplier')
-            ->when($search, function ($query, $search) {
-                $query->where('name', 'like', "%$search%");
+            ->when($from, function ($query, $from) {
+                $query->whereDate('created_at', '>=', $from);
+            })
+            ->when($to, function ($query, $to) {
+                $query->whereDate('created_at', '<=', $to);
             })
             ->latest()
             ->paginate($show);
@@ -29,7 +34,8 @@ class PurchaseController extends Controller
             'purchases' => fn () => PurchaseResource::collection($purchases),
             'page_options' => [
                 'show' => $show,
-                'search' => $search,
+                'from' => $from,
+                'to' => $to,
             ],
         ]);
     }
@@ -40,12 +46,10 @@ class PurchaseController extends Controller
     public function create()
     {
         $suppliers = Supplier::query()->select('id', 'name')->get();
-        $products = Product::query()->select('id', 'name', 'sell_price', 'stock', 'unit')->get();
 
         return inertia('purchases/form', [
-            'purchase' => new Purchase(),
+            'purchase' => new Purchase,
             'suppliers' => fn () => $suppliers,
-            'products' => fn () => $products,
             'form' => [
                 'title' => 'Pembelian Baru',
                 'route' => route('purchases.store'),
@@ -59,7 +63,20 @@ class PurchaseController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        $validated = $request->validate([
+            'supplier_id' => ['required', 'exists:suppliers,id'],
+            'total' => ['nullable', 'numeric'],
+            'discount' => ['nullable', 'numeric'],
+            'tax' => ['nullable', 'numeric'],
+            'shipping' => ['nullable', 'numeric'],
+            'created_at' => ['required', 'date'],
+        ]);
+
+        $purchase = $request->user()->purchases()->create($validated);
+
+        toast('success', 'Purchase created successfully');
+
+        return to_route('purchases.show', $purchase);
     }
 
     /**
@@ -67,7 +84,19 @@ class PurchaseController extends Controller
      */
     public function show(Purchase $purchase)
     {
-        //
+        $purchaseDetails = $purchase->purchaseDetails()->with('product')->get();
+        $suppliers = Supplier::query()->select('id', 'name')->get();
+
+        return inertia('purchases/form-details', [
+            'purchase' => PurchaseResource::make($purchase),
+            'purchaseDetails' => fn () => PurchaseDetailResource::collection($purchaseDetails),
+            'suppliers' => fn () => $suppliers,
+            'form' => [
+                'title' => 'Detail Pembelian',
+                'route' => route('purchase-details.store'),
+                'method' => 'POST',
+            ],
+        ]);
     }
 
     /**
@@ -93,7 +122,20 @@ class PurchaseController extends Controller
      */
     public function update(Request $request, Purchase $purchase)
     {
-        dd($request->all());
+        $validated = $request->validate([
+            'supplier_id' => ['required', 'exists:suppliers,id'],
+            'discount' => ['required', 'numeric'],
+            'tax' => ['required', 'numeric'],
+            'shipping' => ['required', 'numeric'],
+            'created_at' => ['required', 'date'],
+        ]);
+        $subtotal = $purchase->purchaseDetails()->sum('subtotal');
+        $total = $subtotal + $validated['tax'] + $validated['shipping'] - $validated['discount'];
+
+        $purchase->update([...$validated, 'subtotal' => $subtotal, 'total' => $total]);
+        toast('success', 'Purchase updated successfully');
+
+        return to_route('purchases.show', $purchase);
     }
 
     /**
@@ -101,6 +143,10 @@ class PurchaseController extends Controller
      */
     public function destroy(Purchase $purchase)
     {
+        $purchase->purchaseDetails()->each(function (PurchaseDetail $purchaseDetail) {
+            $purchaseDetail->product->stockOut($purchaseDetail->quantity);
+            $purchaseDetail->delete();
+        });
         $purchase->delete();
         toast('success', 'Purchase deleted successfully');
 

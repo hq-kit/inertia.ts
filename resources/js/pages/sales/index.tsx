@@ -2,6 +2,7 @@ import DeleteModal from '@/components/delete-modal';
 import PageOptionsTransaction from '@/components/page-options-transactions';
 import Paginator from '@/components/paginator';
 import {
+    Badge,
     Button,
     buttonVariants,
     Card,
@@ -13,20 +14,20 @@ import {
 } from '@/components/ui';
 import AdminLayout from '@/layouts/admin-layout';
 import { formatDate, rupiah } from '@/lib/utils';
-import { Paginate, Purchase } from '@/types';
+import { Paginate, Sale } from '@/types';
 import { IconEllipsisVertical, IconPencil, IconTrash } from 'hq-icons';
 import React from 'react';
 
 interface Props {
-    purchases: Paginate & { data: Purchase[] };
+    sales: Paginate & { data: Sale[] };
 }
 
-export default function PurchasesIndex({ purchases }: Props) {
+export default function SalesIndex({ sales }: Props) {
     const [openDelete, setOpenDelete] = React.useState(false);
     const [deleteRoute, setDeleteRoute] = React.useState('');
 
-    function deletePurchase(id: number) {
-        setDeleteRoute(route('purchases.destroy', id));
+    function deleteSale(id: number) {
+        setDeleteRoute(route('sales.destroy', id));
         setOpenDelete(true);
     }
 
@@ -39,27 +40,27 @@ export default function PurchasesIndex({ purchases }: Props) {
             />
             <div className="mb-4 flex items-center justify-between">
                 <div>
-                    <Heading className="text-xl">Pembelian</Heading>
-                    <Description>Manajemen Pembelian</Description>
+                    <Heading className="text-xl">Penjualan</Heading>
+                    <Description>Manajemen Penjualan</Description>
                 </div>
                 <div className="flex flex-row gap-2">
                     <Link
                         variant="unstyled"
                         className={buttonVariants({ variant: 'success' })}
-                        href={route('purchases.create')}
+                        href={route('sales.create')}
                     >
-                        Pembelian Baru
+                        Penjualan Baru
                     </Link>
                 </div>
             </div>
             <PageOptionsTransaction />
             <Card>
-                <Table aria-label="Pembelian">
+                <Table aria-label="Penjualan">
                     <Table.Header>
                         <Table.Column className="w-3" isRowHeader>
                             #
                         </Table.Column>
-                        <Table.Column>Supplier</Table.Column>
+                        <Table.Column>Customer</Table.Column>
                         <Table.Column>Tanggal</Table.Column>
                         <Table.Column>Total</Table.Column>
                         <Table.Column>Petugas</Table.Column>
@@ -68,26 +69,29 @@ export default function PurchasesIndex({ purchases }: Props) {
                     <Table.Body
                         renderEmptyState={() => (
                             <div className="py-2 text-center text-lg">
-                                Belum ada pembelian.
+                                Belum ada penjualan.
                             </div>
                         )}
                     >
-                        {purchases.data.length > 0 &&
-                            purchases.data.map((purchase, i) => (
+                        {sales.data.length > 0 &&
+                            sales.data.map((sale, i) => (
                                 <Table.Row key={i}>
                                     <Table.Cell className="text-center">
                                         {i + 1}
                                     </Table.Cell>
-                                    <Table.Cell>
-                                        {purchase.supplier.name}
+                                    <Table.Cell className="flex items-center gap-2">
+                                        {sale.customer}
+                                        {sale.cashless ? (
+                                            <Badge variant="danger">BON</Badge>
+                                        ) : null}
                                     </Table.Cell>
                                     <Table.Cell>
-                                        {formatDate(purchase.created_at)}
+                                        {formatDate(sale.created_at)}
                                     </Table.Cell>
                                     <Table.Cell>
-                                        {rupiah(purchase.total)}
+                                        {rupiah(sale.total)}
                                     </Table.Cell>
-                                    <Table.Cell>{purchase.user}</Table.Cell>
+                                    <Table.Cell>{sale.user}</Table.Cell>
                                     <Table.Cell>
                                         <DeleteModal
                                             route={deleteRoute}
@@ -107,8 +111,8 @@ export default function PurchasesIndex({ purchases }: Props) {
                                             >
                                                 <Menu.Item
                                                     href={route(
-                                                        'purchases.show',
-                                                        purchase.id,
+                                                        'sales.show',
+                                                        sale.id,
                                                     )}
                                                 >
                                                     <IconPencil />
@@ -117,9 +121,7 @@ export default function PurchasesIndex({ purchases }: Props) {
                                                 <Menu.Item
                                                     isDanger
                                                     onAction={() =>
-                                                        deletePurchase(
-                                                            purchase.id,
-                                                        )
+                                                        deleteSale(sale.id)
                                                     }
                                                 >
                                                     <IconTrash />
@@ -133,15 +135,9 @@ export default function PurchasesIndex({ purchases }: Props) {
                     </Table.Body>
                 </Table>
             </Card>
-            <Paginator
-                meta={purchases.meta}
-                links={purchases.links}
-                only={['purchases']}
-            />
+            <Paginator meta={sales.meta} links={sales.links} only={['sales']} />
         </>
     );
 }
 
-PurchasesIndex.layout = (page: React.ReactNode) => (
-    <AdminLayout children={page} />
-);
+SalesIndex.layout = (page: React.ReactNode) => <AdminLayout children={page} />;

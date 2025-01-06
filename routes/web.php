@@ -30,9 +30,21 @@ Route::middleware('auth')->group(function () {
         Route::resource('products', Controllers\ProductController::class);
 
         Route::resource('purchases', Controllers\PurchaseController::class);
+        Route::resource('purchase-details', Controllers\PurchaseDetailController::class);
+
+        Route::resource('sales', Controllers\SaleController::class);
+        Route::resource('sale-details', Controllers\SaleDetailController::class);
+
+        Route::put('sales/{sale}/cashless', [Controllers\SaleController::class, 'cashless'])->name('sales.cashless');
+
+        Route::get('timeline', Controllers\TimelineController::class)->name('timeline');
+
     });
 });
 
+Route::get('sample', fn () => inertia('sample'))->name('sample');
+
 Route::get('all-members', [Controllers\MemberController::class, 'getAll'])->name('members.all');
+Route::get('all-products', [Controllers\ProductController::class, 'getAll'])->name('products.all');
 
 require __DIR__.'/auth.php';

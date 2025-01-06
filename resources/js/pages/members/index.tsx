@@ -80,7 +80,12 @@ export default function MembersIndex({ members }: Props) {
                                     <Table.Cell className="text-center">
                                         {i + 1}
                                     </Table.Cell>
-                                    <Table.Cell>{member.name}</Table.Cell>
+                                    <Table.Cell className="grid gap-0.5">
+                                        <span>{member.name}</span>
+                                        <span className="text-xs font-semibold">
+                                            {member.nickname}
+                                        </span>
+                                    </Table.Cell>
                                     <Table.Cell>
                                         {member.phone ?? '-'}
                                     </Table.Cell>

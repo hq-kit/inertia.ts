@@ -4,6 +4,7 @@ import { FormSetting, Member, ModalProps } from '@/types';
 import { router, useForm, usePage } from '@inertiajs/react';
 
 export default function MembersForm({ isOpen, setIsOpen }: ModalProps) {
+    // @ts-expect-error no-type
     const { member, form } = usePage<{
         member: Member;
         form: FormSetting;

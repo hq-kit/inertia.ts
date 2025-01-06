@@ -14,6 +14,17 @@ class PurchaseResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'user' => $this->user->name,
+            'supplier' => SupplierResource::make($this->supplier),
+            'discount' => $this->discount,
+            'tax' => $this->tax,
+            'shipping' => $this->shipping,
+            'subtotal' => $this->subtotal,
+            'total' => $this->total,
+            'created_at' => $this->created_at->format('Y-m-d'),
+            'updated_at' => $this->updated_at,
+        ];
     }
 }
