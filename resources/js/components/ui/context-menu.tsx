@@ -1,40 +1,42 @@
-import React from 'react'
+import React from 'react';
 
-import { tv } from 'tailwind-variants'
+import { tv } from 'tailwind-variants';
 
-import { Menu, type MenuContentProps } from './menu'
-import { focusButtonStyles } from './utils'
+import { Menu, type MenuContentProps } from './menu';
+import { focusButtonStyles } from './utils';
 
 interface ContextMenuTriggerContextType {
-    buttonRef: React.RefObject<HTMLButtonElement | null>
-    contextMenuOffset: { offset: number; crossOffset: number } | null
+    buttonRef: React.RefObject<HTMLButtonElement | null>;
+    contextMenuOffset: { offset: number; crossOffset: number } | null;
     setContextMenuOffset: React.Dispatch<
         React.SetStateAction<{ offset: number; crossOffset: number } | null>
-    >
+    >;
 }
 
-const ContextMenuTriggerContext = React.createContext<ContextMenuTriggerContextType | undefined>(
-    undefined
-)
+const ContextMenuTriggerContext = React.createContext<
+    ContextMenuTriggerContextType | undefined
+>(undefined);
 
 const useContextMenuTrigger = () => {
-    const context = React.useContext(ContextMenuTriggerContext)
+    const context = React.useContext(ContextMenuTriggerContext);
     if (!context) {
-        throw new Error('useContextMenuTrigger must be used within a ContextMenuTrigger')
+        throw new Error(
+            'useContextMenuTrigger must be used within a ContextMenuTrigger',
+        );
     }
-    return context
-}
+    return context;
+};
 
 interface ContextMenuRootComponent {
-    children: React.ReactNode
+    children: React.ReactNode;
 }
 
 const ContextMenu = ({ children }: ContextMenuRootComponent) => {
     const [contextMenuOffset, setContextMenuOffset] = React.useState<{
-        offset: number
-        crossOffset: number
-    } | null>(null)
-    const buttonRef = React.useRef<HTMLButtonElement>(null)
+        offset: number;
+        crossOffset: number;
+    } | null>(null);
+    const buttonRef = React.useRef<HTMLButtonElement>(null);
 
     return (
         <ContextMenuTriggerContext.Provider
@@ -42,8 +44,8 @@ const ContextMenu = ({ children }: ContextMenuRootComponent) => {
         >
             {children}
         </ContextMenuTriggerContext.Provider>
-    )
-}
+    );
+};
 
 const contextMenuTriggerStyles = tv({
     extend: focusButtonStyles,
@@ -51,64 +53,78 @@ const contextMenuTriggerStyles = tv({
     variants: {
         isDisabled: {
             false: 'forced-colors:disabled:text-[GrayText]',
-            true: 'cursor-default opacity-60 forced-colors:disabled:text-[GrayText]'
-        }
-    }
-})
+            true: 'cursor-default opacity-60 forced-colors:disabled:text-[GrayText]',
+        },
+    },
+});
 
-type ContextMenuTriggerProps = React.ButtonHTMLAttributes<HTMLButtonElement>
+type ContextMenuTriggerProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
 
-const ContextMenuTrigger = ({ className, ...props }: ContextMenuTriggerProps) => {
-    const { buttonRef, setContextMenuOffset } = useContextMenuTrigger()
+const ContextMenuTrigger = ({
+    className,
+    ...props
+}: ContextMenuTriggerProps) => {
+    const { buttonRef, setContextMenuOffset } = useContextMenuTrigger();
 
     const onContextMenu = (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault()
-        const rect = e.currentTarget.getBoundingClientRect()
+        e.preventDefault();
+        const rect = e.currentTarget.getBoundingClientRect();
         setContextMenuOffset({
             offset: e.clientY - rect.bottom,
-            crossOffset: e.clientX - rect.left
-        })
-    }
+            crossOffset: e.clientX - rect.left,
+        });
+    };
     return (
         <button
-            className={contextMenuTriggerStyles({ isDisabled: props.disabled, className })}
+            className={contextMenuTriggerStyles({
+                isDisabled: props.disabled,
+                className,
+            })}
             ref={buttonRef as React.RefObject<HTMLButtonElement>}
-            aria-haspopup='menu'
+            aria-haspopup="menu"
             onContextMenu={onContextMenu}
             {...props}
         />
-    )
-}
+    );
+};
 
 type ContextMenuContentProps<T> = Omit<
     MenuContentProps<T>,
-    'showArrow' | 'isOpen' | 'onOpenChange' | 'triggerRef' | 'placement' | 'shouldFlip'
->
+    | 'showArrow'
+    | 'isOpen'
+    | 'onOpenChange'
+    | 'triggerRef'
+    | 'placement'
+    | 'shouldFlip'
+>;
 
-const ContextMenuContent = <T extends object>(props: ContextMenuContentProps<T>) => {
-    const { contextMenuOffset, setContextMenuOffset, buttonRef } = useContextMenuTrigger()
+const ContextMenuContent = <T extends object>(
+    props: ContextMenuContentProps<T>,
+) => {
+    const { contextMenuOffset, setContextMenuOffset, buttonRef } =
+        useContextMenuTrigger();
     return contextMenuOffset ? (
         <Menu.Content
             isOpen={!!contextMenuOffset}
             onOpenChange={() => setContextMenuOffset(null)}
             triggerRef={buttonRef}
             shouldFlip={false}
-            placement='bottom left'
+            placement="bottom left"
             offset={contextMenuOffset?.offset}
             crossOffset={contextMenuOffset?.crossOffset}
             onClose={() => setContextMenuOffset(null)}
             {...props}
         />
-    ) : null
-}
+    ) : null;
+};
 
-ContextMenu.Trigger = ContextMenuTrigger
-ContextMenu.Content = ContextMenuContent
-ContextMenu.Item = Menu.Item
-ContextMenu.Separator = Menu.Separator
-ContextMenu.ItemDetails = Menu.ItemDetails
-ContextMenu.Section = Menu.Section
-ContextMenu.Header = Menu.Header
-ContextMenu.Keyboard = Menu.Keyboard
+ContextMenu.Trigger = ContextMenuTrigger;
+ContextMenu.Content = ContextMenuContent;
+ContextMenu.Item = Menu.Item;
+ContextMenu.Separator = Menu.Separator;
+ContextMenu.ItemDetails = Menu.ItemDetails;
+ContextMenu.Section = Menu.Section;
+ContextMenu.Header = Menu.Header;
+ContextMenu.Keyboard = Menu.Keyboard;
 
-export { ContextMenu }
+export { ContextMenu };

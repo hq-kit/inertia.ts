@@ -4,20 +4,13 @@ import React from 'react';
 
 import {
     IconBrandLaravel,
-    IconBuildings,
-    IconCalendarTime,
     IconChevronDown,
     IconCircleUser,
     IconGauge,
-    IconLayoutList,
     IconLogOut,
     IconMoon,
-    IconNotebookPen,
-    IconPackage,
-    IconReceiptRupiah,
     IconSearch,
     IconSun,
-    IconUsers,
 } from 'hq-icons';
 
 import CommandPalette from '@/components/command-palette';
@@ -32,8 +25,7 @@ import {
     Sidebar,
     useSidebar,
 } from '@/components/ui';
-import { middleware } from '@/lib/utils';
-import { User } from '@/types';
+import { PageData, User } from '@/types';
 import { usePage } from '@inertiajs/react';
 
 export default function AdminLayout({
@@ -41,7 +33,7 @@ export default function AdminLayout({
 }: {
     children: React.ReactNode;
 }) {
-    const { user } = usePage().props.auth;
+    const { user } = usePage<PageData>().props.auth;
     const [openCommand, setOpenCommand] = React.useState(false);
     React.useEffect(() => {
         const down = (e: KeyboardEvent) => {
@@ -143,54 +135,10 @@ function AppSidebar({ user }: { user: User }) {
                         route={'dashboard'}
                         textValue="Dashboard"
                     />
-                </Sidebar.Section>
-
-                <Sidebar.Section title="Data">
                     <SidebarItem
-                        allowed={middleware('manager')}
-                        icon={IconUsers}
-                        route={'members.index'}
-                        textValue="Members"
-                    />
-                    <SidebarItem
-                        allowed={middleware('manager')}
-                        icon={IconBuildings}
-                        route={'suppliers.index'}
-                        textValue="Suppliers"
-                    />
-                </Sidebar.Section>
-                <Sidebar.Section title="Products">
-                    <SidebarItem
-                        allowed={middleware('admin')}
-                        icon={IconLayoutList}
-                        route={'categories.index'}
-                        textValue="Category"
-                    />
-                    <SidebarItem
-                        allowed={middleware('manager')}
-                        icon={IconPackage}
-                        route={'products.index'}
-                        textValue="Products"
-                    />
-                </Sidebar.Section>
-                <Sidebar.Section title="Transaction">
-                    <SidebarItem
-                        allowed={middleware('manager')}
-                        icon={IconNotebookPen}
-                        route={'purchases.index'}
-                        textValue="Pembelian"
-                    />
-                    <SidebarItem
-                        icon={IconReceiptRupiah}
-                        route={'sales.index'}
-                        textValue="Penjualan"
-                    />
-                </Sidebar.Section>
-                <Sidebar.Section title="Report">
-                    <SidebarItem
-                        icon={IconCalendarTime}
-                        route={'timeline'}
-                        textValue="Timeline"
+                        icon={IconCircleUser}
+                        route={'profile'}
+                        textValue="Profile"
                     />
                 </Sidebar.Section>
             </Sidebar.Content>

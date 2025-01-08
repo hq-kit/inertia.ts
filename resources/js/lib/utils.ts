@@ -1,4 +1,4 @@
-import { PageProps } from '@/types';
+import { PageData } from '@/types';
 import { usePage } from '@inertiajs/react';
 
 const wait = (number: number = 1000) =>
@@ -15,20 +15,13 @@ const formatDate = (input: string | number): string => {
 
 const today = new Date().toISOString().split('T')[0];
 
-const middleware = (role: string | string[]) => {
-    const { auth } = usePage<PageProps>().props;
-    if (auth.user.role === 'admin') return true;
+const Middleware = (role: string | string[]) => {
+    const { user } = usePage<PageData>().props.auth;
+    if (user.role === 'admin') return true;
     if (typeof role === 'string') {
-        return auth.user.role === role;
+        return user.role === role;
     }
-    return role.includes(auth.user.role);
+    return role.includes(user.role);
 };
-const rupiah = (number: number) =>
-    number.toLocaleString('id-ID', {
-        style: 'currency',
-        currency: 'IDR',
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0,
-    });
 
-export { formatDate, middleware, rupiah, today, wait };
+export { formatDate, Middleware, today, wait };

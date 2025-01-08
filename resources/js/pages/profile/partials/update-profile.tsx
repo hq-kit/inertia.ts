@@ -1,4 +1,5 @@
 import { Button, Card, Form, Link, Note, TextField } from '@/components/ui';
+import { PageData } from '@/types';
 import { useForm, usePage } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 
@@ -10,7 +11,7 @@ export default function UpdateProfileInformation({
     status?: string;
     className?: string;
 }) {
-    const { user } = usePage().props.auth;
+    const { user } = usePage<PageData>().props.auth;
 
     const { data, setData, patch, errors, processing } = useForm({
         name: user.name,

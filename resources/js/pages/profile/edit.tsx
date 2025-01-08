@@ -1,6 +1,5 @@
 import { Card, Tabs } from '@/components/ui';
 import AppLayout from '@/layouts/app-layout';
-import { PageProps } from '@/types';
 import DeleteUser from './partials/delete-user';
 import UpdatePassword from './partials/update-password';
 import UpdateProfileInformation from './partials/update-profile';
@@ -8,7 +7,10 @@ import UpdateProfileInformation from './partials/update-profile';
 export default function Edit({
     mustVerifyEmail,
     status,
-}: PageProps<{ mustVerifyEmail: boolean; status?: string }>) {
+}: {
+    mustVerifyEmail: boolean;
+    status?: string;
+}) {
     return (
         <>
             <Card borderless>

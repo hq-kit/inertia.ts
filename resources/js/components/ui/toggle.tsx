@@ -1,22 +1,22 @@
-import React from 'react'
+import React from 'react';
 
 import {
     ToggleButton,
     ToggleButtonGroup,
     type ToggleButtonGroupProps,
-    type ToggleButtonProps
-} from 'react-aria-components'
-import { tv, type VariantProps } from 'tailwind-variants'
+    type ToggleButtonProps,
+} from 'react-aria-components';
+import { tv, type VariantProps } from 'tailwind-variants';
 
-import { cr } from './utils'
+import { cr } from './utils';
 
 interface ToggleGroupContextProps {
-    variant?: 'solid' | 'outline' | 'ghost'
+    variant?: 'solid' | 'outline' | 'ghost';
 }
 
 const ToggleGroupContext = React.createContext<ToggleGroupContextProps>({
-    variant: 'solid'
-})
+    variant: 'solid',
+});
 
 const toggleGroupStyles = tv({
     base: ['flex gap-1'],
@@ -24,10 +24,10 @@ const toggleGroupStyles = tv({
         orientation: {
             horizontal:
                 'flex-row [&::-webkit-scrollbar]:hidden [scrollbar-width:none] [-ms-overflow-style:none]',
-            vertical: 'flex-col items-start'
-        }
-    }
-})
+            vertical: 'flex-col items-start',
+        },
+    },
+});
 
 const ToggleGroup = ({
     className,
@@ -43,53 +43,53 @@ const ToggleGroup = ({
                     toggleGroupStyles({
                         ...renderProps,
                         orientation,
-                        className
-                    })
+                        className,
+                    }),
                 )}
                 {...props}
             />
         </ToggleGroupContext.Provider>
-    )
-}
+    );
+};
 
 const toggleStyles = tv({
     base: [
         'inline-flex btn gap-x-2 whitespace-nowrap relative items-center bg-transparent justify-center border text-sm font-medium ring-offset-background transition-colors hover:bg-muted',
-        'outline-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary'
+        'outline-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary',
     ],
     variants: {
         isDisabled: {
-            true: 'opacity-50 cursor-default'
+            true: 'opacity-50 cursor-default',
         },
         variant: {
             solid: 'bg-white border-muted selected:border-primary hover:text-black text-black selected:bg-primary selected:text-primary-foreground',
             outline:
                 'border-muted selected:bg-muted selected:backdrop-blur-sm hover:bg-muted hover:brightness-110',
-            ghost: 'border-transparent'
+            ghost: 'border-transparent',
         },
         size: {
             xs: 'h-8 px-2 text-xs',
             sm: 'h-9 px-3 text-sm',
             md: 'h-10 px-4 py-2 text-sm',
             lg: 'h-10 sm:h-11 px-6 sm:px-8 text-base',
-            icon: 'size-10 shrink-0'
+            icon: 'size-10 shrink-0',
         },
         shape: {
             square: 'rounded-lg',
-            circle: 'rounded-full'
-        }
+            circle: 'rounded-full',
+        },
     },
     defaultVariants: {
         variant: 'solid',
         size: 'md',
-        shape: 'square'
-    }
-})
+        shape: 'square',
+    },
+});
 
-type ToggleProps = ToggleButtonProps & VariantProps<typeof toggleStyles>
+type ToggleProps = ToggleButtonProps & VariantProps<typeof toggleStyles>;
 
 const Toggle = ({ className, variant, ...props }: ToggleProps) => {
-    const { variant: groupVariant } = React.useContext(ToggleGroupContext)
+    const { variant: groupVariant } = React.useContext(ToggleGroupContext);
 
     return (
         <ToggleButton
@@ -100,13 +100,13 @@ const Toggle = ({ className, variant, ...props }: ToggleProps) => {
                     variant: variant ?? groupVariant,
                     size: props.size,
                     shape: props.shape,
-                    className
-                })
+                    className,
+                }),
             )}
         />
-    )
-}
+    );
+};
 
-Toggle.Group = ToggleGroup
+Toggle.Group = ToggleGroup;
 
-export { Toggle, toggleStyles, type ToggleProps }
+export { Toggle, toggleStyles, type ToggleProps };

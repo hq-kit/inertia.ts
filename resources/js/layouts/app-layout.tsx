@@ -9,6 +9,7 @@ import {
     Navbar,
     Separator,
 } from '@/components/ui';
+import { PageData } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
 import {
     IconBrandLaravel,
@@ -24,7 +25,7 @@ import React, { PropsWithChildren, ReactNode } from 'react';
 export default function AppLayout({
     children,
 }: PropsWithChildren<{ header?: ReactNode }>) {
-    const { user } = usePage().props.auth;
+    const { user } = usePage<PageData>().props.auth;
     const [openCommand, setOpenCommand] = React.useState(false);
     React.useEffect(() => {
         const down = (e: KeyboardEvent) => {

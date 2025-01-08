@@ -3,6 +3,7 @@ import React from 'react';
 import { IconCircleUser, IconGauge, IconHome, IconLogIn } from 'hq-icons';
 
 import { Command } from '@/components/ui';
+import { PageData } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
 
 export default function CommandPalette({
@@ -12,7 +13,7 @@ export default function CommandPalette({
     isOpen?: boolean;
     setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-    const { user } = usePage().props.auth;
+    const { user } = usePage<PageData>().props.auth;
     return (
         <>
             <Command isOpen={isOpen} onOpenChange={setIsOpen}>

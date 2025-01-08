@@ -1,29 +1,29 @@
-import { ProgressBar, type ProgressBarProps } from 'react-aria-components'
+import { ProgressBar, type ProgressBarProps } from 'react-aria-components';
 
-import { cn } from './utils'
+import { cn } from './utils';
 
 interface ProgressCircleProps extends Omit<ProgressBarProps, 'className'> {
-    className?: string
+    className?: string;
 }
 
 const ProgressCircle = ({ className, ...props }: ProgressCircleProps) => {
-    const c = '50%'
-    const r = 'calc(50% - 2px)'
+    const c = '50%';
+    const r = 'calc(50% - 2px)';
     return (
         <ProgressBar {...props}>
             {({ percentage, isIndeterminate }) => (
                 <svg
                     className={cn('size-4 shrink-0', className)}
-                    viewBox='0 0 24 24'
-                    fill='none'
-                    data-slot='icon'
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    data-slot="icon"
                 >
                     <circle
                         cx={c}
                         cy={c}
                         r={r}
                         strokeWidth={3}
-                        stroke='currentColor'
+                        stroke="currentColor"
                         strokeOpacity={0.25}
                     />
                     {!isIndeterminate ? (
@@ -32,13 +32,13 @@ const ProgressCircle = ({ className, ...props }: ProgressCircleProps) => {
                             cy={c}
                             r={r}
                             strokeWidth={3}
-                            stroke='currentColor'
+                            stroke="currentColor"
                             pathLength={100}
-                            strokeDasharray='100 200'
+                            strokeDasharray="100 200"
                             strokeDashoffset={100 - (percentage ?? 0)}
-                            strokeLinecap='round'
-                            transform='rotate(-90)'
-                            className='origin-center'
+                            strokeLinecap="round"
+                            transform="rotate(-90)"
+                            className="origin-center"
                         />
                     ) : (
                         <circle
@@ -46,18 +46,18 @@ const ProgressCircle = ({ className, ...props }: ProgressCircleProps) => {
                             cy={c}
                             r={r}
                             strokeWidth={3}
-                            stroke='currentColor'
+                            stroke="currentColor"
                             pathLength={100}
-                            strokeDasharray='100 200'
+                            strokeDasharray="100 200"
                             strokeDashoffset={100 - 30}
-                            strokeLinecap='round'
-                            className='animate-[spin_1s_cubic-bezier(0.4,_0,_0.2,_1)_infinite] origin-center'
+                            strokeLinecap="round"
+                            className="origin-center animate-[spin_1s_cubic-bezier(0.4,_0,_0.2,_1)_infinite]"
                         />
                     )}
                 </svg>
             )}
         </ProgressBar>
-    )
-}
+    );
+};
 
-export { ProgressCircle }
+export { ProgressCircle };

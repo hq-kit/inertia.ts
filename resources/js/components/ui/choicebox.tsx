@@ -1,11 +1,11 @@
-import type { GridListItemProps, GridListProps } from 'react-aria-components'
-import { GridList, GridListItem } from 'react-aria-components'
-import type { VariantProps } from 'tailwind-variants'
-import { tv } from 'tailwind-variants'
+import type { GridListItemProps, GridListProps } from 'react-aria-components';
+import { GridList, GridListItem } from 'react-aria-components';
+import type { VariantProps } from 'tailwind-variants';
+import { tv } from 'tailwind-variants';
 
-import { Checkbox } from './checkbox'
-import { Description, Label } from './field'
-import { cr } from './utils'
+import { Checkbox } from './checkbox';
+import { Description, Label } from './field';
+import { cr } from './utils';
 
 const choiceboxStyles = tv({
     base: 'grid',
@@ -16,24 +16,24 @@ const choiceboxStyles = tv({
             3: 'sm:grid-cols-3',
             4: 'sm:grid-cols-4',
             5: 'sm:grid-cols-5',
-            6: 'sm:grid-cols-6'
+            6: 'sm:grid-cols-6',
         },
         gap: {
             2: 'gap-2',
             4: 'gap-4',
-            6: 'gap-6'
-        }
+            6: 'gap-6',
+        },
     },
     defaultVariants: {
         columns: 2,
-        gap: 6
-    }
-})
+        gap: 6,
+    },
+});
 
 interface ChoiceboxProps<T extends object>
     extends GridListProps<T>,
         VariantProps<typeof choiceboxStyles> {
-    className?: string
+    className?: string;
 }
 
 const Choicebox = <T extends object>({
@@ -50,12 +50,12 @@ const Choicebox = <T extends object>({
             className={choiceboxStyles({
                 columns,
                 gap,
-                className
+                className,
             })}
             {...props}
         />
-    )
-}
+    );
+};
 const choiceboxItemStyles = tv({
     base: 'rounded-lg cursor-pointer border p-4 [&_[slot=title]]:font-medium transition outline-none focus:outline-none',
     variants: {
@@ -63,29 +63,35 @@ const choiceboxItemStyles = tv({
             true: [
                 'z-20 bg-primary/10 hover:border-primary border-primary/75',
                 '[&_[slot=title]]:text-primary',
-                '[&_[slot=description]]:text-primary/70'
-            ]
+                '[&_[slot=description]]:text-primary/70',
+            ],
         },
         isInvalid: { true: 'border-danger' },
         isFocused: {
-            true: 'border-primary/80 ring-4 ring-primary/20'
+            true: 'border-primary/80 ring-4 ring-primary/20',
         },
         isHovered: {
-            true: 'bg-primary/10'
+            true: 'bg-primary/10',
         },
         isDisabled: {
-            true: 'z-10 cursor-default opacity-80 [&_[slot=title]]:text-muted-foreground'
-        }
-    }
-})
+            true: 'z-10 cursor-default opacity-80 [&_[slot=title]]:text-muted-foreground',
+        },
+    },
+});
 
-interface ChoiceboxItemProps extends GridListItemProps, VariantProps<typeof choiceboxItemStyles> {
-    title: string
-    description?: string
+interface ChoiceboxItemProps
+    extends GridListItemProps,
+        VariantProps<typeof choiceboxItemStyles> {
+    title: string;
+    description?: string;
 }
 
-const ChoiceboxItem = ({ children, className, ...props }: ChoiceboxItemProps) => {
-    const textValue = typeof children === 'string' ? children : undefined
+const ChoiceboxItem = ({
+    children,
+    className,
+    ...props
+}: ChoiceboxItemProps) => {
+    const textValue = typeof children === 'string' ? children : undefined;
     return (
         <GridListItem
             textValue={textValue}
@@ -93,27 +99,31 @@ const ChoiceboxItem = ({ children, className, ...props }: ChoiceboxItemProps) =>
             className={cr(className, (className, renderProps) =>
                 choiceboxItemStyles({
                     ...renderProps,
-                    className
-                })
+                    className,
+                }),
             )}
         >
             {(values) => (
-                <div className='flex items-center w-full justify-between gap-1.5'>
-                    <div className='pr-8 flex flex-col'>
-                        <Label slot='title' htmlFor={textValue}>
+                <div className="flex w-full items-center justify-between gap-1.5">
+                    <div className="flex flex-col pr-8">
+                        <Label slot="title" htmlFor={textValue}>
                             {props.title}
                         </Label>
-                        {props.description && <Description>{props.description}</Description>}
+                        {props.description && (
+                            <Description>{props.description}</Description>
+                        )}
                     </div>
                     <>
                         {values.selectionMode === 'multiple' &&
-                            values.selectionBehavior === 'toggle' && <Checkbox slot='selection' />}
+                            values.selectionBehavior === 'toggle' && (
+                                <Checkbox slot="selection" />
+                            )}
                     </>
                 </div>
             )}
         </GridListItem>
-    )
-}
+    );
+};
 
-Choicebox.Item = ChoiceboxItem
-export { Choicebox }
+Choicebox.Item = ChoiceboxItem;
+export { Choicebox };

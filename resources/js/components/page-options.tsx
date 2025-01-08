@@ -21,7 +21,6 @@ interface PageOptions {
 }
 
 export default function PageOptions({ className }: Props) {
-    // @ts-expect-error no-type
     const { page_options } = usePage<{ page_options: PageOptions }>().props;
 
     const [show, setShow] = React.useState<Key>(page_options.show || 10);

@@ -1,27 +1,27 @@
-import React from 'react'
+import React from 'react';
 
-import { Group, TextField, type Key } from 'react-aria-components'
-import { type ListData } from 'react-stately'
+import { Group, TextField, type Key } from 'react-aria-components';
+import { type ListData } from 'react-stately';
 
-import { Description, Input, Label, type FieldProps } from './field'
-import { Tag, type RestrictedVariant, type TagGroupProps } from './tag-group'
-import { cn } from './utils'
+import { Description, Input, Label, type FieldProps } from './field';
+import { Tag, type RestrictedVariant, type TagGroupProps } from './tag-group';
+import { cn } from './utils';
 
 interface TagItemProps {
-    id: number
-    name: string
+    id: number;
+    name: string;
 }
 
 interface TagFieldProps extends Pick<TagGroupProps, 'shape'>, FieldProps {
-    variant?: RestrictedVariant
-    isDisabled?: boolean
-    max?: number
-    className?: string
-    children?: React.ReactNode
-    name?: string
-    list: ListData<TagItemProps>
-    onItemInserted?: (tag: TagItemProps) => void
-    onItemCleared?: (tag: TagItemProps | undefined) => void
+    variant?: RestrictedVariant;
+    isDisabled?: boolean;
+    max?: number;
+    className?: string;
+    children?: React.ReactNode;
+    name?: string;
+    list: ListData<TagItemProps>;
+    onItemInserted?: (tag: TagItemProps) => void;
+    onItemCleared?: (tag: TagItemProps | undefined) => void;
 }
 
 const TagField = ({
@@ -33,112 +33,122 @@ const TagField = ({
     onItemInserted,
     ...props
 }: TagFieldProps) => {
-    const [isInvalid, setIsInvalid] = React.useState(false)
-    const [inputValue, setInputValue] = React.useState('')
+    const [isInvalid, setIsInvalid] = React.useState(false);
+    const [inputValue, setInputValue] = React.useState('');
 
-    const existingTagCount = list.items.length
-    const maxTags = props.max !== undefined ? props.max : Infinity
-    const maxTagsToAdd = maxTags - existingTagCount
+    const existingTagCount = list.items.length;
+    const maxTags = props.max !== undefined ? props.max : Infinity;
+    const maxTagsToAdd = maxTags - existingTagCount;
 
     const insertTag = () => {
-        const tagNames = inputValue.split(/,/)
+        const tagNames = inputValue.split(/,/);
         if (maxTagsToAdd <= 0) {
-            setIsInvalid(true)
-            setInputValue('')
+            setIsInvalid(true);
+            setInputValue('');
             const timeoutId = setTimeout(() => {
-                setIsInvalid(false)
-            }, 2000)
+                setIsInvalid(false);
+            }, 2000);
 
-            return () => clearTimeout(timeoutId)
+            return () => clearTimeout(timeoutId);
         }
 
         tagNames.slice(0, maxTagsToAdd).forEach((tagName) => {
             const formattedName = tagName
                 .trim()
                 .replace(/\s+/g, ' ')
-                .replace(/[\t\r\n]/g, '')
+                .replace(/[\t\r\n]/g, '');
 
             if (
                 formattedName &&
-                !list.items.some(({ name }) => name.toLowerCase() === formattedName.toLowerCase())
+                !list.items.some(
+                    ({ name }) =>
+                        name.toLowerCase() === formattedName.toLowerCase(),
+                )
             ) {
                 const tag = {
                     id: (list.items.at(-1)?.id ?? 0) + 1,
-                    name: formattedName
-                }
+                    name: formattedName,
+                };
 
-                list.append(tag)
-                onItemInserted?.(tag)
+                list.append(tag);
+                onItemInserted?.(tag);
             }
-        })
+        });
 
-        setInputValue('')
-    }
+        setInputValue('');
+    };
 
     const clearInvalidFeedback = () => {
         if (maxTags - list.items.length <= maxTagsToAdd) {
-            setIsInvalid(false)
+            setIsInvalid(false);
         }
-    }
+    };
 
     const onRemove = (keys: Set<Key>) => {
-        list.remove(...keys)
-        onItemCleared?.(list.getItem([...keys][0]))
-        clearInvalidFeedback()
-    }
+        list.remove(...keys);
+        onItemCleared?.(list.getItem([...keys][0]));
+        clearInvalidFeedback();
+    };
 
     const onKeyDown = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter' || e.key === ',') {
-            e.preventDefault()
-            insertTag()
+            e.preventDefault();
+            insertTag();
         }
 
         if (e.key === 'Backspace' && inputValue === '') {
-            popLast()
-            clearInvalidFeedback()
+            popLast();
+            clearInvalidFeedback();
         }
-    }
+    };
 
     const popLast = React.useCallback(() => {
         if (list.items.length == 0) {
-            return
+            return;
         }
 
-        const endKey = list.items[list.items.length - 1]
+        const endKey = list.items[list.items.length - 1];
 
         if (endKey !== null) {
-            list.remove(endKey.id)
-            onItemCleared?.(list.getItem(endKey.id))
+            list.remove(endKey.id);
+            onItemCleared?.(list.getItem(endKey.id));
         }
-    }, [list, onItemCleared])
+    }, [list, onItemCleared]);
 
     return (
-        <div className={cn('flex flex-col gap-1 w-full', className)}>
+        <div className={cn('flex w-full flex-col gap-1', className)}>
             {props.label && <Label>{props.label}</Label>}
-            <Group className={cn('flex flex-col', props.isDisabled && 'opacity-50')}>
+            <Group
+                className={cn(
+                    'flex flex-col',
+                    props.isDisabled && 'opacity-50',
+                )}
+            >
                 <Tag.Group
                     variant={variant}
                     shape={props.shape}
-                    aria-label='List item inserted'
+                    aria-label="List item inserted"
                     onRemove={onRemove}
                 >
                     <div
                         className={cn(
-                            'relative flex min-h-10 bg-background flex-row flex-wrap items-center transition',
-                            'px-1 rounded-lg shadow-sm border',
+                            'relative flex min-h-10 flex-row flex-wrap items-center bg-background transition',
+                            'rounded-lg border px-1 shadow-sm',
                             'has-[input[data-focused=true]]:border-primary',
                             'has-[input[data-invalid=true][data-focused=true]]:border-danger has-[input[data-invalid=true]]:border-danger has-[input[data-invalid=true]]:ring-danger/20',
-                            'has-[input[data-focused=true]]:ring-4 has-[input[data-focused=true]]:ring-primary/20'
+                            'has-[input[data-focused=true]]:ring-4 has-[input[data-focused=true]]:ring-primary/20',
                         )}
                     >
-                        <div className='flex flex-1 flex-wrap items-center'>
+                        <div className="flex flex-1 flex-wrap items-center">
                             <Tag.List
                                 items={list.items}
                                 className={cn(
-                                    list.items.length !== 0 ? 'py-1.5 px-0.5 gap-1.5' : 'gap-0',
+                                    list.items.length !== 0
+                                        ? 'gap-1.5 px-0.5 py-1.5'
+                                        : 'gap-0',
                                     props.shape === 'square' &&
                                         '[&_.tag]:rounded-[calc(var(--radius)-4px)]',
-                                    '[&_.tag]:cursor-default last:[&_.tag]:-mr-1 outline-none'
+                                    'outline-none [&_.tag]:cursor-default last:[&_.tag]:-mr-1',
                                 )}
                             >
                                 {(item) => <Tag.Item>{item.name}</Tag.Item>}
@@ -146,7 +156,8 @@ const TagField = ({
                             <TextField
                                 isDisabled={props.isDisabled}
                                 aria-label={
-                                    props?.label ?? (props['aria-label'] || props.placeholder)
+                                    props?.label ??
+                                    (props['aria-label'] || props.placeholder)
                                 }
                                 isInvalid={isInvalid}
                                 onKeyDown={onKeyDown}
@@ -155,7 +166,7 @@ const TagField = ({
                                 {...props}
                             >
                                 <Input
-                                    className='w-auto inline'
+                                    className="inline w-auto"
                                     placeholder={
                                         maxTagsToAdd <= 0
                                             ? 'Remove one to add more'
@@ -175,9 +186,11 @@ const TagField = ({
                     />
                 )}
             </Group>
-            {props.description && <Description>{props.description}</Description>}
+            {props.description && (
+                <Description>{props.description}</Description>
+            )}
         </div>
-    )
-}
+    );
+};
 
-export { TagField, type TagItemProps }
+export { TagField, type TagItemProps };

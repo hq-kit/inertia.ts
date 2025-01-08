@@ -9,11 +9,9 @@ type Toaster = {
 };
 
 export function ToastMessage() {
-    // @ts-expect-error no-type
     const { toast } = usePage<{ toast: Toaster }>().props;
     useEffect(() => {
         if (toast && toast?.message) {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             (toaster as any)[toast.type](toast.message);
         }
     }, [toast]);

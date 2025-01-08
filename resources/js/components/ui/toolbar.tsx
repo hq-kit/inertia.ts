@@ -1,17 +1,17 @@
-import React from 'react'
+import React from 'react';
 
 import {
     Group,
     Toolbar as ToolbarPrimitive,
     type GroupProps,
     type SeparatorProps,
-    type ToolbarProps
-} from 'react-aria-components'
-import { tv } from 'tailwind-variants'
+    type ToolbarProps,
+} from 'react-aria-components';
+import { tv } from 'tailwind-variants';
 
-import { Separator } from './separator'
-import { Toggle } from './toggle'
-import { cn, cr } from './utils'
+import { Separator } from './separator';
+import { Toggle } from './toggle';
+import { cn, cr } from './utils';
 
 const toolbarStyles = tv({
     base: 'flex gap-2 group',
@@ -19,26 +19,32 @@ const toolbarStyles = tv({
         orientation: {
             horizontal:
                 'flex-row [&::-webkit-scrollbar]:hidden [scrollbar-width:none] [-ms-overflow-style:none]',
-            vertical: 'flex-col items-start'
-        }
-    }
-})
+            vertical: 'flex-col items-start',
+        },
+    },
+});
 
 const ToolbarSeparator = ({ className, ...props }: SeparatorProps) => {
-    const { orientation } = React.useContext(ToolbarContext)
-    const effectiveOrientation = orientation === 'vertical' ? 'horizontal' : 'vertical'
+    const { orientation } = React.useContext(ToolbarContext);
+    const effectiveOrientation =
+        orientation === 'vertical' ? 'horizontal' : 'vertical';
     return (
         <Separator
             orientation={effectiveOrientation}
-            className={cn(effectiveOrientation === 'vertical' ? 'mx-1.5' : 'my-1.5 w-9', className)}
+            className={cn(
+                effectiveOrientation === 'vertical' ? 'mx-1.5' : 'my-1.5 w-9',
+                className,
+            )}
             {...props}
         />
-    )
-}
+    );
+};
 
-const ToolbarContext = React.createContext<{ orientation?: ToolbarProps['orientation'] }>({
-    orientation: 'horizontal'
-})
+const ToolbarContext = React.createContext<{
+    orientation?: ToolbarProps['orientation'];
+}>({
+    orientation: 'horizontal',
+});
 
 const Toolbar = ({ orientation = 'horizontal', ...props }: ToolbarProps) => {
     return (
@@ -47,21 +53,21 @@ const Toolbar = ({ orientation = 'horizontal', ...props }: ToolbarProps) => {
                 orientation={orientation}
                 {...props}
                 className={cr(props.className, (className, renderProps) =>
-                    toolbarStyles({ ...renderProps, className })
+                    toolbarStyles({ ...renderProps, className }),
                 )}
             />
         </ToolbarContext.Provider>
-    )
-}
+    );
+};
 
 const toolbarGroupStyles = tv({
     base: [
         'flex gap-2',
-        'group-orientation-vertical:flex-col group-orientation-vertical:items-start'
-    ]
-})
+        'group-orientation-vertical:flex-col group-orientation-vertical:items-start',
+    ],
+});
 
-const ToolbarGroupContext = React.createContext<{ isDisabled?: boolean }>({})
+const ToolbarGroupContext = React.createContext<{ isDisabled?: boolean }>({});
 
 const ToolbarGroup = ({ isDisabled, ...props }: GroupProps) => {
     return (
@@ -70,18 +76,21 @@ const ToolbarGroup = ({ isDisabled, ...props }: GroupProps) => {
                 {props.children}
             </Group>
         </ToolbarGroupContext.Provider>
-    )
-}
+    );
+};
 
-const Item = ({ isDisabled, ...props }: React.ComponentProps<typeof Toggle>) => {
-    const context = React.useContext(ToolbarGroupContext)
-    const effectiveIsDisabled = isDisabled || context.isDisabled
+const Item = ({
+    isDisabled,
+    ...props
+}: React.ComponentProps<typeof Toggle>) => {
+    const context = React.useContext(ToolbarGroupContext);
+    const effectiveIsDisabled = isDisabled || context.isDisabled;
 
-    return <Toggle isDisabled={effectiveIsDisabled} {...props} />
-}
+    return <Toggle isDisabled={effectiveIsDisabled} {...props} />;
+};
 
-Toolbar.Group = ToolbarGroup
-Toolbar.Separator = ToolbarSeparator
-Toolbar.Item = Item
+Toolbar.Group = ToolbarGroup;
+Toolbar.Separator = ToolbarSeparator;
+Toolbar.Item = Item;
 
-export { Toolbar }
+export { Toolbar };

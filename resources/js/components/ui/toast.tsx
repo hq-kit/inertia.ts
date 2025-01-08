@@ -1,23 +1,28 @@
-import { IconCheck, IconCircleAlert, IconLoaderCircle, IconTriangleAlert } from 'hq-icons'
-import { Toaster, type ToasterProps } from 'sonner'
-import { twJoin } from 'tailwind-merge'
+import {
+    IconCheck,
+    IconCircleAlert,
+    IconLoaderCircle,
+    IconTriangleAlert,
+} from 'hq-icons';
+import { Toaster, type ToasterProps } from 'sonner';
+import { twJoin } from 'tailwind-merge';
 
-import { useTheme } from '@/components/providers'
+import { useTheme } from '@/components/providers';
 
-import { buttonVariants } from './button'
+import { buttonVariants } from './button';
 
 const Toast = ({ ...props }: ToasterProps) => {
-    const { theme = 'system' } = useTheme()
+    const { theme = 'system' } = useTheme();
     return (
         <Toaster
             theme={theme as ToasterProps['theme']}
-            className='toaster group'
+            className="toaster group"
             icons={{
                 info: <IconCircleAlert />,
                 success: <IconCheck />,
                 warning: <IconTriangleAlert />,
                 error: <IconTriangleAlert />,
-                loading: <IconLoaderCircle className='animate-spin' />
+                loading: <IconLoaderCircle className="animate-spin" />,
             }}
             toastOptions={{
                 unstyled: true,
@@ -31,7 +36,7 @@ const Toast = ({ ...props }: ToasterProps) => {
                         '[&:has([data-description])_[data-title]]:!font-medium [&:has([data-description])_[data-title]]:!text-lg',
                         '[&>[data-button]]:absolute [&>[data-button=true]]:bottom-4',
                         '[&>[data-action=true]]:right-4',
-                        '[&>[data-cancel=true]]:left-4'
+                        '[&>[data-cancel=true]]:left-4',
                     ),
                     icon: 'absolute top-[1rem] sm:top-[1.50rem]',
                     content:
@@ -45,20 +50,20 @@ const Toast = ({ ...props }: ToasterProps) => {
                     cancelButton: buttonVariants({
                         className: '',
                         size: 'xs',
-                        variant: 'outline'
+                        variant: 'outline',
                     }),
                     actionButton: buttonVariants({
                         className: 'self-end justify-self-end',
-                        size: 'xs'
+                        size: 'xs',
                     }),
                     closeButton: twJoin([
-                        '[&_svg]:size-5 size-8 absolute top-1/2 transform -translate-y-1/2 right-2 lg:right-3 left-auto grid place-content-center rounded-lg !bg-transparent hover:!bg-dark/20 dark:hover:!bg-white/20 border-0 [&_svg]:text-foreground'
-                    ])
-                }
+                        '[&_svg]:size-5 size-8 absolute top-1/2 transform -translate-y-1/2 right-2 lg:right-3 left-auto grid place-content-center rounded-lg !bg-transparent hover:!bg-dark/20 dark:hover:!bg-white/20 border-0 [&_svg]:text-foreground',
+                    ]),
+                },
             }}
             {...props}
         />
-    )
-}
+    );
+};
 
-export { Toast }
+export { Toast };
