@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 
-import { Command as CommandPrimitive } from 'cmdk';
-import { IconSearch, IconX } from 'hq-icons';
+import { Command as CommandPrimitive } from 'cmdk'
+import { IconSearch, IconX } from 'hq-icons'
 import {
     Button,
     Dialog,
@@ -11,13 +11,13 @@ import {
     type ModalOverlayProps,
     type SeparatorProps,
     type TextProps,
-} from 'react-aria-components';
-import { twJoin } from 'tailwind-merge';
-import { tv } from 'tailwind-variants';
+} from 'react-aria-components'
+import { twJoin } from 'tailwind-merge'
+import { tv } from 'tailwind-variants'
 
-import { Keyboard, type KeyboardProps } from './keyboard';
-import { Separator } from './separator';
-import { useMediaQuery } from './utils';
+import { Keyboard, type KeyboardProps } from './keyboard'
+import { Separator } from './separator'
+import { useMediaQuery } from './utils'
 
 const commandStyles = tv({
     slots: {
@@ -66,7 +66,7 @@ const commandStyles = tv({
             true: 'text-danger data-[selected=true]:bg-danger data-[selected=true]:text-danger-foreground [&[data-selected=true]_[data-slot=icon]]:text-danger-foreground',
         },
     },
-});
+})
 
 const {
     command,
@@ -79,26 +79,26 @@ const {
     input,
     kbdKeyboard,
     description,
-} = commandStyles();
+} = commandStyles()
 
 interface CommandContextProps {
-    hideSearchIndicator?: boolean;
-    hideCloseButton?: boolean;
-    messageOnEmpty?: boolean | string;
-    isBlurred?: boolean;
+    hideSearchIndicator?: boolean
+    hideCloseButton?: boolean
+    messageOnEmpty?: boolean | string
+    isBlurred?: boolean
 }
 
-const CommandContext = React.createContext<CommandContextProps>({});
+const CommandContext = React.createContext<CommandContextProps>({})
 
 interface CommandRootProps {
-    CommandEmpty?: typeof CommandEmpty;
-    CommandInput?: typeof CommandInput;
-    CommandItem?: typeof CommandItem;
-    CommandKeyboard?: typeof CommandKeyboard;
-    CommandList?: typeof CommandList;
-    CommandSection?: typeof CommandSection;
-    CommandSeparator?: typeof CommandSeparator;
-    CommandDescription?: typeof CommandDescription;
+    CommandEmpty?: typeof CommandEmpty
+    CommandInput?: typeof CommandInput
+    CommandItem?: typeof CommandItem
+    CommandKeyboard?: typeof CommandKeyboard
+    CommandList?: typeof CommandList
+    CommandSection?: typeof CommandSection
+    CommandSeparator?: typeof CommandSeparator
+    CommandDescription?: typeof CommandDescription
 }
 
 const modalOverlay = tv({
@@ -111,19 +111,19 @@ const modalOverlay = tv({
             false: 'bg-dark/15 dark:bg-dark/40',
         },
     },
-});
+})
 interface CommandProps
     extends ModalOverlayProps,
         CommandRootProps,
         CommandContextProps {
-    children: React.ReactNode;
-    value?: string;
-    messageOnEmpty?: boolean | string;
-    onValueChange?: (value: string) => void;
+    children: React.ReactNode
+    value?: string
+    messageOnEmpty?: boolean | string
+    onValueChange?: (value: string) => void
     classNames?: {
-        overlay?: string;
-        content?: string;
-    };
+        overlay?: string
+        content?: string
+    }
 }
 
 const Command = ({
@@ -137,7 +137,7 @@ const Command = ({
     isBlurred = false,
     ...props
 }: CommandProps) => {
-    const isDesktop = useMediaQuery('(min-width: 1024px)');
+    const isDesktop = useMediaQuery('(min-width: 1024px)')
 
     return (
         <CommandContext.Provider
@@ -188,18 +188,18 @@ const Command = ({
                 </Modal>
             </ModalOverlay>
         </CommandContext.Provider>
-    );
-};
+    )
+}
 
 type CommandInputProps = React.ComponentPropsWithoutRef<
     typeof CommandPrimitive.Input
->;
+>
 
 const CommandInput = React.forwardRef<
     React.ElementRef<typeof CommandPrimitive.Input>,
     CommandInputProps
 >(({ className, ...props }, ref) => {
-    const { hideSearchIndicator } = React.useContext(CommandContext);
+    const { hideSearchIndicator } = React.useContext(CommandContext)
     return (
         <div className="flex items-center border-b px-3">
             {!hideSearchIndicator && (
@@ -214,15 +214,15 @@ const CommandInput = React.forwardRef<
                 {...props}
             />
         </div>
-    );
-});
+    )
+})
 
-CommandInput.displayName = CommandPrimitive.Input.displayName;
+CommandInput.displayName = CommandPrimitive.Input.displayName
 
-type CommandListProps = React.ComponentProps<typeof CommandPrimitive.List>;
+type CommandListProps = React.ComponentProps<typeof CommandPrimitive.List>
 
 const CommandList = ({ className, ...props }: CommandListProps) => {
-    const { messageOnEmpty } = React.useContext(CommandContext);
+    const { messageOnEmpty } = React.useContext(CommandContext)
     return (
         <CommandPrimitive.List className={list({ className })} {...props}>
             {messageOnEmpty !== false && (
@@ -234,20 +234,20 @@ const CommandList = ({ className, ...props }: CommandListProps) => {
             )}
             {props.children}
         </CommandPrimitive.List>
-    );
-};
+    )
+}
 
-type CommandEmptyProps = React.ComponentProps<typeof CommandPrimitive.Empty>;
+type CommandEmptyProps = React.ComponentProps<typeof CommandPrimitive.Empty>
 
 const CommandEmpty = ({ className, ...props }: CommandEmptyProps) => {
     return (
         <CommandPrimitive.Empty className={empty({ className })} {...props} />
-    );
-};
+    )
+}
 
 interface CommandSectionProps
     extends React.ComponentProps<typeof CommandPrimitive.Group> {
-    separator?: boolean;
+    separator?: boolean
 }
 
 const CommandSection = ({
@@ -265,8 +265,8 @@ const CommandSection = ({
                 {separator && <CommandSeparator className="mt-2" />}
             </CommandPrimitive.Group>
         </>
-    );
-};
+    )
+}
 
 const CommandSeparator = ({ className, ...props }: SeparatorProps) => {
     return (
@@ -277,12 +277,12 @@ const CommandSeparator = ({ className, ...props }: SeparatorProps) => {
                 orientation="horizontal"
             />
         </div>
-    );
-};
+    )
+}
 
 interface CommandItemProps
     extends React.ComponentProps<typeof CommandPrimitive.Item> {
-    isDanger?: boolean;
+    isDanger?: boolean
 }
 
 const CommandItem = ({ isDanger, className, ...props }: CommandItemProps) => {
@@ -292,11 +292,11 @@ const CommandItem = ({ isDanger, className, ...props }: CommandItemProps) => {
             className={item({ isDanger, className })}
             {...props}
         />
-    );
-};
+    )
+}
 
 interface CommandDescriptionProps extends TextProps {
-    intent?: 'danger' | 'warning' | 'primary' | 'secondary' | 'success';
+    intent?: 'danger' | 'warning' | 'primary' | 'secondary' | 'success'
 }
 
 const CommandDescription = ({
@@ -323,20 +323,20 @@ const CommandDescription = ({
                 ),
             })}
         />
-    );
-};
+    )
+}
 
 const CommandKeyboard = (props: KeyboardProps) => (
     <Keyboard classNames={{ kbd: kbdKeyboard(), base: '-mr-2.5' }} {...props} />
-);
+)
 
-Command.Empty = CommandEmpty;
-Command.Input = CommandInput;
-Command.Item = CommandItem;
-Command.Keyboard = CommandKeyboard;
-Command.List = CommandList;
-Command.Section = CommandSection;
-Command.Separator = CommandSeparator;
-Command.Description = CommandDescription;
+Command.Empty = CommandEmpty
+Command.Input = CommandInput
+Command.Item = CommandItem
+Command.Keyboard = CommandKeyboard
+Command.List = CommandList
+Command.Section = CommandSection
+Command.Separator = CommandSeparator
+Command.Description = CommandDescription
 
-export { Command };
+export { Command }

@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 
-import { Keyboard as KeyboardPrimitive } from 'react-aria-components';
-import { tv } from 'tailwind-variants';
+import { Keyboard as KeyboardPrimitive } from 'react-aria-components'
+import { tv } from 'tailwind-variants'
 
 const keyboardStyles = tv({
     slots: {
@@ -11,16 +11,16 @@ const keyboardStyles = tv({
             'inline-grid min-h-5 min-w-5 place-content-center rounded-lg bg-background font-sans text-[.75rem] uppercase text-foreground ring-1 ring-foreground/10 group-focus:opacity-60',
         ],
     },
-});
+})
 
-const { base, kbd } = keyboardStyles();
+const { base, kbd } = keyboardStyles()
 
 interface KeyboardProps extends React.HTMLAttributes<HTMLElement> {
-    keys: string | string[];
+    keys: string | string[]
     classNames?: {
-        base?: string;
-        kbd?: string;
-    };
+        base?: string
+        kbd?: string
+    }
 }
 
 const Keyboard = ({ keys, classNames, className, ...props }: KeyboardProps) => {
@@ -45,7 +45,7 @@ const Keyboard = ({ keys, classNames, className, ...props }: KeyboardProps) => {
                 ),
             )}
         </KeyboardPrimitive>
-    );
-};
+    )
+}
 
-export { Keyboard, type KeyboardProps };
+export { Keyboard, type KeyboardProps }

@@ -1,8 +1,8 @@
 import {
     Separator as SeparatorPrimitive,
     type SeparatorProps,
-} from 'react-aria-components';
-import { tv } from 'tailwind-variants';
+} from 'react-aria-components'
+import { tv } from 'tailwind-variants'
 
 const separatorStyles = tv({
     base: 'bg-muted shrink-0',
@@ -15,7 +15,7 @@ const separatorStyles = tv({
     defaultVariants: {
         orientation: 'horizontal',
     },
-});
+})
 
 const Separator = ({ className, ...props }: SeparatorProps) => (
     <SeparatorPrimitive
@@ -25,6 +25,6 @@ const Separator = ({ className, ...props }: SeparatorProps) => (
             className: className,
         })}
     />
-);
+)
 
-export { Separator };
+export { Separator }

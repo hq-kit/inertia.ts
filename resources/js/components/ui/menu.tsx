@@ -1,6 +1,6 @@
-import React from 'react';
+import React from 'react'
 
-import { IconCheck, IconChevronRight, IconCircleCheck } from 'hq-icons';
+import { IconCheck, IconChevronRight, IconCircleCheck } from 'hq-icons'
 import {
     Button,
     Collection,
@@ -18,29 +18,29 @@ import {
     type MenuTriggerProps as MenuTriggerPrimitiveProps,
     type PopoverProps,
     type SeparatorProps,
-} from 'react-aria-components';
-import type { VariantProps } from 'tailwind-variants';
-import { tv } from 'tailwind-variants';
+} from 'react-aria-components'
+import type { VariantProps } from 'tailwind-variants'
+import { tv } from 'tailwind-variants'
 
 import {
     DropdownItemDetails,
     dropdownItemStyles,
     dropdownSectionStyles,
-} from './dropdown';
-import { Keyboard } from './keyboard';
-import { Popover } from './popover';
-import { cn, cr } from './utils';
+} from './dropdown'
+import { Keyboard } from './keyboard'
+import { Popover } from './popover'
+import { cn, cr } from './utils'
 
 interface MenuContextProps {
-    respectScreen: boolean;
+    respectScreen: boolean
 }
 
 const MenuContext = React.createContext<MenuContextProps>({
     respectScreen: true,
-});
+})
 
 interface MenuProps extends MenuTriggerPrimitiveProps {
-    respectScreen?: boolean;
+    respectScreen?: boolean
 }
 
 const Menu = ({ respectScreen = true, ...props }: MenuProps) => {
@@ -50,14 +50,14 @@ const Menu = ({ respectScreen = true, ...props }: MenuProps) => {
                 {props.children}
             </MenuTriggerPrimitive>
         </MenuContext.Provider>
-    );
-};
+    )
+}
 
 const SubMenu = ({ delay = 0, ...props }) => (
     <SubmenuTriggerPrimitive {...props} delay={delay}>
         {props.children}
     </SubmenuTriggerPrimitive>
-);
+)
 
 const menuStyles = tv({
     slots: {
@@ -67,12 +67,12 @@ const menuStyles = tv({
             'inline relative text-left rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-primary pressed:outline-none',
         ],
     },
-});
+})
 
-const { menu, popover, trigger } = menuStyles();
+const { menu, popover, trigger } = menuStyles()
 
 interface MenuTriggerProps extends ButtonProps {
-    className?: string;
+    className?: string
 }
 
 const Trigger = ({ className, ...props }: MenuTriggerProps) => (
@@ -85,16 +85,16 @@ const Trigger = ({ className, ...props }: MenuTriggerProps) => (
             </>
         )}
     </Button>
-);
+)
 
 interface MenuContentProps<T>
     extends Omit<PopoverProps, 'children' | 'style'>,
         MenuPrimitiveProps<T> {
-    className?: string;
-    popoverClassName?: string;
-    showArrow?: boolean;
-    respectScreen?: boolean;
-    portal?: Element;
+    className?: string
+    popoverClassName?: string
+    showArrow?: boolean
+    respectScreen?: boolean
+    portal?: Element
 }
 
 const Content = <T extends object>({
@@ -103,7 +103,7 @@ const Content = <T extends object>({
     popoverClassName,
     ...props
 }: MenuContentProps<T>) => {
-    const { respectScreen } = React.useContext(MenuContext);
+    const { respectScreen } = React.useContext(MenuContext)
     return (
         <Popover.Content
             UNSTABLE_portalContainer={props.portal}
@@ -120,13 +120,13 @@ const Content = <T extends object>({
         >
             <MenuPrimitive className={menu({ className })} {...props} />
         </Popover.Content>
-    );
-};
+    )
+}
 
 interface MenuItemProps
     extends Omit<MenuItemPrimitiveProps, 'isDanger'>,
         VariantProps<typeof dropdownItemStyles> {
-    isDanger?: boolean;
+    isDanger?: boolean
 }
 
 const Item = ({
@@ -136,8 +136,7 @@ const Item = ({
     ...props
 }: MenuItemProps) => {
     const textValue =
-        props.textValue ||
-        (typeof children === 'string' ? children : undefined);
+        props.textValue || (typeof children === 'string' ? children : undefined)
     return (
         <MenuItem
             className={cr(className, (className, renderProps) =>
@@ -161,11 +160,11 @@ const Item = ({
                 </>
             )}
         </MenuItem>
-    );
-};
+    )
+}
 
 export interface MenuHeaderProps extends React.ComponentProps<typeof Header> {
-    separator?: boolean;
+    separator?: boolean
 }
 
 const MenuHeader = ({
@@ -181,14 +180,14 @@ const MenuHeader = ({
         )}
         {...props}
     />
-);
+)
 
 const MenuSeparator = ({ className, ...props }: SeparatorProps) => (
     <Separator
         className={cn('-mx-1 my-1 h-px bg-muted', className)}
         {...props}
     />
-);
+)
 
 const Checkbox = ({ className, children, ...props }: MenuItemProps) => (
     <Item className={cn('relative pr-8', className)} {...props}>
@@ -203,7 +202,7 @@ const Checkbox = ({ className, children, ...props }: MenuItemProps) => (
             </>
         )}
     </Item>
-);
+)
 
 const Radio = ({ className, children, ...props }: MenuItemProps) => (
     <Item className={cn('relative', className)} {...props}>
@@ -222,12 +221,12 @@ const Radio = ({ className, children, ...props }: MenuItemProps) => (
             </>
         )}
     </Item>
-);
+)
 
-const { section, header } = dropdownSectionStyles();
+const { section, header } = dropdownSectionStyles()
 
 interface SectionProps<T> extends MenuSectionProps<T> {
-    title?: string;
+    title?: string
 }
 
 const Section = <T extends object>({
@@ -241,21 +240,21 @@ const Section = <T extends object>({
             )}
             <Collection items={props.items}>{props.children}</Collection>
         </MenuSection>
-    );
-};
+    )
+}
 
-Menu.Primitive = MenuPrimitive;
-Menu.Content = Content;
-Menu.Header = MenuHeader;
-Menu.Item = Item;
-Menu.Content = Content;
-Menu.Keyboard = Keyboard;
-Menu.Checkbox = Checkbox;
-Menu.Radio = Radio;
-Menu.Section = Section;
-Menu.Separator = MenuSeparator;
-Menu.Trigger = Trigger;
-Menu.ItemDetails = DropdownItemDetails;
-Menu.Submenu = SubMenu;
+Menu.Primitive = MenuPrimitive
+Menu.Content = Content
+Menu.Header = MenuHeader
+Menu.Item = Item
+Menu.Content = Content
+Menu.Keyboard = Keyboard
+Menu.Checkbox = Checkbox
+Menu.Radio = Radio
+Menu.Section = Section
+Menu.Separator = MenuSeparator
+Menu.Trigger = Trigger
+Menu.ItemDetails = DropdownItemDetails
+Menu.Submenu = SubMenu
 
-export { Menu, type MenuContentProps };
+export { Menu, type MenuContentProps }

@@ -3,16 +3,16 @@ import {
     IconCircleAlert,
     IconLoaderCircle,
     IconTriangleAlert,
-} from 'hq-icons';
-import { Toaster, type ToasterProps } from 'sonner';
-import { twJoin } from 'tailwind-merge';
+} from 'hq-icons'
+import { Toaster, type ToasterProps } from 'sonner'
+import { twJoin } from 'tailwind-merge'
 
-import { useTheme } from '@/components/providers';
+import { useTheme } from '@/components/providers'
 
-import { buttonVariants } from './button';
+import { buttonVariants } from './button'
 
 const Toast = ({ ...props }: ToasterProps) => {
-    const { theme = 'system' } = useTheme();
+    const { theme = 'system' } = useTheme()
     return (
         <Toaster
             theme={theme as ToasterProps['theme']}
@@ -63,7 +63,7 @@ const Toast = ({ ...props }: ToasterProps) => {
             }}
             {...props}
         />
-    );
-};
+    )
+}
 
-export { Toast };
+export { Toast }

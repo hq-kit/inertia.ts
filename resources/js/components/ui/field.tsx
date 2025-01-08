@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 import {
     FieldError as FieldErrorPrimitive,
@@ -13,18 +13,18 @@ import {
     type TextFieldProps as TextFieldPrimitiveProps,
     type TextProps,
     type ValidationResult,
-} from 'react-aria-components';
-import { tv } from 'tailwind-variants';
+} from 'react-aria-components'
+import { tv } from 'tailwind-variants'
 
-import { cn, ctr } from './utils';
+import { cn, ctr } from './utils'
 
 interface FieldProps {
-    label?: string;
-    placeholder?: string;
-    description?: string;
-    errorMessage?: string | ((validation: ValidationResult) => string);
-    'aria-label'?: TextFieldPrimitiveProps['aria-label'];
-    'aria-labelledby'?: TextFieldPrimitiveProps['aria-labelledby'];
+    label?: string
+    placeholder?: string
+    description?: string
+    errorMessage?: string | ((validation: ValidationResult) => string)
+    'aria-label'?: TextFieldPrimitiveProps['aria-label']
+    'aria-labelledby'?: TextFieldPrimitiveProps['aria-labelledby']
 }
 
 const fieldStyles = tv({
@@ -37,20 +37,20 @@ const fieldStyles = tv({
             'w-full min-w-0 [&::-ms-reveal]:hidden bg-transparent p-2 text-base text-foreground placeholder-muted-foreground outline-none focus:outline-none lg:text-sm',
         ],
     },
-});
+})
 
-const { description, label, fieldError, input } = fieldStyles();
+const { description, label, fieldError, input } = fieldStyles()
 
 const Label = ({ className, ...props }: LabelProps) => {
-    return <LabelPrimitive {...props} className={label({ className })} />;
-};
+    return <LabelPrimitive {...props} className={label({ className })} />
+}
 
 interface DescriptionProps extends TextProps {
-    isWarning?: boolean;
+    isWarning?: boolean
 }
 
 const Description = ({ className, ...props }: DescriptionProps) => {
-    const isWarning = props.isWarning ?? false;
+    const isWarning = props.isWarning ?? false
     return (
         <Text
             {...props}
@@ -59,8 +59,8 @@ const Description = ({ className, ...props }: DescriptionProps) => {
                 className: isWarning ? 'text-warning' : className,
             })}
         />
-    );
-};
+    )
+}
 
 const FieldError = ({ className, ...props }: FieldErrorProps) => {
     return (
@@ -68,8 +68,8 @@ const FieldError = ({ className, ...props }: FieldErrorProps) => {
             {...props}
             className={ctr(className, fieldError())}
         />
-    );
-};
+    )
+}
 
 const FieldGroup = ({ className, ...props }: GroupProps) => {
     return (
@@ -87,8 +87,8 @@ const FieldGroup = ({ className, ...props }: GroupProps) => {
                 className,
             ])}
         />
-    );
-};
+    )
+}
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
     ({ className, ...props }, ref) => {
@@ -98,10 +98,10 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
                 {...props}
                 className={ctr(className, input())}
             />
-        );
+        )
     },
-);
+)
 
-Input.displayName = 'Input';
+Input.displayName = 'Input'
 
-export { Description, FieldError, FieldGroup, Input, Label, type FieldProps };
+export { Description, FieldError, FieldGroup, Input, Label, type FieldProps }

@@ -1,17 +1,17 @@
-import { Button, Form, TextField } from '@/components/ui';
-import GuestLayout from '@/layouts/guest-layout';
-import { useForm } from '@inertiajs/react';
+import { Button, Form, TextField } from '@/components/ui'
+import GuestLayout from '@/layouts/guest-layout'
+import { useForm } from '@inertiajs/react'
 
 export default function ForgotPassword({ status }: { status?: string }) {
     const { data, setData, post, processing, errors } = useForm({
         email: '',
-    });
+    })
 
     const submit = (e: { preventDefault: () => void }) => {
-        e.preventDefault();
+        e.preventDefault()
 
-        post(route('password.email'));
-    };
+        post(route('password.email'))
+    }
 
     return (
         <>
@@ -49,7 +49,7 @@ export default function ForgotPassword({ status }: { status?: string }) {
                 </div>
             </Form>
         </>
-    );
+    )
 }
 
 ForgotPassword.layout = (page: React.ReactNode) => (
@@ -59,4 +59,4 @@ ForgotPassword.layout = (page: React.ReactNode) => (
     >
         {page}
     </GuestLayout>
-);
+)

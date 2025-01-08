@@ -1,14 +1,14 @@
-import { ProgressBar, type ProgressBarProps } from 'react-aria-components';
+import { ProgressBar, type ProgressBarProps } from 'react-aria-components'
 
-import { cn } from './utils';
+import { cn } from './utils'
 
 interface ProgressCircleProps extends Omit<ProgressBarProps, 'className'> {
-    className?: string;
+    className?: string
 }
 
 const ProgressCircle = ({ className, ...props }: ProgressCircleProps) => {
-    const c = '50%';
-    const r = 'calc(50% - 2px)';
+    const c = '50%'
+    const r = 'calc(50% - 2px)'
     return (
         <ProgressBar {...props}>
             {({ percentage, isIndeterminate }) => (
@@ -57,7 +57,7 @@ const ProgressCircle = ({ className, ...props }: ProgressCircleProps) => {
                 </svg>
             )}
         </ProgressBar>
-    );
-};
+    )
+}
 
-export { ProgressCircle };
+export { ProgressCircle }

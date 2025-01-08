@@ -1,14 +1,14 @@
-import { motion } from 'framer-motion';
+import { motion } from 'framer-motion'
 import {
     ProgressBar as ProgressBarPrimitive,
     type ProgressBarProps as ProgressBarPrimitiveProps,
-} from 'react-aria-components';
+} from 'react-aria-components'
 
-import { Label } from './field';
-import { ctr } from './utils';
+import { Label } from './field'
+import { ctr } from './utils'
 
 interface ProgressBarProps extends ProgressBarPrimitiveProps {
-    label?: string;
+    label?: string
 }
 
 const ProgressBar = ({ label, className, ...props }: ProgressBarProps) => {
@@ -52,7 +52,7 @@ const ProgressBar = ({ label, className, ...props }: ProgressBarProps) => {
                 </>
             )}
         </ProgressBarPrimitive>
-    );
-};
+    )
+}
 
-export { ProgressBar };
+export { ProgressBar }

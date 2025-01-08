@@ -1,6 +1,6 @@
-import React from 'react';
+import React from 'react'
 
-import { tv } from 'tailwind-variants';
+import { tv } from 'tailwind-variants'
 
 const descriptionListStyles = tv({
     slots: {
@@ -8,31 +8,31 @@ const descriptionListStyles = tv({
         dt: 'col-start-1 border-t pt-3 text-muted-foreground first:border-none sm:py-3',
         dd: 'pb-3 pt-1 text-foreground sm:border-t sm:py-3 sm:[&:nth-child(2)]:border-none',
     },
-});
+})
 
-const { dl, dt, dd } = descriptionListStyles();
+const { dl, dt, dd } = descriptionListStyles()
 
 const DescriptionList = ({
     className,
     ...props
 }: React.ComponentPropsWithoutRef<'dl'>) => {
-    return <dl {...props} className={dl({ className })} />;
-};
+    return <dl {...props} className={dl({ className })} />
+}
 
 const DescriptionTerm = ({
     className,
     ...props
 }: React.ComponentPropsWithoutRef<'dt'>) => {
-    return <dt {...props} className={dt({ className })} />;
-};
+    return <dt {...props} className={dt({ className })} />
+}
 
 const DescriptionDetails = ({
     className,
     ...props
 }: React.ComponentPropsWithoutRef<'dd'>) => {
-    return <dd {...props} className={dd({ className })} />;
-};
+    return <dd {...props} className={dd({ className })} />
+}
 
-DescriptionList.Term = DescriptionTerm;
-DescriptionList.Details = DescriptionDetails;
-export { DescriptionList };
+DescriptionList.Term = DescriptionTerm
+DescriptionList.Details = DescriptionDetails
+export { DescriptionList }

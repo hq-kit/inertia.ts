@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 import {
     DateField as DateFieldPrimitive,
@@ -8,19 +8,19 @@ import {
     DateSegment,
     type DateValue,
     type ValidationResult,
-} from 'react-aria-components';
-import { tv } from 'tailwind-variants';
+} from 'react-aria-components'
+import { tv } from 'tailwind-variants'
 
-import { Description, FieldError, FieldGroup, Label } from './field';
-import { cn, ctr } from './utils';
+import { Description, FieldError, FieldGroup, Label } from './field'
+import { cn, ctr } from './utils'
 
 interface DateFieldProps<T extends DateValue>
     extends DateFieldPrimitiveProps<T> {
-    label?: string;
-    description?: string;
-    errorMessage?: string | ((validation: ValidationResult) => string);
-    prefix?: React.ReactNode;
-    suffix?: React.ReactNode;
+    label?: string
+    description?: string
+    errorMessage?: string | ((validation: ValidationResult) => string)
+    prefix?: React.ReactNode
+    suffix?: React.ReactNode
 }
 
 const DateField = <T extends DateValue>({
@@ -45,8 +45,8 @@ const DateField = <T extends DateValue>({
             {description && <Description>{description}</Description>}
             <FieldError>{errorMessage}</FieldError>
         </DateFieldPrimitive>
-    );
-};
+    )
+}
 
 const segmentStyles = tv({
     base: 'inline shrink-0 sm:uppercase tabular-nums rounded-lg p-0.5 tracking-wider text-foreground caret-transparent outline outline-0 forced-color-adjust-none type-literal:px-0 lg:text-sm forced-colors:text-[ButtonText]',
@@ -64,7 +64,7 @@ const segmentStyles = tv({
             ],
         },
     },
-});
+})
 
 const DateInput = ({
     className,
@@ -82,7 +82,7 @@ const DateInput = ({
                 <DateSegment segment={segment} className={segmentStyles} />
             )}
         </DateInputPrimitive>
-    );
-};
+    )
+}
 
-export { DateField, DateInput, segmentStyles, type DateFieldProps };
+export { DateField, DateInput, segmentStyles, type DateFieldProps }

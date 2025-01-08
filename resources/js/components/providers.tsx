@@ -1,28 +1,28 @@
-import { Toast } from '@/components/ui';
-import { router } from '@inertiajs/react';
-import * as React from 'react';
-import { RouterProvider } from 'react-aria-components';
+import { Toast } from '@/components/ui'
+import { router } from '@inertiajs/react'
+import * as React from 'react'
+import { RouterProvider } from 'react-aria-components'
 
-type Theme = 'dark' | 'light' | 'system';
+type Theme = 'dark' | 'light' | 'system'
 
 type ThemeProviderProps = {
-    children: React.ReactNode;
-    defaultTheme?: Theme;
-    storageKey?: string;
-};
+    children: React.ReactNode
+    defaultTheme?: Theme
+    storageKey?: string
+}
 
 type ThemeProviderState = {
-    theme: Theme;
-    setTheme: (theme: Theme) => void;
-};
+    theme: Theme
+    setTheme: (theme: Theme) => void
+}
 
 const initialState: ThemeProviderState = {
     theme: 'system',
     setTheme: () => null,
-};
+}
 
 const ThemeProviderContext =
-    React.createContext<ThemeProviderState>(initialState);
+    React.createContext<ThemeProviderState>(initialState)
 
 function ThemeProvider({
     children,
@@ -32,28 +32,28 @@ function ThemeProvider({
 }: ThemeProviderProps) {
     const [theme, setTheme] = React.useState<Theme>(
         () => (localStorage.getItem(storageKey) as Theme) || defaultTheme,
-    );
+    )
 
     React.useEffect(() => {
-        const root = window.document.documentElement;
+        const root = window.document.documentElement
 
-        root.classList.remove('light', 'dark');
+        root.classList.remove('light', 'dark')
 
         if (theme === 'system') {
             const systemTheme = window.matchMedia(
                 '(prefers-color-scheme: dark)',
             ).matches
                 ? 'dark'
-                : 'light';
+                : 'light'
 
-            root.classList.add(systemTheme);
-            return;
+            root.classList.add(systemTheme)
+            return
         }
 
         if (theme === 'light' || theme === 'dark') {
-            root.classList.add(theme);
+            root.classList.add(theme)
         }
-    }, [theme]);
+    }, [theme])
 
     const value = {
         theme,
@@ -63,27 +63,27 @@ function ThemeProvider({
                 newTheme === 'dark' ||
                 newTheme === 'system'
             ) {
-                localStorage.setItem(storageKey, newTheme);
-                setTheme(newTheme);
+                localStorage.setItem(storageKey, newTheme)
+                setTheme(newTheme)
             }
         },
-    };
+    }
 
     return (
         <ThemeProviderContext.Provider {...props} value={value}>
             {children}
         </ThemeProviderContext.Provider>
-    );
+    )
 }
 
 const useTheme = () => {
-    const context = React.useContext(ThemeProviderContext);
+    const context = React.useContext(ThemeProviderContext)
 
     if (context === undefined)
-        throw new Error('useTheme must be used within a ThemeProvider');
+        throw new Error('useTheme must be used within a ThemeProvider')
 
-    return context;
-};
+    return context
+}
 
 function Providers({ children }: { children: React.ReactNode }) {
     return (
@@ -95,7 +95,7 @@ function Providers({ children }: { children: React.ReactNode }) {
                 {children}
             </ThemeProvider>
         </RouterProvider>
-    );
+    )
 }
 
-export { Providers, useTheme };
+export { Providers, useTheme }

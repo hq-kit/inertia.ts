@@ -1,6 +1,6 @@
-import React from 'react';
+import React from 'react'
 
-import { IconX } from 'hq-icons';
+import { IconX } from 'hq-icons'
 import {
     Button,
     TagGroup as TagGroupPrimitive,
@@ -9,14 +9,14 @@ import {
     type TagListProps,
     Tag as TagPrimitive,
     type TagProps as TagPrimitiveProps,
-} from 'react-aria-components';
-import { tv } from 'tailwind-variants';
+} from 'react-aria-components'
+import { tv } from 'tailwind-variants'
 
-import { badgeVariants } from './badge';
-import { Description, Label } from './field';
-import { cn, cr } from './utils';
+import { badgeVariants } from './badge'
+import { Description, Label } from './field'
+import { cn, cr } from './utils'
 
-const { variant } = badgeVariants.variants;
+const { variant } = badgeVariants.variants
 
 const variants = {
     primary: {
@@ -93,28 +93,28 @@ const variants = {
             '[&_[slot=remove]:hover]:bg-foreground/80 [&_[slot=remove]:hover]:text-foreground',
         ],
     },
-};
+}
 
-type RestrictedVariant = 'primary' | 'secondary';
-type Variant = keyof typeof variant;
-type Shape = keyof typeof badgeVariants.variants.shape;
+type RestrictedVariant = 'primary' | 'secondary'
+type Variant = keyof typeof variant
+type Shape = keyof typeof badgeVariants.variants.shape
 
 type TagGroupContextValue = {
-    variant: Variant;
-    shape: Shape;
-};
+    variant: Variant
+    shape: Shape
+}
 
 const TagGroupContext = React.createContext<TagGroupContextValue>({
     variant: 'primary',
     shape: 'square',
-});
+})
 
 export interface TagGroupProps extends TagGroupPrimitiveProps {
-    variant?: Variant;
-    shape?: Shape;
-    errorMessage?: string;
-    label?: string;
-    description?: string;
+    variant?: Variant
+    shape?: Shape
+    errorMessage?: string
+    label?: string
+    description?: string
 }
 
 const TagGroup = ({ children, ...props }: TagGroupProps) => {
@@ -136,8 +136,8 @@ const TagGroup = ({ children, ...props }: TagGroupProps) => {
                 )}
             </TagGroupContext.Provider>
         </TagGroupPrimitive>
-    );
-};
+    )
+}
 
 const TagList = <T extends object>({
     className,
@@ -148,8 +148,8 @@ const TagList = <T extends object>({
             {...props}
             className={cn('flex flex-wrap gap-2', className)}
         />
-    );
-};
+    )
+}
 
 const tagStyles = tv({
     base: [badgeVariants.base, 'cursor-pointer tag'],
@@ -159,11 +159,11 @@ const tagStyles = tv({
         isDisabled: { true: 'opacity-50 cursor-default' },
         allowsRemoving: { true: 'pr-1' },
     },
-});
+})
 
 interface TagProps extends TagPrimitiveProps {
-    variant?: Variant;
-    shape?: Shape;
+    variant?: Variant
+    shape?: Shape
 }
 
 const TagItem = ({
@@ -173,16 +173,16 @@ const TagItem = ({
     shape,
     ...props
 }: TagProps) => {
-    const textValue = typeof children === 'string' ? children : undefined;
-    const groupContext = React.useContext(TagGroupContext);
+    const textValue = typeof children === 'string' ? children : undefined
+    const groupContext = React.useContext(TagGroupContext)
 
     return (
         <TagPrimitive
             textValue={textValue}
             {...props}
             className={cr(className, (_, renderProps) => {
-                const finalVariant = variant || groupContext.variant;
-                const finalShape = shape || groupContext.shape;
+                const finalVariant = variant || groupContext.variant
+                const finalShape = shape || groupContext.shape
                 return tagStyles({
                     ...renderProps,
                     className: cn([
@@ -192,7 +192,7 @@ const TagItem = ({
                             ? variants[finalVariant as Variant].selected
                             : undefined,
                     ]),
-                });
+                })
             })}
         >
             {({ allowsRemoving }) => {
@@ -213,16 +213,16 @@ const TagItem = ({
                             </Button>
                         )}
                     </>
-                );
+                )
             }}
         </TagPrimitive>
-    );
-};
+    )
+}
 
 const Tag = {
     Group: TagGroup,
     Item: TagItem,
     List: TagList,
-};
+}
 
-export { Tag, type RestrictedVariant };
+export { Tag, type RestrictedVariant }

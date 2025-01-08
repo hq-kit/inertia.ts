@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 import {
     Button,
@@ -6,11 +6,11 @@ import {
     Tooltip as TooltipPrimitive,
     type TooltipProps as TooltipPrimitiveProps,
     TooltipTrigger,
-} from 'react-aria-components';
-import type { VariantProps } from 'tailwind-variants';
-import { tv } from 'tailwind-variants';
+} from 'react-aria-components'
+import type { VariantProps } from 'tailwind-variants'
+import { tv } from 'tailwind-variants'
 
-import { cr } from './utils';
+import { cr } from './utils'
 
 export const tooltipStyles = tv({
     base: [
@@ -31,17 +31,17 @@ export const tooltipStyles = tv({
             true: 'animate-in fade-in direction-reverse',
         },
     },
-});
+})
 
 const Tooltip = (props: React.ComponentProps<typeof TooltipTrigger>) => (
     <TooltipTrigger {...props}>{props.children}</TooltipTrigger>
-);
+)
 
 interface ContentProps
     extends Omit<TooltipPrimitiveProps, 'children'>,
         VariantProps<typeof tooltipStyles> {
-    showArrow?: boolean;
-    children: React.ReactNode;
+    showArrow?: boolean
+    children: React.ReactNode
 }
 
 const Content = ({
@@ -76,10 +76,10 @@ const Content = ({
             )}
             {children}
         </TooltipPrimitive>
-    );
-};
+    )
+}
 
-Tooltip.Trigger = Button;
-Tooltip.Content = Content;
+Tooltip.Trigger = Button
+Tooltip.Content = Content
 
-export { Tooltip };
+export { Tooltip }

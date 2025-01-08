@@ -1,13 +1,13 @@
-import { Button, Modal } from '@/components/ui';
-import { router } from '@inertiajs/react';
+import { Button, Modal } from '@/components/ui'
+import { router } from '@inertiajs/react'
 
 interface Props {
-    title?: string;
-    description?: string;
-    isOpen: boolean;
-    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    route: string;
-    children?: React.ReactNode;
+    title?: string
+    description?: string
+    isOpen: boolean
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+    route: string
+    children?: React.ReactNode
 }
 
 export default function DeleteModal({
@@ -42,5 +42,5 @@ export default function DeleteModal({
                 </Modal.Footer>
             </Modal.Content>
         </Modal>
-    );
+    )
 }

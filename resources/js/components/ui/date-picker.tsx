@@ -1,6 +1,6 @@
-import React from 'react';
+import React from 'react'
 
-import { IconCalendarDays } from 'hq-icons';
+import { IconCalendarDays } from 'hq-icons'
 import {
     DatePicker as DatePickerPrimitive,
     type DatePickerProps as DatePickerPrimitiveProps,
@@ -8,16 +8,16 @@ import {
     type DialogProps,
     type PopoverProps,
     type ValidationResult,
-} from 'react-aria-components';
-import { tv } from 'tailwind-variants';
+} from 'react-aria-components'
+import { tv } from 'tailwind-variants'
 
-import { Button } from './button';
-import { Calendar } from './calendar';
-import { DateInput } from './date-field';
-import { Description, FieldError, FieldGroup, Label } from './field';
-import { Popover } from './popover';
-import { RangeCalendar } from './range-calendar';
-import { ctr } from './utils';
+import { Button } from './button'
+import { Calendar } from './calendar'
+import { DateInput } from './date-field'
+import { Description, FieldError, FieldGroup, Label } from './field'
+import { Popover } from './popover'
+import { RangeCalendar } from './range-calendar'
+import { ctr } from './utils'
 
 const datePickerStyles = tv({
     slots: {
@@ -31,18 +31,18 @@ const datePickerStyles = tv({
         dateRangePickerDash:
             'text-foreground group-disabled:opacity-50 forced-colors:text-[ButtonText] group-disabled:forced-colors:text-[GrayText]',
     },
-});
+})
 
 const { base, datePickerIcon, calendarIcon, datePickerInput } =
-    datePickerStyles();
+    datePickerStyles()
 
 interface DatePickerOverlayProps
     extends Omit<DialogProps, 'children' | 'className' | 'style'>,
         Omit<PopoverProps, 'children' | 'className' | 'style'> {
-    className?: string | ((values: { defaultClassName?: string }) => string);
-    children?: React.ReactNode;
-    closeButton?: boolean;
-    range?: boolean;
+    className?: string | ((values: { defaultClassName?: string }) => string)
+    children?: React.ReactNode
+    closeButton?: boolean
+    range?: boolean
 }
 
 const DatePickerOverlay = ({
@@ -65,21 +65,21 @@ const DatePickerOverlay = ({
                 </div>
             )}
         </Popover.Content>
-    );
-};
+    )
+}
 
 const DatePickerIcon = () => (
     <Button size="icon" variant="ghost" className={datePickerIcon()}>
         <IconCalendarDays aria-hidden className={calendarIcon()} />
     </Button>
-);
+)
 
 interface DatePickerProps<T extends DateValue>
     extends DatePickerPrimitiveProps<T> {
-    label?: string;
-    description?: string;
-    errorMessage?: string | ((validation: ValidationResult) => string);
-    portal?: Element;
+    label?: string
+    description?: string
+    errorMessage?: string | ((validation: ValidationResult) => string)
+    portal?: Element
 }
 
 const DatePicker = <T extends DateValue>({
@@ -100,8 +100,8 @@ const DatePicker = <T extends DateValue>({
             <FieldError>{errorMessage}</FieldError>
             <DatePickerOverlay UNSTABLE_portalContainer={props.portal} />
         </DatePickerPrimitive>
-    );
-};
+    )
+}
 
 export {
     DatePicker,
@@ -110,4 +110,4 @@ export {
     type DatePickerProps,
     type DateValue,
     type ValidationResult,
-};
+}

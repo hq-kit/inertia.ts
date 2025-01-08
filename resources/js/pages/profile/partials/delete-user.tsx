@@ -1,5 +1,5 @@
-import { Button, Card, Modal, TextField } from '@/components/ui';
-import { useForm } from '@inertiajs/react';
+import { Button, Card, Modal, TextField } from '@/components/ui'
+import { useForm } from '@inertiajs/react'
 
 export default function DeleteUser() {
     const {
@@ -11,19 +11,19 @@ export default function DeleteUser() {
         errors,
     } = useForm({
         password: '',
-    });
+    })
 
     const deleteUser = () => {
         destroy(route('profile.destroy'), {
             preserveScroll: true,
             onSuccess: () => closeModal(),
             onFinish: () => reset(),
-        });
-    };
+        })
+    }
 
     const closeModal = () => {
-        reset();
-    };
+        reset()
+    }
 
     return (
         <Card>
@@ -78,5 +78,5 @@ export default function DeleteUser() {
                 </Modal>
             </Card.Content>
         </Card>
-    );
+    )
 }

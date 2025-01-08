@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 import {
     SliderOutput,
@@ -13,13 +13,13 @@ import {
     type SliderThumbProps,
     type SliderTrackProps,
     type TextProps,
-} from 'react-aria-components';
-import { tv, type VariantProps } from 'tailwind-variants';
+} from 'react-aria-components'
+import { tv, type VariantProps } from 'tailwind-variants'
 
-import { useSlotId } from '@react-aria/utils';
+import { useSlotId } from '@react-aria/utils'
 
-import { Description, Label } from './field';
-import { cr } from './utils';
+import { Description, Label } from './field'
+import { cr } from './utils'
 
 const sliderStyles = tv({
     slots: {
@@ -42,14 +42,14 @@ const sliderStyles = tv({
         ],
         valueLabel: 'text-muted-foreground tabular-nums text-sm',
     },
-});
+})
 
-const { track, filler, thumb, root, valueLabel } = sliderStyles();
+const { track, filler, thumb, root, valueLabel } = sliderStyles()
 
-type SliderRootProps = SliderPrimitiveProps;
+type SliderRootProps = SliderPrimitiveProps
 
 const Root = (props: SliderPrimitiveProps) => {
-    const descriptionId = useSlotId();
+    const descriptionId = useSlotId()
     return (
         <TextContext.Provider
             value={{ slots: { description: { id: descriptionId } } }}
@@ -63,15 +63,15 @@ const Root = (props: SliderPrimitiveProps) => {
                 )}
             />
         </TextContext.Provider>
-    );
-};
+    )
+}
 
 interface SliderProps
     extends SliderRootProps,
         VariantProps<typeof sliderStyles> {
-    label?: LabelProps['children'];
-    description?: TextProps['children'];
-    showValue?: boolean | ((value: number[]) => string);
+    label?: LabelProps['children']
+    description?: TextProps['children']
+    showValue?: boolean | ((value: number[]) => string)
 }
 
 const Slider = ({
@@ -96,17 +96,17 @@ const Slider = ({
         <Controls />
         {description && <Description>{description}</Description>}
     </Root>
-);
+)
 
 const Controls = (props: SliderTrackProps) => {
-    const state = React.useContext(SliderStateContext);
+    const state = React.useContext(SliderStateContext)
     return (
         <Track {...props}>
             <Filler />
             {state?.values.map((_, i) => <Thumb key={i} index={i} />)}
         </Track>
-    );
-};
+    )
+}
 
 const Track = (props: SliderTrackProps) => {
     return (
@@ -114,21 +114,21 @@ const Track = (props: SliderTrackProps) => {
             {...props}
             className={cr(props.className, (className) => track({ className }))}
         />
-    );
-};
+    )
+}
 
 const Filler = (props: React.HTMLAttributes<HTMLDivElement>) => {
-    const state = React.useContext(SliderStateContext);
-    const { orientation, getThumbPercent, values } = state || {};
+    const state = React.useContext(SliderStateContext)
+    const { orientation, getThumbPercent, values } = state || {}
 
     const getStyle = () => {
-        const percent0 = getThumbPercent ? getThumbPercent(0) * 100 : 0;
-        const percent1 = getThumbPercent ? getThumbPercent(1) * 100 : 0;
+        const percent0 = getThumbPercent ? getThumbPercent(0) * 100 : 0
+        const percent1 = getThumbPercent ? getThumbPercent(1) * 100 : 0
 
         if (values?.length === 1) {
             return orientation === 'horizontal'
                 ? { width: `${percent0}%` }
-                : { height: `${percent0}%` };
+                : { height: `${percent0}%` }
         }
 
         return orientation === 'horizontal'
@@ -139,8 +139,8 @@ const Filler = (props: React.HTMLAttributes<HTMLDivElement>) => {
             : {
                   bottom: `${percent0}%`,
                   height: `${Math.abs(percent0 - percent1)}%`,
-              };
-    };
+              }
+    }
 
     return (
         <div
@@ -148,8 +148,8 @@ const Filler = (props: React.HTMLAttributes<HTMLDivElement>) => {
             style={getStyle()}
             className={filler({ className: props.className })}
         />
-    );
-};
+    )
+}
 
 const Thumb = ({ className, ...props }: SliderThumbProps) => {
     return (
@@ -157,8 +157,8 @@ const Thumb = ({ className, ...props }: SliderThumbProps) => {
             {...props}
             className={cr(className, (className) => thumb({ className }))}
         />
-    );
-};
+    )
+}
 
 const Output = ({ className, ...props }: SliderOutputProps) => {
     return (
@@ -175,13 +175,13 @@ const Output = ({ className, ...props }: SliderOutputProps) => {
                         .join(' - '),
             )}
         </SliderOutput>
-    );
-};
+    )
+}
 
-Slider.Controls = Controls;
-Slider.Filler = Filler;
-Slider.Root = Root;
-Slider.Thumb = Thumb;
-Slider.Track = Track;
-Slider.Output = Output;
-export { Slider };
+Slider.Controls = Controls
+Slider.Filler = Filler
+Slider.Root = Root
+Slider.Thumb = Thumb
+Slider.Track = Track
+Slider.Output = Output
+export { Slider }

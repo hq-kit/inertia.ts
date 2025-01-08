@@ -1,11 +1,11 @@
-import type { GridListItemProps, GridListProps } from 'react-aria-components';
-import { GridList, GridListItem } from 'react-aria-components';
-import type { VariantProps } from 'tailwind-variants';
-import { tv } from 'tailwind-variants';
+import type { GridListItemProps, GridListProps } from 'react-aria-components'
+import { GridList, GridListItem } from 'react-aria-components'
+import type { VariantProps } from 'tailwind-variants'
+import { tv } from 'tailwind-variants'
 
-import { Checkbox } from './checkbox';
-import { Description, Label } from './field';
-import { cr } from './utils';
+import { Checkbox } from './checkbox'
+import { Description, Label } from './field'
+import { cr } from './utils'
 
 const choiceboxStyles = tv({
     base: 'grid',
@@ -28,12 +28,12 @@ const choiceboxStyles = tv({
         columns: 2,
         gap: 6,
     },
-});
+})
 
 interface ChoiceboxProps<T extends object>
     extends GridListProps<T>,
         VariantProps<typeof choiceboxStyles> {
-    className?: string;
+    className?: string
 }
 
 const Choicebox = <T extends object>({
@@ -54,8 +54,8 @@ const Choicebox = <T extends object>({
             })}
             {...props}
         />
-    );
-};
+    )
+}
 const choiceboxItemStyles = tv({
     base: 'rounded-lg cursor-pointer border p-4 [&_[slot=title]]:font-medium transition outline-none focus:outline-none',
     variants: {
@@ -77,13 +77,13 @@ const choiceboxItemStyles = tv({
             true: 'z-10 cursor-default opacity-80 [&_[slot=title]]:text-muted-foreground',
         },
     },
-});
+})
 
 interface ChoiceboxItemProps
     extends GridListItemProps,
         VariantProps<typeof choiceboxItemStyles> {
-    title: string;
-    description?: string;
+    title: string
+    description?: string
 }
 
 const ChoiceboxItem = ({
@@ -91,7 +91,7 @@ const ChoiceboxItem = ({
     className,
     ...props
 }: ChoiceboxItemProps) => {
-    const textValue = typeof children === 'string' ? children : undefined;
+    const textValue = typeof children === 'string' ? children : undefined
     return (
         <GridListItem
             textValue={textValue}
@@ -122,8 +122,8 @@ const ChoiceboxItem = ({
                 </div>
             )}
         </GridListItem>
-    );
-};
+    )
+}
 
-Choicebox.Item = ChoiceboxItem;
-export { Choicebox };
+Choicebox.Item = ChoiceboxItem
+export { Choicebox }

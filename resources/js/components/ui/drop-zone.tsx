@@ -1,10 +1,10 @@
 import {
     DropZone as DropPrimitiveZone,
     type DropZoneProps,
-} from 'react-aria-components';
-import { tv } from 'tailwind-variants';
+} from 'react-aria-components'
+import { tv } from 'tailwind-variants'
 
-import { cr, focusStyles } from './utils';
+import { cr, focusStyles } from './utils'
 
 const dropZoneStyles = tv({
     extend: focusStyles,
@@ -14,7 +14,7 @@ const dropZoneStyles = tv({
             true: 'bg-primary/10 ring-4 ring-primary/20 [&_.text-muted-foreground]:text-primary-foreground border-solid border-primary',
         },
     },
-});
+})
 
 const DropZone = ({ className, ...props }: DropZoneProps) => (
     <DropPrimitiveZone
@@ -23,5 +23,5 @@ const DropZone = ({ className, ...props }: DropZoneProps) => (
         )}
         {...props}
     />
-);
-export { DropZone };
+)
+export { DropZone }

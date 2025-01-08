@@ -1,21 +1,21 @@
-import React from 'react';
+import React from 'react'
 
-import { IconMinus } from 'hq-icons';
+import { IconMinus } from 'hq-icons'
 import type {
     ButtonProps,
     TreeItemProps,
     TreeProps,
-} from 'react-aria-components';
+} from 'react-aria-components'
 import {
     Button,
     UNSTABLE_TreeItemContent as TreeItemContent,
     UNSTABLE_TreeItem as TreeItemPrimitive,
     UNSTABLE_Tree as TreePrimitive,
-} from 'react-aria-components';
-import { tv } from 'tailwind-variants';
+} from 'react-aria-components'
+import { tv } from 'tailwind-variants'
 
-import { Checkbox } from './checkbox';
-import { cr } from './utils';
+import { Checkbox } from './checkbox'
+import { cr } from './utils'
 
 const treeStyles = tv({
     base: 'flex border max-h-96 min-w-72 py-2 rounded-lg bg-background cursor-default lg:text-sm flex-col overflow-auto outline-none',
@@ -24,7 +24,7 @@ const treeStyles = tv({
             true: 'outline-offset-[-1px] outline-2 outline-primary',
         },
     },
-});
+})
 
 const Tree = <T extends object>({ className, ...props }: TreeProps<T>) => {
     return (
@@ -39,8 +39,8 @@ const Tree = <T extends object>({ className, ...props }: TreeProps<T>) => {
         >
             {props.children}
         </TreePrimitive>
-    );
-};
+    )
+}
 
 const itemStyles = tv({
     base: [
@@ -59,7 +59,7 @@ const itemStyles = tv({
             true: 'opacity-50',
         },
     },
-});
+})
 
 const TreeItem = <T extends object>({
     className,
@@ -77,8 +77,8 @@ const TreeItem = <T extends object>({
         >
             {props.children}
         </TreeItemPrimitive>
-    );
-};
+    )
+}
 
 const ItemContent = (props: React.ComponentProps<typeof TreeItemContent>) => (
     <TreeItemContent {...props}>
@@ -86,7 +86,7 @@ const ItemContent = (props: React.ComponentProps<typeof TreeItemContent>) => (
             <>{props.children as React.ReactNode}</>
         </div>
     </TreeItemContent>
-);
+)
 
 const Indicator = () => (
     <Button className="relative shrink-0" slot="chevron">
@@ -95,9 +95,9 @@ const Indicator = () => (
             <IconMinus className="indicator absolute size-3" />
         </div>
     </Button>
-);
+)
 
-const ItemCheckbox = () => <Checkbox slot="selection" />;
+const ItemCheckbox = () => <Checkbox slot="selection" />
 
 const ItemLabel = (props: ButtonProps) => (
     <Button
@@ -109,11 +109,11 @@ const ItemLabel = (props: ButtonProps) => (
         }}
         {...props}
     />
-);
+)
 
-TreeItem.Label = ItemLabel;
-TreeItem.Indicator = Indicator;
-TreeItem.Checkbox = ItemCheckbox;
-TreeItem.Content = ItemContent;
+TreeItem.Label = ItemLabel
+TreeItem.Indicator = Indicator
+TreeItem.Checkbox = ItemCheckbox
+TreeItem.Content = ItemContent
 
-export { Tree, TreeItem };
+export { Tree, TreeItem }

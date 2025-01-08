@@ -1,22 +1,22 @@
-import React from 'react';
+import React from 'react'
 
 import {
     ToggleButton,
     ToggleButtonGroup,
     type ToggleButtonGroupProps,
     type ToggleButtonProps,
-} from 'react-aria-components';
-import { tv, type VariantProps } from 'tailwind-variants';
+} from 'react-aria-components'
+import { tv, type VariantProps } from 'tailwind-variants'
 
-import { cr } from './utils';
+import { cr } from './utils'
 
 interface ToggleGroupContextProps {
-    variant?: 'solid' | 'outline' | 'ghost';
+    variant?: 'solid' | 'outline' | 'ghost'
 }
 
 const ToggleGroupContext = React.createContext<ToggleGroupContextProps>({
     variant: 'solid',
-});
+})
 
 const toggleGroupStyles = tv({
     base: ['flex gap-1'],
@@ -27,7 +27,7 @@ const toggleGroupStyles = tv({
             vertical: 'flex-col items-start',
         },
     },
-});
+})
 
 const ToggleGroup = ({
     className,
@@ -49,8 +49,8 @@ const ToggleGroup = ({
                 {...props}
             />
         </ToggleGroupContext.Provider>
-    );
-};
+    )
+}
 
 const toggleStyles = tv({
     base: [
@@ -84,12 +84,12 @@ const toggleStyles = tv({
         size: 'md',
         shape: 'square',
     },
-});
+})
 
-type ToggleProps = ToggleButtonProps & VariantProps<typeof toggleStyles>;
+type ToggleProps = ToggleButtonProps & VariantProps<typeof toggleStyles>
 
 const Toggle = ({ className, variant, ...props }: ToggleProps) => {
-    const { variant: groupVariant } = React.useContext(ToggleGroupContext);
+    const { variant: groupVariant } = React.useContext(ToggleGroupContext)
 
     return (
         <ToggleButton
@@ -104,9 +104,9 @@ const Toggle = ({ className, variant, ...props }: ToggleProps) => {
                 }),
             )}
         />
-    );
-};
+    )
+}
 
-Toggle.Group = ToggleGroup;
+Toggle.Group = ToggleGroup
 
-export { Toggle, toggleStyles, type ToggleProps };
+export { Toggle, toggleStyles, type ToggleProps }

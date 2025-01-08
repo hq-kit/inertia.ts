@@ -1,28 +1,28 @@
-import React from 'react';
+import React from 'react'
 
-import { IconChevronDown, IconX } from 'hq-icons';
+import { IconChevronDown, IconX } from 'hq-icons'
 import {
     ComboBox as ComboboxPrimitive,
     type ComboBoxProps as ComboboxPrimitiveProps,
     ComboBoxStateContext,
     type ValidationResult,
-} from 'react-aria-components';
+} from 'react-aria-components'
 
-import { Button } from './button';
-import { DropdownItem, DropdownSection } from './dropdown';
-import { Description, FieldError, FieldGroup, Input, Label } from './field';
-import { ListBox } from './list-box';
-import { Popover } from './popover';
-import { cn } from './utils';
+import { Button } from './button'
+import { DropdownItem, DropdownSection } from './dropdown'
+import { Description, FieldError, FieldGroup, Input, Label } from './field'
+import { ListBox } from './list-box'
+import { Popover } from './popover'
+import { cn } from './utils'
 
 interface ComboBoxProps<T extends object>
     extends Omit<ComboboxPrimitiveProps<T>, 'children'> {
-    label?: string;
-    placeholder?: string;
-    description?: string | null;
-    errorMessage?: string | ((validation: ValidationResult) => string);
-    children: React.ReactNode | ((item: T) => React.ReactNode);
-    portal?: Element;
+    label?: string
+    placeholder?: string
+    description?: string | null
+    errorMessage?: string | ((validation: ValidationResult) => string)
+    children: React.ReactNode | ((item: T) => React.ReactNode)
+    portal?: Element
 }
 
 const ComboBox = <T extends object>({
@@ -64,11 +64,11 @@ const ComboBox = <T extends object>({
                 <ListBox.Picker items={items}>{children}</ListBox.Picker>
             </Popover.Picker>
         </ComboboxPrimitive>
-    );
-};
+    )
+}
 
 const ComboBoxClearButton = () => {
-    const state = React.useContext(ComboBoxStateContext);
+    const state = React.useContext(ComboBoxStateContext)
 
     return (
         <Button
@@ -76,19 +76,19 @@ const ComboBoxClearButton = () => {
             slot={null}
             aria-label="Clear"
             onPress={() => {
-                state?.setSelectedKey(null);
-                state?.open();
+                state?.setSelectedKey(null)
+                state?.open()
             }}
         >
             <IconX className="size-4" />
         </Button>
-    );
-};
+    )
+}
 
-const ComboBoxItem = DropdownItem;
-const ComboBoxSection = DropdownSection;
+const ComboBoxItem = DropdownItem
+const ComboBoxSection = DropdownSection
 
-ComboBox.Item = ComboBoxItem;
-ComboBox.Section = ComboBoxSection;
+ComboBox.Item = ComboBoxItem
+ComboBox.Section = ComboBoxSection
 
-export { ComboBox, type ComboBoxProps };
+export { ComboBox, type ComboBoxProps }

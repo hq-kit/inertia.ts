@@ -1,6 +1,6 @@
-'use client';
+'use client'
 
-import React from 'react';
+import React from 'react'
 
 import {
     IconBrandLaravel,
@@ -11,11 +11,11 @@ import {
     IconMoon,
     IconSearch,
     IconSun,
-} from 'hq-icons';
+} from 'hq-icons'
 
-import CommandPalette from '@/components/command-palette';
-import { useTheme } from '@/components/providers';
-import { ToastMessage } from '@/components/toast-message';
+import CommandPalette from '@/components/command-palette'
+import { useTheme } from '@/components/providers'
+import { ToastMessage } from '@/components/toast-message'
 import {
     Avatar,
     Button,
@@ -24,29 +24,29 @@ import {
     Menu,
     Sidebar,
     useSidebar,
-} from '@/components/ui';
-import { PageData, User } from '@/types';
-import { usePage } from '@inertiajs/react';
+} from '@/components/ui'
+import { PageData, User } from '@/types'
+import { usePage } from '@inertiajs/react'
 
 export default function AdminLayout({
     children,
 }: {
-    children: React.ReactNode;
+    children: React.ReactNode
 }) {
-    const { user } = usePage<PageData>().props.auth;
-    const [openCommand, setOpenCommand] = React.useState(false);
+    const { user } = usePage<PageData>().props.auth
+    const [openCommand, setOpenCommand] = React.useState(false)
     React.useEffect(() => {
         const down = (e: KeyboardEvent) => {
             if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
-                e.preventDefault();
-                setOpenCommand((openCommand: boolean) => !openCommand);
+                e.preventDefault()
+                setOpenCommand((openCommand: boolean) => !openCommand)
             }
-        };
+        }
 
-        document.addEventListener('keydown', down);
+        document.addEventListener('keydown', down)
 
-        return () => document.removeEventListener('keydown', down);
-    }, [setOpenCommand]);
+        return () => document.removeEventListener('keydown', down)
+    }, [setOpenCommand])
     return (
         <Sidebar.Provider>
             <ToastMessage />
@@ -108,13 +108,13 @@ export default function AdminLayout({
                 <main className="p-4 lg:p-6">{children}</main>
             </Sidebar.Inset>
         </Sidebar.Provider>
-    );
+    )
 }
 
 function AppSidebar({ user }: { user: User }) {
-    const { theme, setTheme } = useTheme();
-    const { state } = useSidebar();
-    const collapsed = state === 'collapsed';
+    const { theme, setTheme } = useTheme()
+    const { state } = useSidebar()
+    const collapsed = state === 'collapsed'
     return (
         <Sidebar variant="floating" collapsible="dock">
             <Sidebar.Header>
@@ -191,7 +191,7 @@ function AppSidebar({ user }: { user: User }) {
             </Sidebar.Footer>
             <Sidebar.Rail />
         </Sidebar>
-    );
+    )
 }
 
 function SidebarItem({
@@ -199,11 +199,11 @@ function SidebarItem({
     allowed = true,
     ...props
 }: React.ComponentProps<typeof Sidebar.Item> & {
-    route: string;
-    allowed?: boolean;
+    route: string
+    allowed?: boolean
 }) {
     if (!allowed) {
-        return null;
+        return null
     }
     return (
         <Sidebar.Item
@@ -212,5 +212,5 @@ function SidebarItem({
             icon={Icon}
             {...props}
         />
-    );
+    )
 }

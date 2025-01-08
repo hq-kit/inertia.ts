@@ -1,4 +1,4 @@
-import { IconCheck } from 'hq-icons';
+import { IconCheck } from 'hq-icons'
 import {
     Collection,
     Header,
@@ -8,10 +8,10 @@ import {
     type ListBoxSectionProps,
     Text,
     type TextProps,
-} from 'react-aria-components';
-import { tv } from 'tailwind-variants';
+} from 'react-aria-components'
+import { tv } from 'tailwind-variants'
 
-import { cn, cr } from './utils';
+import { cn, cr } from './utils'
 
 const dropdownItemStyles = tv({
     base: [
@@ -42,7 +42,7 @@ const dropdownItemStyles = tv({
             className: 'bg-muted',
         },
     ],
-});
+})
 
 const dropdownSectionStyles = tv({
     slots: {
@@ -50,12 +50,12 @@ const dropdownSectionStyles = tv({
             "-mt-[5px] pb-0.5 xss3 flex flex-col gap-y-0.5 after:content-[''] after:block after:h-[5px]",
         header: 'text-sm d-head font-medium text-muted-foreground bg-background px-4 py-2 truncate min-w-[--trigger-width] sticky -top-[5px] backdrop-blur -mt-px -mb-0.5 -mx-1 z-10 supports-[-moz-appearance:none]:bg-background border-y [&+*]:mt-1',
     },
-});
+})
 
-const { section, header } = dropdownSectionStyles();
+const { section, header } = dropdownSectionStyles()
 
 interface DropdownSectionProps<T> extends ListBoxSectionProps<T> {
-    title?: string;
+    title?: string
 }
 
 const DropdownSection = <T extends object>({
@@ -69,13 +69,13 @@ const DropdownSection = <T extends object>({
             )}
             <Collection items={props.items}>{props.children}</Collection>
         </ListBoxSection>
-    );
-};
+    )
+}
 
 const DropdownItem = ({ className, ...props }: ListBoxItemProps) => {
     const textValue =
         props.textValue ||
-        (typeof props.children === 'string' ? props.children : undefined);
+        (typeof props.children === 'string' ? props.children : undefined)
     return (
         <ListBoxItemPrimitive
             textValue={textValue}
@@ -98,16 +98,16 @@ const DropdownItem = ({ className, ...props }: ListBoxItemProps) => {
                 </>
             ))}
         </ListBoxItemPrimitive>
-    );
-};
+    )
+}
 
 interface DropdownItemSlot extends TextProps {
-    label?: TextProps['children'];
-    description?: TextProps['children'];
+    label?: TextProps['children']
+    description?: TextProps['children']
     classNames?: {
-        label?: TextProps['className'];
-        description?: TextProps['className'];
-    };
+        label?: TextProps['className']
+        description?: TextProps['className']
+    }
 }
 
 const DropdownItemDetails = ({
@@ -116,7 +116,7 @@ const DropdownItemDetails = ({
     classNames,
     ...props
 }: DropdownItemSlot) => {
-    const { slot, children, title, ...restProps } = props;
+    const { slot, children, title, ...restProps } = props
 
     return (
         <div className="flex flex-col gap-y-1" {...restProps}>
@@ -143,8 +143,8 @@ const DropdownItemDetails = ({
             )}
             {!title && children}
         </div>
-    );
-};
+    )
+}
 
 export {
     DropdownItem,
@@ -152,4 +152,4 @@ export {
     dropdownItemStyles,
     DropdownSection,
     dropdownSectionStyles,
-};
+}

@@ -1,29 +1,29 @@
-import React from 'react';
+import React from 'react'
 
 import {
     TimeField as TimeFieldPrimitive,
     type TimeFieldProps as TimeFieldPrimitiveProps,
     type TimeValue,
     type ValidationResult,
-} from 'react-aria-components';
-import { tv } from 'tailwind-variants';
+} from 'react-aria-components'
+import { tv } from 'tailwind-variants'
 
-import { DateInput } from './date-field';
-import { Description, FieldError, FieldGroup, Label } from './field';
-import { ctr } from './utils';
+import { DateInput } from './date-field'
+import { Description, FieldError, FieldGroup, Label } from './field'
+import { ctr } from './utils'
 
 export interface TimeFieldProps<T extends TimeValue>
     extends TimeFieldPrimitiveProps<T> {
-    label?: string;
-    description?: string;
-    errorMessage?: string | ((validation: ValidationResult) => string);
-    prefix?: React.ReactNode;
-    suffix?: React.ReactNode;
+    label?: string
+    description?: string
+    errorMessage?: string | ((validation: ValidationResult) => string)
+    prefix?: React.ReactNode
+    suffix?: React.ReactNode
 }
 
 const timeFieldStyles = tv({
     base: 'flex w-fit min-w-28 justify-around whitespace-nowrap p-2 lg:text-sm',
-});
+})
 
 const TimeField = <T extends TimeValue>({
     prefix,
@@ -48,7 +48,7 @@ const TimeField = <T extends TimeValue>({
             {description && <Description>{description}</Description>}
             <FieldError>{errorMessage}</FieldError>
         </TimeFieldPrimitive>
-    );
-};
+    )
+}
 
-export { TimeField };
+export { TimeField }

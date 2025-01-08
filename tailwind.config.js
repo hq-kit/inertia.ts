@@ -1,8 +1,8 @@
 /** @type {import('tailwindcss').Config} */
-import { withTV } from 'tailwind-variants/transformer';
-import ta from 'tailwindcss-animate';
-import trac from 'tailwindcss-react-aria-components';
-import { fontFamily } from 'tailwindcss/defaultTheme';
+import { withTV } from 'tailwind-variants/transformer'
+import ta from 'tailwindcss-animate'
+import trac from 'tailwindcss-react-aria-components'
+import { fontFamily } from 'tailwindcss/defaultTheme'
 
 const config = withTV({
     content: [
@@ -79,6 +79,6 @@ const config = withTV({
         },
     },
     plugins: [ta, trac],
-});
+})
 
-export default config;
+export default config

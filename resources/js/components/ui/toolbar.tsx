@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 import {
     Group,
@@ -6,12 +6,12 @@ import {
     type GroupProps,
     type SeparatorProps,
     type ToolbarProps,
-} from 'react-aria-components';
-import { tv } from 'tailwind-variants';
+} from 'react-aria-components'
+import { tv } from 'tailwind-variants'
 
-import { Separator } from './separator';
-import { Toggle } from './toggle';
-import { cn, cr } from './utils';
+import { Separator } from './separator'
+import { Toggle } from './toggle'
+import { cn, cr } from './utils'
 
 const toolbarStyles = tv({
     base: 'flex gap-2 group',
@@ -22,12 +22,12 @@ const toolbarStyles = tv({
             vertical: 'flex-col items-start',
         },
     },
-});
+})
 
 const ToolbarSeparator = ({ className, ...props }: SeparatorProps) => {
-    const { orientation } = React.useContext(ToolbarContext);
+    const { orientation } = React.useContext(ToolbarContext)
     const effectiveOrientation =
-        orientation === 'vertical' ? 'horizontal' : 'vertical';
+        orientation === 'vertical' ? 'horizontal' : 'vertical'
     return (
         <Separator
             orientation={effectiveOrientation}
@@ -37,14 +37,14 @@ const ToolbarSeparator = ({ className, ...props }: SeparatorProps) => {
             )}
             {...props}
         />
-    );
-};
+    )
+}
 
 const ToolbarContext = React.createContext<{
-    orientation?: ToolbarProps['orientation'];
+    orientation?: ToolbarProps['orientation']
 }>({
     orientation: 'horizontal',
-});
+})
 
 const Toolbar = ({ orientation = 'horizontal', ...props }: ToolbarProps) => {
     return (
@@ -57,17 +57,17 @@ const Toolbar = ({ orientation = 'horizontal', ...props }: ToolbarProps) => {
                 )}
             />
         </ToolbarContext.Provider>
-    );
-};
+    )
+}
 
 const toolbarGroupStyles = tv({
     base: [
         'flex gap-2',
         'group-orientation-vertical:flex-col group-orientation-vertical:items-start',
     ],
-});
+})
 
-const ToolbarGroupContext = React.createContext<{ isDisabled?: boolean }>({});
+const ToolbarGroupContext = React.createContext<{ isDisabled?: boolean }>({})
 
 const ToolbarGroup = ({ isDisabled, ...props }: GroupProps) => {
     return (
@@ -76,21 +76,21 @@ const ToolbarGroup = ({ isDisabled, ...props }: GroupProps) => {
                 {props.children}
             </Group>
         </ToolbarGroupContext.Provider>
-    );
-};
+    )
+}
 
 const Item = ({
     isDisabled,
     ...props
 }: React.ComponentProps<typeof Toggle>) => {
-    const context = React.useContext(ToolbarGroupContext);
-    const effectiveIsDisabled = isDisabled || context.isDisabled;
+    const context = React.useContext(ToolbarGroupContext)
+    const effectiveIsDisabled = isDisabled || context.isDisabled
 
-    return <Toggle isDisabled={effectiveIsDisabled} {...props} />;
-};
+    return <Toggle isDisabled={effectiveIsDisabled} {...props} />
+}
 
-Toolbar.Group = ToolbarGroup;
-Toolbar.Separator = ToolbarSeparator;
-Toolbar.Item = Item;
+Toolbar.Group = ToolbarGroup
+Toolbar.Separator = ToolbarSeparator
+Toolbar.Item = Item
 
-export { Toolbar };
+export { Toolbar }

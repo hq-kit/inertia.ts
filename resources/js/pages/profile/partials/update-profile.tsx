@@ -1,29 +1,29 @@
-import { Button, Card, Form, Link, Note, TextField } from '@/components/ui';
-import { PageData } from '@/types';
-import { useForm, usePage } from '@inertiajs/react';
-import { FormEventHandler } from 'react';
+import { Button, Card, Form, Link, Note, TextField } from '@/components/ui'
+import { PageData } from '@/types'
+import { useForm, usePage } from '@inertiajs/react'
+import { FormEventHandler } from 'react'
 
 export default function UpdateProfileInformation({
     mustVerifyEmail,
     status,
 }: {
-    mustVerifyEmail: boolean;
-    status?: string;
-    className?: string;
+    mustVerifyEmail: boolean
+    status?: string
+    className?: string
 }) {
-    const { user } = usePage<PageData>().props.auth;
+    const { user } = usePage<PageData>().props.auth
 
     const { data, setData, patch, errors, processing } = useForm({
         name: user.name,
         username: user.username,
         email: user.email,
-    });
+    })
 
     const submit: FormEventHandler = (e) => {
-        e.preventDefault();
+        e.preventDefault()
 
-        patch(route('profile.update'));
-    };
+        patch(route('profile.update'))
+    }
 
     return (
         <section>
@@ -98,5 +98,5 @@ export default function UpdateProfileInformation({
                 </Form>
             </Card>
         </section>
-    );
+    )
 }

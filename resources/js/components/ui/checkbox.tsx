@@ -1,22 +1,22 @@
-import { IconCheck, IconMinus } from 'hq-icons';
+import { IconCheck, IconMinus } from 'hq-icons'
 import {
     CheckboxGroup as CheckboxGroupPrimitive,
     Checkbox as CheckboxPrimitive,
     type CheckboxGroupProps as CheckboxGroupPrimitiveProps,
     type CheckboxProps as CheckboxPrimitiveProps,
     type ValidationResult,
-} from 'react-aria-components';
-import { tv } from 'tailwind-variants';
+} from 'react-aria-components'
+import { tv } from 'tailwind-variants'
 
-import { Description, FieldError, Label } from './field';
-import { cn, cr } from './utils';
+import { Description, FieldError, Label } from './field'
+import { cn, cr } from './utils'
 
 interface CheckboxGroupProps
     extends Omit<CheckboxGroupPrimitiveProps, 'children'> {
-    label?: string;
-    children?: React.ReactNode;
-    description?: string;
-    errorMessage?: string | ((validation: ValidationResult) => string);
+    label?: string
+    children?: React.ReactNode
+    description?: string
+    errorMessage?: string | ((validation: ValidationResult) => string)
 }
 
 const CheckboxGroup = (props: CheckboxGroupProps) => {
@@ -32,8 +32,8 @@ const CheckboxGroup = (props: CheckboxGroupProps) => {
             )}
             <FieldError>{props.errorMessage}</FieldError>
         </CheckboxGroupPrimitive>
-    );
-};
+    )
+}
 
 const checkboxStyles = tv({
     base: 'racc group flex items-center gap-1.5 text-sm transition',
@@ -43,7 +43,7 @@ const checkboxStyles = tv({
             true: 'opacity-50',
         },
     },
-});
+})
 
 const boxStyles = tv({
     base: 'flex size-4 [&>svg]:size-3 flex-shrink-0 items-center justify-center rounded-[calc(var(--radius)*0.5)] border text-background transition',
@@ -65,12 +65,12 @@ const boxStyles = tv({
             true: 'border-danger/70 bg-danger/20 text-danger-foreground ring-danger/20',
         },
     },
-});
+})
 
 interface CheckboxProps extends CheckboxPrimitiveProps {
-    description?: string;
-    label?: string;
-    children?: React.ReactNode;
+    description?: string
+    label?: string
+    children?: React.ReactNode
 }
 
 const Checkbox = ({
@@ -117,7 +117,7 @@ const Checkbox = ({
                 </div>
             )}
         </CheckboxPrimitive>
-    );
-};
+    )
+}
 
-export { Checkbox, CheckboxGroup };
+export { Checkbox, CheckboxGroup }

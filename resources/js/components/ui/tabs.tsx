@@ -1,6 +1,6 @@
-import React from 'react';
+import React from 'react'
 
-import { LayoutGroup, motion } from 'framer-motion';
+import { LayoutGroup, motion } from 'framer-motion'
 import {
     TabList,
     type TabListProps,
@@ -10,10 +10,10 @@ import {
     type TabProps,
     Tabs as TabsPrimitive,
     type TabsProps as TabsPrimitiveProps,
-} from 'react-aria-components';
-import { tv } from 'tailwind-variants';
+} from 'react-aria-components'
+import { tv } from 'tailwind-variants'
 
-import { cn, cr, useMediaQuery } from './utils';
+import { cn, cr, useMediaQuery } from './utils'
 
 const tabsStyles = tv({
     base: 'group/tabs flex gap-4 forced-color-adjust-none',
@@ -23,15 +23,15 @@ const tabsStyles = tv({
             vertical: 'w-[800px] flex-row',
         },
     },
-});
+})
 
 interface TabsProps extends TabsPrimitiveProps {
-    isResponsive?: boolean;
+    isResponsive?: boolean
 }
 
 const Tabs = (props: TabsProps) => {
-    const isDesktop = useMediaQuery('(min-width: 1024px)');
-    const orientation = isDesktop ? 'vertical' : 'horizontal';
+    const isDesktop = useMediaQuery('(min-width: 1024px)')
+    const orientation = isDesktop ? 'vertical' : 'horizontal'
     return (
         <TabsPrimitive
             orientation={props.isResponsive ? orientation : props.orientation}
@@ -43,8 +43,8 @@ const Tabs = (props: TabsProps) => {
                 }),
             )}
         />
-    );
-};
+    )
+}
 
 const tabListStyles = tv({
     base: 'flex forced-color-adjust-none',
@@ -56,10 +56,10 @@ const tabListStyles = tv({
                 'flex-col items-start gap-y-4 border-l overflow-y-auto no-scrollbar',
         },
     },
-});
+})
 
 const List = <T extends object>(props: TabListProps<T>) => {
-    const id = React.useId();
+    const id = React.useId()
     return (
         <LayoutGroup id={id}>
             <TabList
@@ -69,8 +69,8 @@ const List = <T extends object>(props: TabListProps<T>) => {
                 )}
             />
         </LayoutGroup>
-    );
-};
+    )
+}
 
 const tabStyles = tv({
     base: [
@@ -90,7 +90,7 @@ const tabStyles = tv({
             true: 'text-muted-foreground/50',
         },
     },
-});
+})
 
 const Tab = ({ children, ...props }: TabProps) => {
     return (
@@ -129,8 +129,8 @@ const Tab = ({ children, ...props }: TabProps) => {
                 </>
             )}
         </TabPrimitive>
-    );
-};
+    )
+}
 
 const tabPanelStyles = tv({
     base: 'flex-1 text-sm text-foreground',
@@ -139,7 +139,7 @@ const tabPanelStyles = tv({
             true: 'outline-none',
         },
     },
-});
+})
 
 const Panel = (props: TabPanelProps) => {
     return (
@@ -149,11 +149,11 @@ const Panel = (props: TabPanelProps) => {
                 tabPanelStyles({ ...renderProps, className }),
             )}
         />
-    );
-};
+    )
+}
 
-Tabs.List = List;
-Tabs.Label = Tab;
-Tabs.Content = Panel;
+Tabs.List = List
+Tabs.Label = Tab
+Tabs.Content = Panel
 
-export { Tabs };
+export { Tabs }

@@ -1,15 +1,15 @@
-import { IconSearch, IconX } from 'hq-icons';
+import { IconSearch, IconX } from 'hq-icons'
 import {
     SearchField as SearchFieldPrimitive,
     type SearchFieldProps as SearchFieldPrimitiveProps,
     type ValidationResult,
-} from 'react-aria-components';
-import { tv } from 'tailwind-variants';
+} from 'react-aria-components'
+import { tv } from 'tailwind-variants'
 
-import { Button } from './button';
-import { Description, FieldError, FieldGroup, Input, Label } from './field';
-import { Loader } from './loader';
-import { ctr } from './utils';
+import { Button } from './button'
+import { Description, FieldError, FieldGroup, Input, Label } from './field'
+import { Loader } from './loader'
+import { ctr } from './utils'
 
 const searchFieldStyles = tv({
     slots: {
@@ -21,16 +21,16 @@ const searchFieldStyles = tv({
         ],
         input: '[&::-webkit-search-cancel-button]:hidden',
     },
-});
+})
 
-const { base, searchIcon, clearButton, input } = searchFieldStyles();
+const { base, searchIcon, clearButton, input } = searchFieldStyles()
 
 interface SearchFieldProps extends SearchFieldPrimitiveProps {
-    label?: string;
-    placeholder?: string;
-    description?: string;
-    errorMessage?: string | ((validation: ValidationResult) => string);
-    isPending?: boolean;
+    label?: string
+    placeholder?: string
+    description?: string
+    errorMessage?: string | ((validation: ValidationResult) => string)
+    isPending?: boolean
 }
 
 const SearchField = ({
@@ -70,7 +70,7 @@ const SearchField = ({
             {description && <Description>{description}</Description>}
             <FieldError>{errorMessage}</FieldError>
         </SearchFieldPrimitive>
-    );
-};
+    )
+}
 
-export { SearchField, type SearchFieldProps };
+export { SearchField, type SearchFieldProps }

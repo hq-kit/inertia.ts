@@ -1,15 +1,15 @@
-import { motion } from 'framer-motion';
-import { IconTriangleAlert } from 'hq-icons';
+import { motion } from 'framer-motion'
+import { IconTriangleAlert } from 'hq-icons'
 import {
     Meter as MeterPrimitive,
     type MeterProps as MeterPrimitiveProps,
-} from 'react-aria-components';
+} from 'react-aria-components'
 
-import { Label } from './field';
-import { ctr } from './utils';
+import { Label } from './field'
+import { ctr } from './utils'
 
 export interface MeterProps extends MeterPrimitiveProps {
-    label?: string;
+    label?: string
 }
 
 const Meter = ({ label, ...props }: MeterProps) => {
@@ -51,26 +51,26 @@ const Meter = ({ label, ...props }: MeterProps) => {
                 </>
             )}
         </MeterPrimitive>
-    );
-};
+    )
+}
 const getColor = (percentage: number) => {
     if (percentage < 30) {
-        return 'hsl(var(--primary))'; // Blue
+        return 'hsl(var(--primary))' // Blue
     }
 
     if (percentage < 50) {
-        return 'hsl(var(--success))'; // Green
+        return 'hsl(var(--success))' // Green
     }
 
     if (percentage < 70) {
-        return 'hsl(var(--info))'; // Yellow
+        return 'hsl(var(--info))' // Yellow
     }
 
     if (percentage < 80) {
-        return 'hsl(var(--warning))'; // Orange
+        return 'hsl(var(--warning))' // Orange
     }
 
-    return 'hsl(var(--danger))'; // Red
-};
+    return 'hsl(var(--danger))' // Red
+}
 
-export { Meter };
+export { Meter }

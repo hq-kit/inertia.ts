@@ -1,6 +1,6 @@
-import React from 'react';
+import React from 'react'
 
-import { IconChevronDown, IconLoader, IconMenu } from 'hq-icons';
+import { IconChevronDown, IconLoader, IconMenu } from 'hq-icons'
 import {
     Button,
     Cell,
@@ -20,22 +20,22 @@ import {
     Table as TablePrimitive,
     type TableProps as TablePrimitiveProps,
     useTableOptions,
-} from 'react-aria-components';
-import { tv } from 'tailwind-variants';
+} from 'react-aria-components'
+import { tv } from 'tailwind-variants'
 
-import { Checkbox } from './checkbox';
-import { cn } from './utils';
+import { Checkbox } from './checkbox'
+import { cn } from './utils'
 
 interface TableProps extends TablePrimitiveProps {
-    className?: string;
-    allowResize?: boolean;
+    className?: string
+    allowResize?: boolean
 }
 
 const TableContext = React.createContext<TableProps>({
     allowResize: false,
-});
+})
 
-const useTableContext = () => React.useContext(TableContext);
+const useTableContext = () => React.useContext(TableContext)
 
 const Table = ({ children, className, ...props }: TableProps) => (
     <TableContext.Provider value={props}>
@@ -65,7 +65,7 @@ const Table = ({ children, className, ...props }: TableProps) => (
             )}
         </div>
     </TableContext.Provider>
-);
+)
 
 const ColumnResizer = ({ className, ...props }: ColumnResizerProps) => (
     <ColumnResizerPrimitive
@@ -77,14 +77,14 @@ const ColumnResizer = ({ className, ...props }: ColumnResizerProps) => (
     >
         <div className="h-full w-px bg-muted py-3" />
     </ColumnResizerPrimitive>
-);
+)
 
 const Body = <T extends object>(props: TableBodyProps<T>) => (
     <TableBody {...props} className={cn('[&_.tr:last-child]:border-0')} />
-);
+)
 
 interface TableCellProps extends CellProps {
-    className?: string;
+    className?: string
 }
 
 const cellStyles = tv({
@@ -94,15 +94,15 @@ const cellStyles = tv({
             true: 'overflow-hidden truncate',
         },
     },
-});
+})
 const TableCell = ({ children, className, ...props }: TableCellProps) => {
-    const { allowResize } = useTableContext();
+    const { allowResize } = useTableContext()
     return (
         <Cell {...props} className={cellStyles({ allowResize, className })}>
             {children}
         </Cell>
-    );
-};
+    )
+}
 
 const columnStyles = tv({
     base: 'whitespace-nowrap relative allows-sorting:cursor-pointer px-3 py-3 text-left dragging:cursor-grabbing font-medium outline-none [&:has([slot=selection])]:pr-0',
@@ -111,11 +111,11 @@ const columnStyles = tv({
             true: 'overflow-hidden truncate',
         },
     },
-});
+})
 
 interface TableColumnProps extends ColumnProps {
-    className?: string;
-    isResizable?: boolean;
+    className?: string
+    isResizable?: boolean
 }
 
 const TableColumn = ({
@@ -160,11 +160,11 @@ const TableColumn = ({
                 </div>
             )}
         </Column>
-    );
-};
+    )
+}
 
 interface HeaderProps<T extends object> extends TableHeaderProps<T> {
-    className?: string;
+    className?: string
 }
 
 const Header = <T extends object>({
@@ -174,7 +174,7 @@ const Header = <T extends object>({
     ...props
 }: HeaderProps<T>) => {
     const { selectionBehavior, selectionMode, allowsDragging } =
-        useTableOptions();
+        useTableOptions()
     return (
         <TableHeader {...props} className={cn('border-b', className)}>
             {allowsDragging && <Column className="w-0" />}
@@ -187,11 +187,11 @@ const Header = <T extends object>({
             )}
             <Collection items={columns}>{children}</Collection>
         </TableHeader>
-    );
-};
+    )
+}
 
 interface TableRowProps<T extends object> extends RowProps<T> {
-    className?: string;
+    className?: string
 }
 
 const TableRow = <T extends object>({
@@ -201,7 +201,7 @@ const TableRow = <T extends object>({
     id,
     ...props
 }: TableRowProps<T>) => {
-    const { selectionBehavior, allowsDragging } = useTableOptions();
+    const { selectionBehavior, allowsDragging } = useTableOptions()
     return (
         <Row
             id={id}
@@ -233,27 +233,27 @@ const TableRow = <T extends object>({
             )}
             <Collection items={columns}>{children}</Collection>
         </Row>
-    );
-};
+    )
+}
 
 const TableEmpty = () => (
     <div className="grid place-content-center p-10">
         <span className="text-muted-foreground">No results.</span>
     </div>
-);
+)
 
 const TableLoading = () => (
     <div className="grid place-content-center p-10">
         <IconLoader className="animate-spin" />
     </div>
-);
+)
 
-Table.Body = Body;
-Table.Cell = TableCell;
-Table.Column = TableColumn;
-Table.Header = Header;
-Table.Row = TableRow;
-Table.Empty = TableEmpty;
-Table.Loading = TableLoading;
+Table.Body = Body
+Table.Cell = TableCell
+Table.Column = TableColumn
+Table.Header = Header
+Table.Row = TableRow
+Table.Empty = TableEmpty
+Table.Loading = TableLoading
 
-export { Table };
+export { Table }

@@ -1,23 +1,23 @@
-import React from 'react';
+import React from 'react'
 
-import { IconCheck, IconMenu } from 'hq-icons';
+import { IconCheck, IconMenu } from 'hq-icons'
 import {
     ListBoxItem as ListBoxItemPrimitive,
     ListBox as ListBoxPrimitive,
     type ListBoxItemProps as ListBoxItemPrimitiveProps,
     type ListBoxProps as ListBoxPrimitiveProps,
-} from 'react-aria-components';
-import { tv } from 'tailwind-variants';
+} from 'react-aria-components'
+import { tv } from 'tailwind-variants'
 
-import { DropdownItemDetails, DropdownSection } from './dropdown';
-import { cn, cr } from './utils';
+import { DropdownItemDetails, DropdownSection } from './dropdown'
+import { cn, cr } from './utils'
 
 const listBoxStyles = tv({
     base: 'flex max-h-96 w-full gap-y-1 min-w-72 flex-col overflow-y-auto rounded-lg border p-1 shadow-lg outline-none',
-});
+})
 
 interface ListBoxProps<T> extends ListBoxPrimitiveProps<T> {
-    className?: string;
+    className?: string
 }
 
 const ListBox = <T extends object>({
@@ -28,7 +28,7 @@ const ListBox = <T extends object>({
     <ListBoxPrimitive {...props} className={listBoxStyles({ className })}>
         {children}
     </ListBoxPrimitive>
-);
+)
 const listBoxItemStyles = tv({
     base: 'lbi cursor-pointer relative rounded-[calc(var(--radius)-1px)] p-2 text-base outline-none lg:text-sm',
     variants: {
@@ -51,10 +51,10 @@ const listBoxItemStyles = tv({
             true: 'opacity-70 cursor-default text-muted-foreground',
         },
     },
-});
+})
 interface ListBoxItemProps<T extends object>
     extends ListBoxItemPrimitiveProps<T> {
-    className?: string;
+    className?: string
 }
 
 const ListBoxItem = <T extends object>({
@@ -62,7 +62,7 @@ const ListBoxItem = <T extends object>({
     className,
     ...props
 }: ListBoxItemProps<T>) => {
-    const textValue = typeof children === 'string' ? children : undefined;
+    const textValue = typeof children === 'string' ? children : undefined
 
     return (
         <ListBoxItemPrimitive
@@ -104,10 +104,10 @@ const ListBoxItem = <T extends object>({
                 </div>
             )}
         </ListBoxItemPrimitive>
-    );
-};
+    )
+}
 
-type ListBoxPickerProps<T> = ListBoxProps<T>;
+type ListBoxPickerProps<T> = ListBoxProps<T>
 
 const ListBoxPicker = <T extends object>({
     className,
@@ -118,8 +118,8 @@ const ListBoxPicker = <T extends object>({
             className={cn('max-h-72 overflow-auto p-1 outline-none', className)}
             {...props}
         />
-    );
-};
+    )
+}
 
 const Section = ({
     className,
@@ -130,12 +130,12 @@ const Section = ({
             className={cn(className, 'gap-y-1 [&_.lbi:last-child]:-mb-1.5')}
             {...props}
         />
-    );
-};
+    )
+}
 
-ListBox.Section = Section;
-ListBox.ItemDetails = DropdownItemDetails;
-ListBox.Item = ListBoxItem;
-ListBox.Picker = ListBoxPicker;
+ListBox.Section = Section
+ListBox.ItemDetails = DropdownItemDetails
+ListBox.Item = ListBoxItem
+ListBox.Picker = ListBoxPicker
 
-export { ListBox, listBoxStyles, type ListBoxPickerProps };
+export { ListBox, listBoxStyles, type ListBoxPickerProps }

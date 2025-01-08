@@ -1,15 +1,15 @@
-import { IconCamera, IconFolder, IconPaperclip } from 'hq-icons';
+import { IconCamera, IconFolder, IconPaperclip } from 'hq-icons'
 import {
     FileTrigger as FileTriggerPrimitive,
     type FileTriggerProps as FileTriggerPrimitiveProps,
-} from 'react-aria-components';
+} from 'react-aria-components'
 
-import { Button, type ButtonProps } from './button';
+import { Button, type ButtonProps } from './button'
 
 interface FileTriggerProps
     extends FileTriggerPrimitiveProps,
         Omit<ButtonProps, 'children'> {
-    withIcon?: boolean;
+    withIcon?: boolean
 }
 
 const FileTrigger = ({
@@ -54,7 +54,7 @@ const FileTrigger = ({
                 </Button>
             </FileTriggerPrimitive>
         </>
-    );
-};
+    )
+}
 
-export { FileTrigger };
+export { FileTrigger }

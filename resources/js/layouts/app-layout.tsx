@@ -1,6 +1,6 @@
-import CommandPalette from '@/components/command-palette';
-import { ThemeToggle } from '@/components/theme-toggle';
-import { ToastMessage } from '@/components/toast-message';
+import CommandPalette from '@/components/command-palette'
+import { ThemeToggle } from '@/components/theme-toggle'
+import { ToastMessage } from '@/components/toast-message'
 import {
     Avatar,
     Button,
@@ -8,9 +8,9 @@ import {
     Menu,
     Navbar,
     Separator,
-} from '@/components/ui';
-import { PageData } from '@/types';
-import { Link, usePage } from '@inertiajs/react';
+} from '@/components/ui'
+import { PageData } from '@/types'
+import { Link, usePage } from '@inertiajs/react'
 import {
     IconBrandLaravel,
     IconChevronDown,
@@ -19,26 +19,26 @@ import {
     IconLogOut,
     IconSearch,
     IconSettings,
-} from 'hq-icons';
-import React, { PropsWithChildren, ReactNode } from 'react';
+} from 'hq-icons'
+import React, { PropsWithChildren, ReactNode } from 'react'
 
 export default function AppLayout({
     children,
 }: PropsWithChildren<{ header?: ReactNode }>) {
-    const { user } = usePage<PageData>().props.auth;
-    const [openCommand, setOpenCommand] = React.useState(false);
+    const { user } = usePage<PageData>().props.auth
+    const [openCommand, setOpenCommand] = React.useState(false)
     React.useEffect(() => {
         const down = (e: KeyboardEvent) => {
             if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
-                e.preventDefault();
-                setOpenCommand((openCommand: boolean) => !openCommand);
+                e.preventDefault()
+                setOpenCommand((openCommand: boolean) => !openCommand)
             }
-        };
+        }
 
-        document.addEventListener('keydown', down);
+        document.addEventListener('keydown', down)
 
-        return () => document.removeEventListener('keydown', down);
-    }, [setOpenCommand]);
+        return () => document.removeEventListener('keydown', down)
+    }, [setOpenCommand])
     return (
         <Navbar>
             <ToastMessage />
@@ -204,5 +204,5 @@ export default function AppLayout({
                 {children}
             </Navbar.Inset>
         </Navbar>
-    );
+    )
 }

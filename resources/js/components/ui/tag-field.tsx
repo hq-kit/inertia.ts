@@ -1,27 +1,27 @@
-import React from 'react';
+import React from 'react'
 
-import { Group, TextField, type Key } from 'react-aria-components';
-import { type ListData } from 'react-stately';
+import { Group, TextField, type Key } from 'react-aria-components'
+import { type ListData } from 'react-stately'
 
-import { Description, Input, Label, type FieldProps } from './field';
-import { Tag, type RestrictedVariant, type TagGroupProps } from './tag-group';
-import { cn } from './utils';
+import { Description, Input, Label, type FieldProps } from './field'
+import { Tag, type RestrictedVariant, type TagGroupProps } from './tag-group'
+import { cn } from './utils'
 
 interface TagItemProps {
-    id: number;
-    name: string;
+    id: number
+    name: string
 }
 
 interface TagFieldProps extends Pick<TagGroupProps, 'shape'>, FieldProps {
-    variant?: RestrictedVariant;
-    isDisabled?: boolean;
-    max?: number;
-    className?: string;
-    children?: React.ReactNode;
-    name?: string;
-    list: ListData<TagItemProps>;
-    onItemInserted?: (tag: TagItemProps) => void;
-    onItemCleared?: (tag: TagItemProps | undefined) => void;
+    variant?: RestrictedVariant
+    isDisabled?: boolean
+    max?: number
+    className?: string
+    children?: React.ReactNode
+    name?: string
+    list: ListData<TagItemProps>
+    onItemInserted?: (tag: TagItemProps) => void
+    onItemCleared?: (tag: TagItemProps | undefined) => void
 }
 
 const TagField = ({
@@ -33,30 +33,30 @@ const TagField = ({
     onItemInserted,
     ...props
 }: TagFieldProps) => {
-    const [isInvalid, setIsInvalid] = React.useState(false);
-    const [inputValue, setInputValue] = React.useState('');
+    const [isInvalid, setIsInvalid] = React.useState(false)
+    const [inputValue, setInputValue] = React.useState('')
 
-    const existingTagCount = list.items.length;
-    const maxTags = props.max !== undefined ? props.max : Infinity;
-    const maxTagsToAdd = maxTags - existingTagCount;
+    const existingTagCount = list.items.length
+    const maxTags = props.max !== undefined ? props.max : Infinity
+    const maxTagsToAdd = maxTags - existingTagCount
 
     const insertTag = () => {
-        const tagNames = inputValue.split(/,/);
+        const tagNames = inputValue.split(/,/)
         if (maxTagsToAdd <= 0) {
-            setIsInvalid(true);
-            setInputValue('');
+            setIsInvalid(true)
+            setInputValue('')
             const timeoutId = setTimeout(() => {
-                setIsInvalid(false);
-            }, 2000);
+                setIsInvalid(false)
+            }, 2000)
 
-            return () => clearTimeout(timeoutId);
+            return () => clearTimeout(timeoutId)
         }
 
         tagNames.slice(0, maxTagsToAdd).forEach((tagName) => {
             const formattedName = tagName
                 .trim()
                 .replace(/\s+/g, ' ')
-                .replace(/[\t\r\n]/g, '');
+                .replace(/[\t\r\n]/g, '')
 
             if (
                 formattedName &&
@@ -68,52 +68,52 @@ const TagField = ({
                 const tag = {
                     id: (list.items.at(-1)?.id ?? 0) + 1,
                     name: formattedName,
-                };
+                }
 
-                list.append(tag);
-                onItemInserted?.(tag);
+                list.append(tag)
+                onItemInserted?.(tag)
             }
-        });
+        })
 
-        setInputValue('');
-    };
+        setInputValue('')
+    }
 
     const clearInvalidFeedback = () => {
         if (maxTags - list.items.length <= maxTagsToAdd) {
-            setIsInvalid(false);
+            setIsInvalid(false)
         }
-    };
+    }
 
     const onRemove = (keys: Set<Key>) => {
-        list.remove(...keys);
-        onItemCleared?.(list.getItem([...keys][0]));
-        clearInvalidFeedback();
-    };
+        list.remove(...keys)
+        onItemCleared?.(list.getItem([...keys][0]))
+        clearInvalidFeedback()
+    }
 
     const onKeyDown = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter' || e.key === ',') {
-            e.preventDefault();
-            insertTag();
+            e.preventDefault()
+            insertTag()
         }
 
         if (e.key === 'Backspace' && inputValue === '') {
-            popLast();
-            clearInvalidFeedback();
+            popLast()
+            clearInvalidFeedback()
         }
-    };
+    }
 
     const popLast = React.useCallback(() => {
         if (list.items.length == 0) {
-            return;
+            return
         }
 
-        const endKey = list.items[list.items.length - 1];
+        const endKey = list.items[list.items.length - 1]
 
         if (endKey !== null) {
-            list.remove(endKey.id);
-            onItemCleared?.(list.getItem(endKey.id));
+            list.remove(endKey.id)
+            onItemCleared?.(list.getItem(endKey.id))
         }
-    }, [list, onItemCleared]);
+    }, [list, onItemCleared])
 
     return (
         <div className={cn('flex w-full flex-col gap-1', className)}>
@@ -190,7 +190,7 @@ const TagField = ({
                 <Description>{props.description}</Description>
             )}
         </div>
-    );
-};
+    )
+}
 
-export { TagField, type TagItemProps };
+export { TagField, type TagItemProps }

@@ -1,31 +1,31 @@
-import React from 'react';
+import React from 'react'
 
-import { IconChevronDown } from 'hq-icons';
-import { useFilter } from 'react-aria';
+import { IconChevronDown } from 'hq-icons'
+import { useFilter } from 'react-aria'
 import {
     ComboBox,
     Group,
     type ComboBoxProps,
     type Key,
     type ValidationResult,
-} from 'react-aria-components';
-import { useListData, type ListData } from 'react-stately';
+} from 'react-aria-components'
+import { useListData, type ListData } from 'react-stately'
 
-import { Button } from './button';
-import { Description, FieldError, Input, Label } from './field';
-import { ListBox } from './list-box';
-import { Popover } from './popover';
-import { Tag, type RestrictedVariant } from './tag-group';
-import { VisuallyHidden, cn } from './utils';
+import { Button } from './button'
+import { Description, FieldError, Input, Label } from './field'
+import { ListBox } from './list-box'
+import { Popover } from './popover'
+import { Tag, type RestrictedVariant } from './tag-group'
+import { VisuallyHidden, cn } from './utils'
 
 interface FieldState {
-    selectedKey: Key | null;
-    inputValue: string;
+    selectedKey: Key | null
+    inputValue: string
 }
 
 interface SelectedKey {
-    id: Key;
-    textValue: string;
+    id: Key
+    textValue: string
 }
 
 interface MultipleSelectProps<T extends object>
@@ -41,21 +41,21 @@ interface MultipleSelectProps<T extends object>
         | 'onSelectionChange'
         | 'onInputChange'
     > {
-    label?: string;
-    description?: string;
-    variant?: RestrictedVariant;
-    items: Array<T>;
-    selectedList: ListData<T>;
-    className?: string;
-    onItemAdd?: (key: Key) => void;
-    onItemRemove?: (key: Key) => void;
-    renderEmptyState?: (inputValue: string) => React.ReactNode;
-    tag: (item: T) => React.ReactNode;
-    children: React.ReactNode | ((item: T) => React.ReactNode);
-    max?: number;
-    min?: number;
-    errorMessage?: string | ((validation: ValidationResult) => string);
-    portal?: Element;
+    label?: string
+    description?: string
+    variant?: RestrictedVariant
+    items: Array<T>
+    selectedList: ListData<T>
+    className?: string
+    onItemAdd?: (key: Key) => void
+    onItemRemove?: (key: Key) => void
+    renderEmptyState?: (inputValue: string) => React.ReactNode
+    tag: (item: T) => React.ReactNode
+    children: React.ReactNode | ((item: T) => React.ReactNode)
+    max?: number
+    min?: number
+    errorMessage?: string | ((validation: ValidationResult) => string)
+    portal?: Element
 }
 
 const MultiSelect = <T extends SelectedKey>({
@@ -73,123 +73,123 @@ const MultiSelect = <T extends SelectedKey>({
     errorMessage,
     ...props
 }: MultipleSelectProps<T>) => {
-    const tagGroupId = React.useId();
-    const triggerRef = React.useRef<HTMLDivElement | null>(null);
-    const [width, setWidth] = React.useState(0);
+    const tagGroupId = React.useId()
+    const triggerRef = React.useRef<HTMLDivElement | null>(null)
+    const [width, setWidth] = React.useState(0)
 
-    const { contains } = useFilter({ sensitivity: 'base' });
-    const selectedKeys = selectedList.items.map((i) => i.id);
+    const { contains } = useFilter({ sensitivity: 'base' })
+    const selectedKeys = selectedList.items.map((i) => i.id)
 
     const filter = React.useCallback(
         (item: T, filterText: string) =>
             !selectedKeys.includes(item.id) &&
             contains(item.textValue, filterText),
         [contains, selectedKeys],
-    );
+    )
 
     const accessibleList = useListData({
         initialItems: items,
         filter,
-    });
+    })
 
     const [fieldState, setFieldState] = React.useState<FieldState>({
         selectedKey: null,
         inputValue: '',
-    });
+    })
 
     const onRemove = React.useCallback(
         (keys: Set<Key>) => {
-            if (min !== undefined && selectedList.items.length <= min) return;
+            if (min !== undefined && selectedList.items.length <= min) return
 
-            const key = keys.values().next().value;
-            selectedList.remove(key as Key);
+            const key = keys.values().next().value
+            selectedList.remove(key as Key)
             setFieldState({
                 inputValue: '',
                 selectedKey: null,
-            });
-            onItemRemove?.(key as Key);
+            })
+            onItemRemove?.(key as Key)
         },
         [selectedList, onItemRemove, min],
-    );
+    )
 
     const onSelectionChange = (id: Key | null) => {
-        if (!id) return;
+        if (!id) return
 
-        const item = accessibleList.getItem(id);
+        const item = accessibleList.getItem(id)
 
-        if (!item) return;
+        if (!item) return
 
         if (
             !selectedKeys.includes(id) &&
             (max === undefined || selectedList.items.length < max)
         ) {
-            selectedList.append(item);
+            selectedList.append(item)
             setFieldState({
                 inputValue: '',
                 selectedKey: id,
-            });
-            onItemAdd?.(id);
+            })
+            onItemAdd?.(id)
         }
 
-        accessibleList.setFilterText('');
-    };
+        accessibleList.setFilterText('')
+    }
 
     const onInputChange = (v: string) => {
         setFieldState((prevState) => ({
             inputValue: v,
             selectedKey: v === '' ? null : prevState.selectedKey,
-        }));
+        }))
 
-        accessibleList.setFilterText(v);
-    };
+        accessibleList.setFilterText(v)
+    }
 
     const deleteLast = React.useCallback(() => {
         if (
             selectedList.items.length == 0 ||
             (min !== undefined && selectedList.items.length <= min)
         ) {
-            return;
+            return
         }
 
-        const lastKey = selectedList.items[selectedList.items.length - 1];
+        const lastKey = selectedList.items[selectedList.items.length - 1]
 
         if (lastKey !== null) {
-            selectedList.remove(lastKey.id);
-            onItemRemove?.(lastKey.id);
+            selectedList.remove(lastKey.id)
+            onItemRemove?.(lastKey.id)
         }
 
         setFieldState({
             inputValue: '',
             selectedKey: null,
-        });
-    }, [selectedList, onItemRemove, min]);
+        })
+    }, [selectedList, onItemRemove, min])
 
     const onKeyDownCapture = React.useCallback(
         (e: React.KeyboardEvent<HTMLInputElement>) => {
             if (e.key === 'Backspace' && fieldState.inputValue === '') {
-                deleteLast();
+                deleteLast()
             }
         },
         [deleteLast, fieldState.inputValue],
-    );
+    )
 
     React.useEffect(() => {
-        const trigger = triggerRef.current;
-        if (!trigger) return;
+        const trigger = triggerRef.current
+        if (!trigger) return
 
         const observer = new ResizeObserver((entries) => {
             for (const entry of entries) {
-                setWidth(entry.target.clientWidth);
+                setWidth(entry.target.clientWidth)
             }
-        });
+        })
 
-        observer.observe(trigger);
+        observer.observe(trigger)
         return () => {
-            observer.unobserve(trigger);
-        };
-    }, [triggerRef]);
+            observer.unobserve(trigger)
+        }
+    }, [triggerRef])
 
-    const triggerButtonRef = React.useRef<HTMLButtonElement | null>(null);
+    const triggerButtonRef = React.useRef<HTMLButtonElement | null>(null)
 
     return (
         <Group
@@ -249,8 +249,8 @@ const MultiSelect = <T extends SelectedKey>({
                                 setFieldState({
                                     inputValue: '',
                                     selectedKey: null,
-                                });
-                                accessibleList.setFilterText('');
+                                })
+                                accessibleList.setFilterText('')
                             }}
                             onKeyDownCapture={onKeyDownCapture}
                         />
@@ -324,12 +324,12 @@ const MultiSelect = <T extends SelectedKey>({
                 <Description>{props.description}</Description>
             )}
         </Group>
-    );
-};
+    )
+}
 
-const MultiSelectItem = ListBox.Item;
+const MultiSelectItem = ListBox.Item
 
-MultiSelect.Item = MultiSelectItem;
-MultiSelect.Tag = Tag.Item;
+MultiSelect.Item = MultiSelectItem
+MultiSelect.Tag = Tag.Item
 
-export { MultiSelect, type SelectedKey };
+export { MultiSelect, type SelectedKey }

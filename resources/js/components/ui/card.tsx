@@ -1,10 +1,10 @@
-import * as React from 'react';
+import * as React from 'react'
 
-import { clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-import { tv } from 'tailwind-variants';
+import { clsx } from 'clsx'
+import { twMerge } from 'tailwind-merge'
+import { tv } from 'tailwind-variants'
 
-import { Heading } from './heading';
+import { Heading } from './heading'
 
 const card = tv({
     slots: {
@@ -18,12 +18,12 @@ const card = tv({
             'px-6 pb-6 [&:has(table)_thead]:bg-muted/40 has-[table]:p-0 [&:has(table)+.footer]:py-5 [&:has(table)]:border-t',
         footer: 'footer flex items-center p-6 pt-0',
     },
-});
+})
 
-const { root, header, title, description, content, footer } = card();
+const { root, header, title, description, content, footer } = card()
 
 interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
-    borderless?: boolean;
+    borderless?: boolean
 }
 
 const Card = ({ className, borderless = false, ...props }: CardProps) => {
@@ -36,13 +36,13 @@ const Card = ({ className, borderless = false, ...props }: CardProps) => {
             })}
             {...props}
         />
-    );
-};
+    )
+}
 
 interface HeaderProps extends React.HTMLAttributes<HTMLDivElement> {
-    title?: string;
-    description?: string;
-    withoutPadding?: boolean;
+    title?: string
+    description?: string
+    withoutPadding?: boolean
 }
 
 const Header = ({
@@ -67,17 +67,15 @@ const Header = ({
             children
         )}
     </div>
-);
+)
 
 const Title = ({
     className,
     level = 3,
     ...props
 }: React.ComponentProps<typeof Heading>) => {
-    return (
-        <Heading level={level} className={title({ className })} {...props} />
-    );
-};
+    return <Heading level={level} className={title({ className })} {...props} />
+}
 
 const Description = ({
     className,
@@ -90,27 +88,27 @@ const Description = ({
             className={description({ className })}
             {...props}
         />
-    );
-};
+    )
+}
 
 const Content = ({
     className,
     ...props
 }: React.HTMLAttributes<HTMLDivElement>) => {
-    return <div className={content({ className })} {...props} />;
-};
+    return <div className={content({ className })} {...props} />
+}
 
 const Footer = ({
     className,
     ...props
 }: React.HTMLAttributes<HTMLDivElement>) => {
-    return <div className={footer({ className })} {...props} />;
-};
+    return <div className={footer({ className })} {...props} />
+}
 
-Card.Content = Content;
-Card.Description = Description;
-Card.Footer = Footer;
-Card.Header = Header;
-Card.Title = Title;
+Card.Content = Content
+Card.Description = Description
+Card.Footer = Footer
+Card.Header = Header
+Card.Title = Title
 
-export { Card };
+export { Card }

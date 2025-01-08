@@ -1,8 +1,8 @@
 import {
     Switch as SwitchPrimitive,
     type SwitchProps as SwitchPrimitiveProps,
-} from 'react-aria-components';
-import { tv, type VariantProps } from 'tailwind-variants';
+} from 'react-aria-components'
+import { tv, type VariantProps } from 'tailwind-variants'
 
 const trackStyles = tv({
     base: [
@@ -25,16 +25,16 @@ const trackStyles = tv({
     defaultVariants: {
         variant: 'primary',
     },
-});
+})
 
 const switchStyles = tv({
     slots: {
         base: 'group inline-flex touch-none lg:text-sm items-center',
         ball: 'group-selected:ml-3 group-selected:group-data-[pressed]:ml-2 group-pressed:w-5 block size-4 origin-right rounded-[calc(var(--radius)+2px)] bg-primary-foreground shadow transition-all',
     },
-});
+})
 
-const { base, ball } = switchStyles();
+const { base, ball } = switchStyles()
 
 interface SwitchProps
     extends SwitchPrimitiveProps,
@@ -65,7 +65,7 @@ const Switch = ({ children, variant, className, ...props }: SwitchProps) => {
                 </>
             )}
         </SwitchPrimitive>
-    );
-};
+    )
+}
 
-export { Switch };
+export { Switch }

@@ -1,12 +1,12 @@
-import React from 'react';
+import React from 'react'
 
 import {
     Button as ButtonPrimitive,
     ButtonProps as ButtonPrimitiveProps,
-} from 'react-aria-components';
-import { tv, type VariantProps } from 'tailwind-variants';
+} from 'react-aria-components'
+import { tv, type VariantProps } from 'tailwind-variants'
 
-import { cn } from './utils';
+import { cn } from './utils'
 
 const buttonVariants = tv({
     base: [
@@ -78,7 +78,7 @@ const buttonVariants = tv({
         size: 'md',
         shape: 'square',
     },
-});
+})
 
 export interface ButtonProps
     extends ButtonPrimitiveProps,
@@ -104,9 +104,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
                 ref={ref}
                 {...props}
             />
-        );
+        )
     },
-);
-Button.displayName = 'Button';
+)
+Button.displayName = 'Button'
 
-export { Button, buttonVariants };
+export { Button, buttonVariants }

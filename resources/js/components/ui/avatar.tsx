@@ -1,16 +1,16 @@
-import React from 'react';
+import React from 'react'
 
-import { IconUser } from 'hq-icons';
-import { Collection, Text } from 'react-aria-components';
-import { tv, type VariantProps } from 'tailwind-variants';
+import { IconUser } from 'hq-icons'
+import { Collection, Text } from 'react-aria-components'
+import { tv, type VariantProps } from 'tailwind-variants'
 
-import { type CollectionProps } from '@react-aria/collections';
+import { type CollectionProps } from '@react-aria/collections'
 
-import { Tooltip } from './tooltip';
-import { cn, VisuallyHidden } from './utils';
+import { Tooltip } from './tooltip'
+import { cn, VisuallyHidden } from './utils'
 
 interface AvatarGroupProps<T extends object> extends CollectionProps<T> {
-    className?: string;
+    className?: string
 }
 
 const AvatarGroup = <T extends object>({
@@ -27,8 +27,8 @@ const AvatarGroup = <T extends object>({
         >
             <Collection {...props} />
         </div>
-    );
-};
+    )
+}
 
 const avatarStyles = tv({
     base: [
@@ -52,19 +52,19 @@ const avatarStyles = tv({
         shape: 'circle',
         size: 'md',
     },
-});
+})
 
-type Status = 'danger' | 'success' | 'muted' | 'warning' | 'primary';
+type Status = 'danger' | 'success' | 'muted' | 'warning' | 'primary'
 
 interface AvatarProps
     extends React.ComponentPropsWithoutRef<'span'>,
         VariantProps<typeof avatarStyles> {
-    src?: string | null;
-    initials?: string;
-    alt?: string;
-    status?: Status;
-    tooltip?: string;
-    className?: string;
+    src?: string | null
+    initials?: string
+    alt?: string
+    status?: Status
+    tooltip?: string
+    className?: string
 }
 
 const Avatar = ({
@@ -79,8 +79,8 @@ const Avatar = ({
     size,
     ...props
 }: AvatarProps) => {
-    const badgeId = React.useId();
-    const ariaLabelledby = [badgeId, children ? badgeId : ''].join(' ');
+    const badgeId = React.useId()
+    const ariaLabelledby = [badgeId, children ? badgeId : ''].join(' ')
     return tooltip ? (
         <Tooltip delay={0} closeDelay={0}>
             <Tooltip.Trigger
@@ -153,16 +153,16 @@ const Avatar = ({
                 <AvatarBadge size={size} status={status} aria-label={status} />
             )}
         </span>
-    );
-};
+    )
+}
 
 type AvatarBadgeProps = {
-    className?: string;
-    status?: Status;
-    fillBackground?: boolean;
-    'aria-label': string;
-    size?: AvatarProps['size'];
-};
+    className?: string
+    status?: Status
+    fillBackground?: boolean
+    'aria-label': string
+    size?: AvatarProps['size']
+}
 
 const avatarBadgeStyles = tv({
     base: [
@@ -187,7 +187,7 @@ const avatarBadgeStyles = tv({
         size: 'md',
         status: 'primary',
     },
-});
+})
 
 const AvatarBadge = ({
     size,
@@ -204,7 +204,7 @@ const AvatarBadge = ({
         >
             <VisuallyHidden>{status}</VisuallyHidden>
         </span>
-    );
-};
+    )
+}
 
-export { Avatar, AvatarGroup };
+export { Avatar, AvatarGroup }

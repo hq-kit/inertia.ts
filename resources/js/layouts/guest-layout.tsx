@@ -1,15 +1,15 @@
-import AppLogo from '@/components/app-logo';
-import { Card } from '@/components/ui';
-import { Head, Link } from '@inertiajs/react';
+import AppLogo from '@/components/app-logo'
+import { Card } from '@/components/ui'
+import { Head, Link } from '@inertiajs/react'
 
 export default function GuestLayout({
     title,
     description,
     children,
 }: {
-    title: string;
-    description: string;
-    children: React.ReactNode;
+    title: string
+    description: string
+    children: React.ReactNode
 }) {
     return (
         <>
@@ -45,5 +45,5 @@ export default function GuestLayout({
                 </div>
             </div>
         </>
-    );
+    )
 }

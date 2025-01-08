@@ -1,9 +1,9 @@
-import { cn, Pagination, useMediaQuery } from '@/components/ui';
-import { Paginate } from '@/types';
+import { cn, Pagination, useMediaQuery } from '@/components/ui'
+import { Paginate } from '@/types'
 
 interface PaginateProps extends Paginate {
-    className?: string;
-    only?: string[];
+    className?: string
+    only?: string[]
 }
 
 export default function Paginator({
@@ -12,12 +12,12 @@ export default function Paginator({
     meta,
     links,
 }: PaginateProps) {
-    const isDesktop = useMediaQuery('(min-width: 1500px)');
+    const isDesktop = useMediaQuery('(min-width: 1500px)')
     const routerOptions = {
         only: only,
         preserveScroll: true,
         preserveState: true,
-    };
+    }
     return (
         <div
             className={cn(
@@ -116,5 +116,5 @@ export default function Paginator({
                 </Pagination>
             </div>
         </div>
-    );
+    )
 }

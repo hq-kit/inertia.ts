@@ -3,13 +3,13 @@ import {
     type DateRangePickerProps as DateRangePickerPrimitiveProps,
     type DateValue,
     type ValidationResult,
-} from 'react-aria-components';
-import { tv } from 'tailwind-variants';
+} from 'react-aria-components'
+import { tv } from 'tailwind-variants'
 
-import { DateInput } from './date-field';
-import { DatePickerIcon, DatePickerOverlay } from './date-picker';
-import { Description, FieldError, FieldGroup, Label } from './field';
-import { ctr } from './utils';
+import { DateInput } from './date-field'
+import { DatePickerIcon, DatePickerOverlay } from './date-picker'
+import { Description, FieldError, FieldGroup, Label } from './field'
+import { ctr } from './utils'
 
 const dateRangePickerStyles = tv({
     slots: {
@@ -20,19 +20,19 @@ const dateRangePickerStyles = tv({
         dateRangePickerDash:
             'text-foreground group-disabled:text-muted-foreground forced-colors:text-[ButtonText] group-disabled:forced-colors:text-[GrayText]',
     },
-});
+})
 const {
     base,
     dateRangePickerInputStart,
     dateRangePickerInputEnd,
     dateRangePickerDash,
-} = dateRangePickerStyles();
+} = dateRangePickerStyles()
 
 interface DateRangePickerProps<T extends DateValue>
     extends DateRangePickerPrimitiveProps<T> {
-    label?: string;
-    description?: string;
-    errorMessage?: string | ((validation: ValidationResult) => string);
+    label?: string
+    description?: string
+    errorMessage?: string | ((validation: ValidationResult) => string)
 }
 
 const DateRangePicker = <T extends DateValue>({
@@ -60,7 +60,7 @@ const DateRangePicker = <T extends DateValue>({
             <FieldError>{errorMessage}</FieldError>
             <DatePickerOverlay range />
         </DateRangePickerPrimitive>
-    );
-};
+    )
+}
 
-export { DateRangePicker, type DateRangePickerProps };
+export { DateRangePicker, type DateRangePickerProps }

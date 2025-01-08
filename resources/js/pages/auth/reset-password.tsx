@@ -1,28 +1,28 @@
-import { Button, Form, TextField } from '@/components/ui';
-import GuestLayout from '@/layouts/guest-layout';
-import { useForm } from '@inertiajs/react';
+import { Button, Form, TextField } from '@/components/ui'
+import GuestLayout from '@/layouts/guest-layout'
+import { useForm } from '@inertiajs/react'
 
 export default function ResetPassword({
     token,
     email,
 }: {
-    token: string;
-    email: string;
+    token: string
+    email: string
 }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         token: token,
         email: email,
         password: '',
         password_confirmation: '',
-    });
+    })
 
     const submit = (e: { preventDefault: () => void }) => {
-        e.preventDefault();
+        e.preventDefault()
 
         post(route('password.store'), {
             onFinish: () => reset('password', 'password_confirmation'),
-        });
-    };
+        })
+    }
 
     return (
         <>
@@ -81,11 +81,11 @@ export default function ResetPassword({
                 </div>
             </Form>
         </>
-    );
+    )
 }
 
 ResetPassword.layout = (page: React.ReactNode) => (
     <GuestLayout title="Reset Password" description="">
         {page}
     </GuestLayout>
-);
+)

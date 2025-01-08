@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 
-import { IconChevronLeft, IconChevronRight } from 'hq-icons';
-import { useDateFormatter } from 'react-aria';
+import { IconChevronLeft, IconChevronRight } from 'hq-icons'
+import { useDateFormatter } from 'react-aria'
 import {
     CalendarCell,
     CalendarGrid,
@@ -16,13 +16,13 @@ import {
     RangeCalendarStateContext,
     Text,
     useLocale,
-} from 'react-aria-components';
-import { CalendarState, RangeCalendarState } from 'react-stately';
-import { tv } from 'tailwind-variants';
+} from 'react-aria-components'
+import { CalendarState, RangeCalendarState } from 'react-stately'
+import { tv } from 'tailwind-variants'
 
-import { Button } from './button';
-import { Menu } from './menu';
-import { cr, ctr, focusRing } from './utils';
+import { Button } from './button'
+import { Menu } from './menu'
+import { cr, ctr, focusRing } from './utils'
 
 const cellStyles = tv({
     extend: focusRing,
@@ -36,12 +36,12 @@ const cellStyles = tv({
             true: 'text-muted-foreground/70 forced-colors:text-[GrayText]',
         },
     },
-});
+})
 
 interface CalendarProps<T extends DateValue>
     extends Omit<CalendarPrimitiveProps<T>, 'visibleDuration'> {
-    errorMessage?: string;
-    className?: string;
+    errorMessage?: string
+    className?: string
 }
 
 const Calendar = <T extends DateValue>({
@@ -77,8 +77,8 @@ const Calendar = <T extends DateValue>({
                 </Text>
             )}
         </CalendarPrimitive>
-    );
-};
+    )
+}
 
 const calendarHeaderStyles = tv({
     slots: {
@@ -88,23 +88,23 @@ const calendarHeaderStyles = tv({
         calendarGridHeaderCell:
             'text-sm lg:text-xs font-semibold text-muted-foreground',
     },
-});
+})
 
-const { header, heading, calendarGridHeaderCell } = calendarHeaderStyles();
+const { header, heading, calendarGridHeaderCell } = calendarHeaderStyles()
 
 const CalendarHeader = ({
     className,
     type,
     ...props
 }: {
-    type: 'calendar' | 'range-calendar';
+    type: 'calendar' | 'range-calendar'
 } & React.HTMLAttributes<HTMLDivElement>) => {
-    const { direction } = useLocale();
+    const { direction } = useLocale()
     const stateContext =
-        type === 'calendar' ? CalendarStateContext : RangeCalendarStateContext;
+        type === 'calendar' ? CalendarStateContext : RangeCalendarStateContext
     const state = React.useContext(
         stateContext as React.Context<CalendarState | RangeCalendarState>,
-    );
+    )
 
     return (
         <header className={header({ className })} {...props}>
@@ -145,8 +145,8 @@ const CalendarHeader = ({
                 </Button>
             </div>
         </header>
-    );
-};
+    )
+}
 
 const CalendarGridHeader = () => {
     return (
@@ -157,28 +157,28 @@ const CalendarGridHeader = () => {
                 </CalendarHeaderCell>
             )}
         </CalendarGridHeaderPrimitive>
-    );
-};
+    )
+}
 
 const MonthDropdown = (state: CalendarState | RangeCalendarState) => {
-    const { timeZone, focusedDate, setFocusedDate } = state;
+    const { timeZone, focusedDate, setFocusedDate } = state
 
     const formatter = useDateFormatter({
         month: 'long',
         timeZone: timeZone,
-    });
+    })
 
-    const months: string[] = [];
-    const numMonths = focusedDate.calendar.getMonthsInYear(focusedDate);
+    const months: string[] = []
+    const numMonths = focusedDate.calendar.getMonthsInYear(focusedDate)
     for (let i = 1; i <= numMonths; i++) {
-        const date = focusedDate.set({ month: i });
-        months.push(formatter.format(date.toDate(timeZone)));
+        const date = focusedDate.set({ month: i })
+        months.push(formatter.format(date.toDate(timeZone)))
     }
 
     const onChange = (e: number) => {
-        const date = focusedDate.set({ month: e });
-        setFocusedDate(date);
-    };
+        const date = focusedDate.set({ month: e })
+        setFocusedDate(date)
+    }
 
     return (
         <Menu aria-label="Month">
@@ -198,26 +198,26 @@ const MonthDropdown = (state: CalendarState | RangeCalendarState) => {
                 )}
             </Menu.Content>
         </Menu>
-    );
-};
+    )
+}
 
 const YearDropdown = (state: CalendarState | RangeCalendarState) => {
-    const { timeZone, focusedDate, setFocusedDate } = state;
+    const { timeZone, focusedDate, setFocusedDate } = state
     const formatter = useDateFormatter({
         year: 'numeric',
         timeZone: timeZone,
-    });
+    })
 
-    const years: string[] = [];
+    const years: string[] = []
     for (let i = -20; i <= 20; i++) {
-        const date = focusedDate.add({ years: i });
-        years.push(formatter.format(date.toDate(timeZone)));
+        const date = focusedDate.add({ years: i })
+        years.push(formatter.format(date.toDate(timeZone)))
     }
 
     const onChange = (e: number) => {
-        const date = focusedDate.set({ year: e });
-        setFocusedDate(date);
-    };
+        const date = focusedDate.set({ year: e })
+        setFocusedDate(date)
+    }
 
     return (
         <Menu aria-label="Year">
@@ -230,9 +230,9 @@ const YearDropdown = (state: CalendarState | RangeCalendarState) => {
                 {(item) => <Menu.Item id={item.value}>{item.value}</Menu.Item>}
             </Menu.Content>
         </Menu>
-    );
-};
+    )
+}
 
-Calendar.Header = CalendarHeader;
-Calendar.GridHeader = CalendarGridHeader;
-export { Calendar };
+Calendar.Header = CalendarHeader
+Calendar.GridHeader = CalendarGridHeader
+export { Calendar }

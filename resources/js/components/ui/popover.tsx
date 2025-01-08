@@ -1,10 +1,10 @@
-import React from 'react';
+import React from 'react'
 
 import type {
     DialogTriggerProps,
     ModalOverlayProps,
     PopoverProps as PopoverPrimitiveProps,
-} from 'react-aria-components';
+} from 'react-aria-components'
 import {
     type DialogProps,
     DialogTrigger,
@@ -14,16 +14,16 @@ import {
     PopoverContext,
     Popover as PopoverPrimitive,
     useSlottedContext,
-} from 'react-aria-components';
-import { twJoin } from 'tailwind-merge';
-import { tv } from 'tailwind-variants';
+} from 'react-aria-components'
+import { twJoin } from 'tailwind-merge'
+import { tv } from 'tailwind-variants'
 
-import { Dialog } from './dialog';
-import { cn, cr, useMediaQuery } from './utils';
+import { Dialog } from './dialog'
+import { cn, cr, useMediaQuery } from './utils'
 
 const Popover = ({ children, ...props }: DialogTriggerProps) => {
-    return <DialogTrigger {...props}>{children}</DialogTrigger>;
-};
+    return <DialogTrigger {...props}>{children}</DialogTrigger>
+}
 
 const Title = ({
     level = 2,
@@ -38,28 +38,28 @@ const Title = ({
         )}
         {...props}
     />
-);
+)
 
 const Header = ({
     className,
     ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
     <Dialog.Header className={cn('p-0 sm:pt-0', className)} {...props} />
-);
+)
 
 const Footer = ({
     className,
     ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
     <Dialog.Footer className={cn('pb-0 pt-4 sm:pb-0', className)} {...props} />
-);
+)
 
 const Body = ({
     className,
     ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
     <Dialog.Body className={cn('sm:p-0', className)} {...props} />
-);
+)
 
 const popoverContentStyles = tv({
     base: [
@@ -80,7 +80,7 @@ const popoverContentStyles = tv({
             true: 'duration-50 ease-in animate-out fade-out placement-left:slide-out-to-right-1 placement-right:slide-out-to-left-1 placement-top:slide-out-to-bottom-1 placement-bottom:slide-out-to-top-1',
         },
     },
-});
+})
 
 const drawerStyles = tv({
     base: [
@@ -103,19 +103,19 @@ const drawerStyles = tv({
             true: 'duration-200 ease-in animate-out slide-out-to-bottom-56',
         },
     },
-});
+})
 
 interface PopoverProps
     extends Omit<React.ComponentProps<typeof Modal>, 'children'>,
         Omit<PopoverPrimitiveProps, 'children' | 'className'>,
         Omit<ModalOverlayProps, 'className'> {
-    children: React.ReactNode;
-    showArrow?: boolean;
-    style?: React.CSSProperties;
-    respectScreen?: boolean;
-    'aria-label'?: DialogProps['aria-label'];
-    'aria-labelledby'?: DialogProps['aria-labelledby'];
-    className?: string | ((values: { defaultClassName?: string }) => string);
+    children: React.ReactNode
+    showArrow?: boolean
+    style?: React.CSSProperties
+    respectScreen?: boolean
+    'aria-label'?: DialogProps['aria-label']
+    'aria-labelledby'?: DialogProps['aria-labelledby']
+    className?: string | ((values: { defaultClassName?: string }) => string)
 }
 
 const Content = ({
@@ -125,13 +125,13 @@ const Content = ({
     className,
     ...props
 }: PopoverProps) => {
-    const isMobile = useMediaQuery('(max-width: 600px)');
-    const popoverContext = useSlottedContext(PopoverContext)!;
-    const isMenuTrigger = popoverContext?.trigger === 'MenuTrigger';
-    const isSubmenuTrigger = popoverContext?.trigger === 'SubmenuTrigger';
-    const isMenu = isMenuTrigger || isSubmenuTrigger;
-    const offset = showArrow ? 12 : 8;
-    const effectiveOffset = isSubmenuTrigger ? offset - 5 : offset;
+    const isMobile = useMediaQuery('(max-width: 600px)')
+    const popoverContext = useSlottedContext(PopoverContext)!
+    const isMenuTrigger = popoverContext?.trigger === 'MenuTrigger'
+    const isSubmenuTrigger = popoverContext?.trigger === 'SubmenuTrigger'
+    const isMenu = isMenuTrigger || isSubmenuTrigger
+    const offset = showArrow ? 12 : 8
+    const effectiveOffset = isSubmenuTrigger ? offset - 5 : offset
     return isMobile && respectScreen ? (
         <ModalOverlay
             className={twJoin(
@@ -179,8 +179,8 @@ const Content = ({
             )}
             {children}
         </PopoverPrimitive>
-    );
-};
+    )
+}
 
 const Picker = ({ children, className, ...props }: PopoverProps) => {
     return (
@@ -200,18 +200,18 @@ const Picker = ({ children, className, ...props }: PopoverProps) => {
         >
             {children}
         </PopoverPrimitive>
-    );
-};
+    )
+}
 
-Popover.Primitive = PopoverPrimitive;
-Popover.Trigger = Dialog.Trigger;
-Popover.Close = Dialog.Close;
-Popover.Content = Content;
-Popover.Description = Dialog.Description;
-Popover.Body = Body;
-Popover.Footer = Footer;
-Popover.Header = Header;
-Popover.Picker = Picker;
-Popover.Title = Title;
+Popover.Primitive = PopoverPrimitive
+Popover.Trigger = Dialog.Trigger
+Popover.Close = Dialog.Close
+Popover.Content = Content
+Popover.Description = Dialog.Description
+Popover.Body = Body
+Popover.Footer = Footer
+Popover.Header = Header
+Popover.Picker = Picker
+Popover.Title = Title
 
-export { drawerStyles, Popover, popoverContentStyles };
+export { drawerStyles, Popover, popoverContentStyles }

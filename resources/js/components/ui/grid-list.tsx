@@ -1,17 +1,17 @@
-import React from 'react';
+import React from 'react'
 
-import { IconMenu } from 'hq-icons';
+import { IconMenu } from 'hq-icons'
 import {
     Button,
     GridListItem,
     GridList as GridListPrimitive,
     type GridListItemProps,
     type GridListProps,
-} from 'react-aria-components';
-import { tv } from 'tailwind-variants';
+} from 'react-aria-components'
+import { tv } from 'tailwind-variants'
 
-import { Checkbox } from './checkbox';
-import { cr } from './utils';
+import { Checkbox } from './checkbox'
+import { cr } from './utils'
 
 const gridListStyles = tv({
     base: 'relative group flex [&>[data-drop-target]]:border [&>[data-drop-target]]:border-primary has-[[data-slot=icon]]:[&_[slot=drag]]:sr-only',
@@ -21,7 +21,7 @@ const gridListStyles = tv({
             grid: 'flex-wrap gap-2',
         },
     },
-});
+})
 
 const GridList = <T extends object>({
     children,
@@ -37,8 +37,8 @@ const GridList = <T extends object>({
         >
             {children}
         </GridListPrimitive>
-    );
-};
+    )
+}
 
 const itemStyles = tv({
     base: [
@@ -62,11 +62,11 @@ const itemStyles = tv({
             true: 'text-muted-foreground',
         },
     },
-});
+})
 
 const Item = ({ className, ...props }: GridListItemProps) => {
     const textValue =
-        typeof props.children === 'string' ? props.children : undefined;
+        typeof props.children === 'string' ? props.children : undefined
     return (
         <GridListItem
             textValue={textValue}
@@ -93,14 +93,14 @@ const Item = ({ className, ...props }: GridListItemProps) => {
                 </>
             )}
         </GridListItem>
-    );
-};
+    )
+}
 
 const EmptyState = (props: React.HTMLAttributes<HTMLDivElement>) => (
     <div className="p-6" {...props} />
-);
+)
 
-GridList.Item = Item;
-GridList.EmptyState = EmptyState;
+GridList.Item = Item
+GridList.EmptyState = EmptyState
 
-export { GridList };
+export { GridList }

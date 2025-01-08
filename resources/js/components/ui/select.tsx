@@ -1,6 +1,6 @@
-import React from 'react';
+import React from 'react'
 
-import { IconChevronDown } from 'hq-icons';
+import { IconChevronDown } from 'hq-icons'
 import {
     type SelectProps as SelectPrimitiveProps,
     type ValidationResult,
@@ -8,16 +8,16 @@ import {
     Group,
     Select as SelectPrimitive,
     SelectValue,
-} from 'react-aria-components';
-import { tv } from 'tailwind-variants';
+} from 'react-aria-components'
+import { tv } from 'tailwind-variants'
 
-import type { Placement } from '@react-types/overlays';
+import type { Placement } from '@react-types/overlays'
 
-import { DropdownItem, DropdownItemDetails, DropdownSection } from './dropdown';
-import { Description, FieldError, Label } from './field';
-import { ListBox } from './list-box';
-import { Popover } from './popover';
-import { cn, cr } from './utils';
+import { DropdownItem, DropdownItemDetails, DropdownSection } from './dropdown'
+import { Description, FieldError, Label } from './field'
+import { ListBox } from './list-box'
+import { Popover } from './popover'
+import { cn, cr } from './utils'
 
 const selectTriggerStyles = tv({
     base: [
@@ -29,19 +29,19 @@ const selectTriggerStyles = tv({
             true: 'bg-muted text-muted-foreground',
         },
     },
-});
+})
 
 interface SelectProps<T extends object>
     extends Omit<SelectPrimitiveProps<T>, 'children'> {
-    label?: string;
-    description?: string;
-    errorMessage?: string | ((validation: ValidationResult) => string);
-    items?: Iterable<T>;
-    children: React.ReactNode | ((item: T) => React.ReactNode);
-    placement?: Placement;
-    prefix?: React.ReactNode;
-    className?: string;
-    portal?: Element;
+    label?: string
+    description?: string
+    errorMessage?: string | ((validation: ValidationResult) => string)
+    items?: Iterable<T>
+    children: React.ReactNode | ((item: T) => React.ReactNode)
+    placement?: Placement
+    prefix?: React.ReactNode
+    className?: string
+    portal?: Element
 }
 
 const Select = <T extends object>({
@@ -92,11 +92,11 @@ const Select = <T extends object>({
                 </ListBox.Picker>
             </Popover.Picker>
         </SelectPrimitive>
-    );
-};
+    )
+}
 
-Select.Item = DropdownItem;
-Select.ItemDetails = DropdownItemDetails;
-Select.Section = DropdownSection;
+Select.Item = DropdownItem
+Select.ItemDetails = DropdownItemDetails
+Select.Section = DropdownSection
 
-export { Select };
+export { Select }

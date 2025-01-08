@@ -3,24 +3,24 @@ import {
     TextField as TextFieldPrimitive,
     type TextFieldProps as TextFieldPrimitiveProps,
     type ValidationResult,
-} from 'react-aria-components';
-import { tv } from 'tailwind-variants';
+} from 'react-aria-components'
+import { tv } from 'tailwind-variants'
 
-import { Description, FieldError, Label } from './field';
-import { cr, ctr, focusStyles } from './utils';
+import { Description, FieldError, Label } from './field'
+import { cr, ctr, focusStyles } from './utils'
 
 const textareaStyles = tv({
     extend: focusStyles,
     base: 'w-full min-w-0 rounded-lg border border-muted bg-background px-2.5 py-2 text-base shadow-sm outline-none transition duration-200 disabled:opacity-50 sm:text-sm',
-});
+})
 
 interface TextareaProps extends TextFieldPrimitiveProps {
-    autoSize?: boolean;
-    label?: string;
-    placeholder?: string;
-    description?: string;
-    errorMessage?: string | ((validation: ValidationResult) => string);
-    className?: string;
+    autoSize?: boolean
+    label?: string
+    placeholder?: string
+    description?: string
+    errorMessage?: string | ((validation: ValidationResult) => string)
+    className?: string
 }
 
 const Textarea = ({
@@ -49,7 +49,7 @@ const Textarea = ({
             {description && <Description>{description}</Description>}
             <FieldError>{errorMessage}</FieldError>
         </TextFieldPrimitive>
-    );
-};
+    )
+}
 
-export { Textarea, type TextareaProps };
+export { Textarea, type TextareaProps }

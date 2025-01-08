@@ -1,19 +1,19 @@
 import type {
     DateValue,
     RangeCalendarProps as RangeCalendarPrimitiveProps,
-} from 'react-aria-components';
+} from 'react-aria-components'
 import {
     CalendarCell,
     CalendarGrid,
     CalendarGridBody,
     RangeCalendar as RangeCalendarPrimitive,
     Text,
-} from 'react-aria-components';
-import { twJoin } from 'tailwind-merge';
-import { tv } from 'tailwind-variants';
+} from 'react-aria-components'
+import { twJoin } from 'tailwind-merge'
+import { tv } from 'tailwind-variants'
 
-import { Calendar } from './calendar';
-import { ctr, focusRing } from './utils';
+import { Calendar } from './calendar'
+import { ctr, focusRing } from './utils'
 
 const cellRangeStyles = tv({
     extend: focusRing,
@@ -33,11 +33,11 @@ const cellRangeStyles = tv({
             true: 'text-muted-foreground/70 forced-colors:text-[GrayText]',
         },
     },
-});
+})
 
 interface RangeCalendarProps<T extends DateValue>
     extends Omit<RangeCalendarPrimitiveProps<T>, 'visibleDuration'> {
-    errorMessage?: string;
+    errorMessage?: string
 }
 
 const RangeCalendar = <T extends DateValue>({
@@ -96,7 +96,7 @@ const RangeCalendar = <T extends DateValue>({
                 </Text>
             )}
         </RangeCalendarPrimitive>
-    );
-};
+    )
+}
 
-export { RangeCalendar };
+export { RangeCalendar }

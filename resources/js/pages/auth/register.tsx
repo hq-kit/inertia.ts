@@ -1,7 +1,7 @@
-import { Button, Form, Link, TextField } from '@/components/ui';
-import GuestLayout from '@/layouts/guest-layout';
-import { useForm } from '@inertiajs/react';
-import React from 'react';
+import { Button, Form, Link, TextField } from '@/components/ui'
+import GuestLayout from '@/layouts/guest-layout'
+import { useForm } from '@inertiajs/react'
+import React from 'react'
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -9,19 +9,19 @@ export default function Register() {
         email: '',
         password: '',
         password_confirmation: '',
-    });
+    })
 
     React.useEffect(() => {
         return () => {
-            reset('password', 'password_confirmation');
-        };
-    }, []);
+            reset('password', 'password_confirmation')
+        }
+    }, [])
 
     const submit = (e: { preventDefault: () => void }) => {
-        e.preventDefault();
+        e.preventDefault()
 
-        post(route('register'));
-    };
+        post(route('register'))
+    }
 
     return (
         <>
@@ -97,11 +97,11 @@ export default function Register() {
                 </div>
             </Form>
         </>
-    );
+    )
 }
 
 Register.layout = (page: React.ReactNode) => (
     <GuestLayout title="Register" description="Register a new account">
         {page}
     </GuestLayout>
-);
+)

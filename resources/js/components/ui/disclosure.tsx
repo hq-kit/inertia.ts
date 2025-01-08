@@ -1,6 +1,6 @@
-import React from 'react';
+import React from 'react'
 
-import { IconMinus } from 'hq-icons';
+import { IconMinus } from 'hq-icons'
 import {
     Button,
     DisclosureGroup as DisclosureGroupPrimitive,
@@ -10,18 +10,18 @@ import {
     type DisclosureGroupProps as DisclosureGroupPrimitiveProps,
     type DisclosurePanelProps,
     type DisclosureProps,
-} from 'react-aria-components';
-import { tv } from 'tailwind-variants';
+} from 'react-aria-components'
+import { tv } from 'tailwind-variants'
 
-import { cn, cr } from './utils';
+import { cn, cr } from './utils'
 
 interface DisclosureGroupProps extends DisclosureGroupPrimitiveProps {
-    hideBorder?: boolean;
-    hideIndicator?: boolean;
-    className?: string;
+    hideBorder?: boolean
+    hideIndicator?: boolean
+    className?: string
 }
 
-const DisclosureGroupContext = React.createContext<DisclosureGroupProps>({});
+const DisclosureGroupContext = React.createContext<DisclosureGroupProps>({})
 
 const DisclosureGroup = ({
     children,
@@ -56,8 +56,8 @@ const DisclosureGroup = ({
                 </div>
             )}
         </DisclosureGroupPrimitive>
-    );
-};
+    )
+}
 
 const disclosureStyles = tv({
     base: 'flex group relative w-full flex-col',
@@ -76,7 +76,7 @@ const disclosureStyles = tv({
             className: 'pb-2',
         },
     ],
-});
+})
 
 const Disclosure = ({ className, ...props }: DisclosureProps) => {
     return (
@@ -89,8 +89,8 @@ const Disclosure = ({ className, ...props }: DisclosureProps) => {
         >
             {props.children}
         </DisclosurePrimitive>
-    );
-};
+    )
+}
 
 const accordionTriggerStyles = tv({
     base: [
@@ -111,12 +111,12 @@ const accordionTriggerStyles = tv({
             true: 'opacity-50 cursor-default',
         },
     },
-});
+})
 
 const Trigger = ({ className, ...props }: ButtonProps) => {
     const { hideIndicator, hideBorder } = React.useContext(
         DisclosureGroupContext,
-    );
+    )
     return (
         <Button
             {...props}
@@ -157,29 +157,29 @@ const Trigger = ({ className, ...props }: ButtonProps) => {
                 </>
             )}
         </Button>
-    );
-};
+    )
+}
 
 const Panel = ({ className, ...props }: DisclosurePanelProps) => {
     return (
         <DisclosurePanel {...props} className={cn('sm:text-sm', className)}>
             {props.children}
         </DisclosurePanel>
-    );
-};
+    )
+}
 
-Disclosure.Trigger = Trigger;
-Disclosure.Panel = Panel;
+Disclosure.Trigger = Trigger
+Disclosure.Panel = Panel
 
 const Accordion = (props: DisclosureGroupProps) => (
     <DisclosureGroup {...props} />
-);
-Accordion.Item = Disclosure;
-Accordion.Trigger = Trigger;
-Accordion.Content = Panel;
+)
+Accordion.Item = Disclosure
+Accordion.Trigger = Trigger
+Accordion.Content = Panel
 
-const Collapsible = (props: DisclosureProps) => <Disclosure {...props} />;
-Collapsible.Trigger = Trigger;
-Collapsible.Content = Panel;
+const Collapsible = (props: DisclosureProps) => <Disclosure {...props} />
+Collapsible.Trigger = Trigger
+Collapsible.Content = Panel
 
-export { Accordion, Collapsible };
+export { Accordion, Collapsible }

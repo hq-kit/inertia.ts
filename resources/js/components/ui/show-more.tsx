@@ -1,12 +1,12 @@
-import { useState } from 'react';
+import { useState } from 'react'
 
-import { AnimatePresence, motion } from 'framer-motion';
-import { IconChevronDown } from 'hq-icons';
-import { Text, ToggleButton } from 'react-aria-components';
-import { tv } from 'tailwind-variants';
+import { AnimatePresence, motion } from 'framer-motion'
+import { IconChevronDown } from 'hq-icons'
+import { Text, ToggleButton } from 'react-aria-components'
+import { tv } from 'tailwind-variants'
 
-import { buttonVariants } from './button';
-import { cn } from './utils';
+import { buttonVariants } from './button'
+import { cn } from './utils'
 
 const showMoreStyles = tv({
     base: 'text-sm leading-6 after:border-muted before:border-muted',
@@ -31,13 +31,13 @@ const showMoreStyles = tv({
     defaultVariants: {
         orientation: 'horizontal',
     },
-});
+})
 
 interface ShowMoreProps extends React.ComponentProps<typeof ToggleButton> {
-    className?: string;
-    orientation?: 'horizontal' | 'vertical';
-    as?: 'text' | 'button';
-    text?: string;
+    className?: string
+    orientation?: 'horizontal' | 'vertical'
+    as?: 'text' | 'button'
+    text?: string
 }
 
 const ShowMore = ({
@@ -60,17 +60,17 @@ const ShowMore = ({
                 <Text slot="description">{props.text}</Text>
             )}
         </div>
-    );
-};
+    )
+}
 
 interface ContentRevealProps {
-    initialHeight?: number;
-    initialOpacity?: number;
-    showMoreText?: string;
-    showLessText?: string;
-    gradientTransparency?: boolean;
-    children: React.ReactNode;
-    className?: string;
+    initialHeight?: number
+    initialOpacity?: number
+    showMoreText?: string
+    showLessText?: string
+    gradientTransparency?: boolean
+    children: React.ReactNode
+    className?: string
 }
 
 function ContentReveal({
@@ -82,12 +82,12 @@ function ContentReveal({
     gradientTransparency = true,
     className,
 }: ContentRevealProps) {
-    const [isExpanded, setIsExpanded] = useState(false);
+    const [isExpanded, setIsExpanded] = useState(false)
     const animate = {
         transition: { type: 'tween' },
         height: isExpanded ? 'auto' : initialHeight,
         opacity: isExpanded ? 1 : initialOpacity,
-    };
+    }
     return (
         <div className={cn('relative overflow-visible', className)}>
             <AnimatePresence initial={false}>
@@ -130,7 +130,7 @@ function ContentReveal({
                 />
             </ShowMore>
         </div>
-    );
+    )
 }
 
-export { ContentReveal, ShowMore };
+export { ContentReveal, ShowMore }

@@ -1,15 +1,15 @@
-import { Button, Form, Link } from '@/components/ui';
-import GuestLayout from '@/layouts/guest-layout';
-import { useForm } from '@inertiajs/react';
+import { Button, Form, Link } from '@/components/ui'
+import GuestLayout from '@/layouts/guest-layout'
+import { useForm } from '@inertiajs/react'
 
 export default function VerifyEmail({ status }: { status?: string }) {
-    const { post, processing } = useForm({});
+    const { post, processing } = useForm({})
 
     const submit = (e: { preventDefault: () => void }) => {
-        e.preventDefault();
+        e.preventDefault()
 
-        post(route('verification.send'));
-    };
+        post(route('verification.send'))
+    }
 
     return (
         <>
@@ -33,7 +33,7 @@ export default function VerifyEmail({ status }: { status?: string }) {
                 </Link>
             </Form>
         </>
-    );
+    )
 }
 
 VerifyEmail.layout = (page: React.ReactNode) => (
@@ -46,4 +46,4 @@ VerifyEmail.layout = (page: React.ReactNode) => (
     >
         {page}
     </GuestLayout>
-);
+)

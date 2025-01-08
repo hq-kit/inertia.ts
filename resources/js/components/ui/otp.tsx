@@ -1,18 +1,18 @@
-import React from 'react';
+import React from 'react'
 
-import { IconDot } from 'hq-icons';
-import { OTPInput, OTPInputContext } from 'input-otp';
+import { IconDot } from 'hq-icons'
+import { OTPInput, OTPInputContext } from 'input-otp'
 
-import { cn } from './utils';
+import { cn } from './utils'
 
 interface OTPType
     extends React.ForwardRefExoticComponent<
         React.ComponentPropsWithoutRef<typeof OTPInput> &
             React.RefAttributes<HTMLInputElement>
     > {
-    Group: typeof OTPGroup;
-    Slot: typeof OTPSlot;
-    Separator: typeof OTPSeparator;
+    Group: typeof OTPGroup
+    Slot: typeof OTPSlot
+    Separator: typeof OTPSeparator
 }
 
 const OTP = React.forwardRef<
@@ -29,8 +29,8 @@ const OTP = React.forwardRef<
         className={cn('disabled:cursor-not-allowed', className)}
         {...props}
     />
-)) as OTPType;
-OTP.displayName = 'OTP';
+)) as OTPType
+OTP.displayName = 'OTP'
 
 const OTPGroup = React.forwardRef<
     React.ElementRef<'div'>,
@@ -41,15 +41,15 @@ const OTPGroup = React.forwardRef<
         className={cn('flex items-center gap-x-1.5', className)}
         {...props}
     />
-));
-OTPGroup.displayName = 'OTPGroup';
+))
+OTPGroup.displayName = 'OTPGroup'
 
 const OTPSlot = React.forwardRef<
     React.ElementRef<'div'>,
     React.ComponentPropsWithoutRef<'div'> & { index: number }
 >(({ index, className, ...props }, ref) => {
-    const inputOTPContext = React.useContext(OTPInputContext);
-    const { char, hasFakeCaret, isActive } = inputOTPContext.slots[index];
+    const inputOTPContext = React.useContext(OTPInputContext)
+    const { char, hasFakeCaret, isActive } = inputOTPContext.slots[index]
 
     return (
         <div
@@ -68,9 +68,9 @@ const OTPSlot = React.forwardRef<
                 </div>
             )}
         </div>
-    );
-});
-OTPSlot.displayName = 'OTPSlot';
+    )
+})
+OTPSlot.displayName = 'OTPSlot'
 
 const OTPSeparator = React.forwardRef<
     React.ElementRef<'div'>,
@@ -79,11 +79,11 @@ const OTPSeparator = React.forwardRef<
     <div ref={ref} role="separator" {...props}>
         <IconDot className="size-2" />
     </div>
-));
-OTPSeparator.displayName = 'OTPSeparator';
+))
+OTPSeparator.displayName = 'OTPSeparator'
 
-OTP.Group = OTPGroup;
-OTP.Slot = OTPSlot;
-OTP.Separator = OTPSeparator;
+OTP.Group = OTPGroup
+OTP.Slot = OTPSlot
+OTP.Separator = OTPSeparator
 
-export { OTP };
+export { OTP }

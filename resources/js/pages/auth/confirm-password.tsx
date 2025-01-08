@@ -1,19 +1,19 @@
-import { Button, Form, TextField } from '@/components/ui';
-import GuestLayout from '@/layouts/guest-layout';
-import { useForm } from '@inertiajs/react';
+import { Button, Form, TextField } from '@/components/ui'
+import GuestLayout from '@/layouts/guest-layout'
+import { useForm } from '@inertiajs/react'
 
 export default function ConfirmPassword() {
     const { data, setData, post, processing, errors, reset } = useForm({
         password: '',
-    });
+    })
 
     const submit = (e: { preventDefault: () => void }) => {
-        e.preventDefault();
+        e.preventDefault()
 
         post(route('password.confirm'), {
             onFinish: () => reset('password'),
-        });
-    };
+        })
+    }
 
     return (
         <>
@@ -42,7 +42,7 @@ export default function ConfirmPassword() {
                 </div>
             </Form>
         </>
-    );
+    )
 }
 
 ConfirmPassword.layout = (page: React.ReactNode) => (
@@ -53,4 +53,4 @@ ConfirmPassword.layout = (page: React.ReactNode) => (
     >
         {page}
     </GuestLayout>
-);
+)

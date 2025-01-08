@@ -1,6 +1,6 @@
-import React from 'react';
+import React from 'react'
 
-import { IconX } from 'hq-icons';
+import { IconX } from 'hq-icons'
 import {
     Button as ButtonPrimitive,
     Dialog as DialogPrimitive,
@@ -9,11 +9,11 @@ import {
     type ButtonProps as ButtonPrimitiveProps,
     type DialogProps,
     type HeadingProps,
-} from 'react-aria-components';
-import { tv } from 'tailwind-variants';
+} from 'react-aria-components'
+import { tv } from 'tailwind-variants'
 
-import { Button, type ButtonProps } from './button';
-import { useMediaQuery } from './utils';
+import { Button, type ButtonProps } from './button'
+import { useMediaQuery } from './utils'
 
 const dialogStyles = tv({
     slots: {
@@ -32,10 +32,10 @@ const dialogStyles = tv({
         closeIndicator:
             'close absolute right-1 top-1 sm:right-2 sm:top-2 focus:outline-none focus:bg-muted hover:bg-muted grid place-content-center rounded-lg focus-visible:ring-1 focus-visible:ring-primary size-8 sm:size-7 z-50',
     },
-});
+})
 
 const { root, header, description, body, footer, closeIndicator } =
-    dialogStyles();
+    dialogStyles()
 
 const Dialog = ({ role, className, ...props }: DialogProps) => {
     return (
@@ -44,8 +44,8 @@ const Dialog = ({ role, className, ...props }: DialogProps) => {
             className={root({ className })}
             {...props}
         />
-    );
-};
+    )
+}
 
 const Trigger = (props: ButtonPrimitiveProps) => (
     <ButtonPrimitive {...props}>
@@ -57,20 +57,20 @@ const Trigger = (props: ButtonPrimitiveProps) => (
             </>
         )}
     </ButtonPrimitive>
-);
+)
 
 type DialogHeaderProps = React.HTMLAttributes<HTMLDivElement> & {
-    title?: string;
-    description?: string;
-};
+    title?: string
+    description?: string
+}
 
 const Header = ({ className, ...props }: DialogHeaderProps) => {
-    const headerRef = React.useRef<HTMLHeadingElement>(null);
+    const headerRef = React.useRef<HTMLHeadingElement>(null)
 
     React.useEffect(() => {
-        const header = headerRef.current;
+        const header = headerRef.current
         if (!header) {
-            return;
+            return
         }
 
         const observer = new ResizeObserver((entries) => {
@@ -78,13 +78,13 @@ const Header = ({ className, ...props }: DialogHeaderProps) => {
                 header.parentElement?.style.setProperty(
                     '--dialog-header-height',
                     `${entry.target.clientHeight}px`,
-                );
+                )
             }
-        });
+        })
 
-        observer.observe(header);
-        return () => observer.unobserve(header);
-    }, []);
+        observer.observe(header)
+        return () => observer.unobserve(header)
+    }, [])
 
     return (
         <div
@@ -102,8 +102,8 @@ const Header = ({ className, ...props }: DialogHeaderProps) => {
                 props.children
             )}
         </div>
-    );
-};
+    )
+}
 
 const titleStyles = tv({
     base: 'flex flex-1 items-center text-foreground',
@@ -115,10 +115,10 @@ const titleStyles = tv({
             4: 'font-semibold text-base',
         },
     },
-});
+})
 
 interface TitleProps extends Omit<HeadingProps, 'level'> {
-    level?: 1 | 2 | 3 | 4;
+    level?: 1 | 2 | 3 | 4
 }
 
 const Title = ({ level = 2, className, ...props }: TitleProps) => (
@@ -128,33 +128,33 @@ const Title = ({ level = 2, className, ...props }: TitleProps) => (
         className={titleStyles({ level, className })}
         {...props}
     />
-);
+)
 
 const Description = ({
     className,
     ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
     <div className={description({ className })} {...props} />
-);
+)
 
 const Body = ({
     className,
     ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
     <div data-slot="dialog-body" className={body({ className })} {...props} />
-);
+)
 
 const Footer = ({
     className,
     ...props
 }: React.HTMLAttributes<HTMLDivElement>) => {
-    const footerRef = React.useRef<HTMLDivElement>(null);
+    const footerRef = React.useRef<HTMLDivElement>(null)
 
     React.useEffect(() => {
-        const footer = footerRef.current;
+        const footer = footerRef.current
 
         if (!footer) {
-            return;
+            return
         }
 
         const observer = new ResizeObserver((entries) => {
@@ -162,15 +162,15 @@ const Footer = ({
                 footer.parentElement?.style.setProperty(
                     '--dialog-footer-height',
                     `${entry.target.clientHeight}px`,
-                );
+                )
             }
-        });
+        })
 
-        observer.observe(footer);
+        observer.observe(footer)
         return () => {
-            observer.unobserve(footer);
-        };
-    }, []);
+            observer.unobserve(footer)
+        }
+    }, [])
     return (
         <div
             ref={footerRef}
@@ -178,11 +178,11 @@ const Footer = ({
             className={footer({ className })}
             {...props}
         />
-    );
-};
+    )
+}
 
 const Close = ({ className, variant = 'outline', ...props }: ButtonProps) => {
-    const state = React.useContext(OverlayTriggerStateContext)!;
+    const state = React.useContext(OverlayTriggerStateContext)!
     return (
         <Button
             className={className}
@@ -190,24 +190,24 @@ const Close = ({ className, variant = 'outline', ...props }: ButtonProps) => {
             onPress={() => state.close()}
             {...props}
         />
-    );
-};
+    )
+}
 
 interface CloseButtonIndicatorProps {
-    className?: string;
-    close: () => void;
-    isDismissable?: boolean | undefined;
+    className?: string
+    close: () => void
+    isDismissable?: boolean | undefined
 }
 
 const CloseIndicator = ({ className, ...props }: CloseButtonIndicatorProps) => {
-    const isMobile = useMediaQuery('(max-width: 600px)');
-    const buttonRef = React.useRef<HTMLButtonElement>(null);
+    const isMobile = useMediaQuery('(max-width: 600px)')
+    const buttonRef = React.useRef<HTMLButtonElement>(null)
 
     React.useEffect(() => {
         if (isMobile && buttonRef.current) {
-            buttonRef.current.focus();
+            buttonRef.current.focus()
         }
-    }, [isMobile]);
+    }, [isMobile])
     return props.isDismissable ? (
         <ButtonPrimitive
             ref={buttonRef}
@@ -218,16 +218,16 @@ const CloseIndicator = ({ className, ...props }: CloseButtonIndicatorProps) => {
         >
             <IconX className="size-4" />
         </ButtonPrimitive>
-    ) : null;
-};
+    ) : null
+}
 
-Dialog.Trigger = Trigger;
-Dialog.Header = Header;
-Dialog.Title = Title;
-Dialog.Description = Description;
-Dialog.Body = Body;
-Dialog.Footer = Footer;
-Dialog.Close = Close;
-Dialog.CloseIndicator = CloseIndicator;
+Dialog.Trigger = Trigger
+Dialog.Header = Header
+Dialog.Title = Title
+Dialog.Description = Description
+Dialog.Body = Body
+Dialog.Footer = Footer
+Dialog.Close = Close
+Dialog.CloseIndicator = CloseIndicator
 
-export { Dialog };
+export { Dialog }

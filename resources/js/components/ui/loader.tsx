@@ -1,10 +1,10 @@
-import React from 'react';
+import React from 'react'
 
-import { IconLoaderCircle } from 'hq-icons';
-import { ProgressBar } from 'react-aria-components';
-import { tv, type VariantProps } from 'tailwind-variants';
+import { IconLoaderCircle } from 'hq-icons'
+import { ProgressBar } from 'react-aria-components'
+import { tv, type VariantProps } from 'tailwind-variants'
 
-import { cn } from './utils';
+import { cn } from './utils'
 
 const loaderStyles = tv({
     base: 'relative',
@@ -28,9 +28,9 @@ const loaderStyles = tv({
         color: 'current',
         size: 'sm',
     },
-});
+})
 
-type LoaderVariantProps = VariantProps<typeof loaderStyles>;
+type LoaderVariantProps = VariantProps<typeof loaderStyles>
 
 const Bars = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
     <svg
@@ -132,10 +132,10 @@ const Bars = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
             />
         </rect>
     </svg>
-);
+)
 const Ring = (props: React.SVGProps<SVGSVGElement>) => (
     <IconLoaderCircle {...props} />
-);
+)
 const Spin = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
     <svg
         className={cn('size-4', className)}
@@ -169,15 +169,15 @@ const Spin = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => (
             />
         </g>
     </svg>
-);
+)
 
 const LOADERS = {
     bars: Bars,
     ring: Ring,
     spin: Spin,
-};
+}
 
-const DEFAULT_SPINNER = 'ring';
+const DEFAULT_SPINNER = 'ring'
 
 interface LoaderProps
     extends Omit<
@@ -185,10 +185,10 @@ interface LoaderProps
             'display' | 'opacity' | 'color'
         >,
         LoaderVariantProps {
-    variant?: keyof typeof LOADERS;
-    percentage?: number;
-    isIndeterminate?: boolean;
-    formatOptions?: Intl.NumberFormatOptions;
+    variant?: keyof typeof LOADERS
+    percentage?: number
+    isIndeterminate?: boolean
+    formatOptions?: Intl.NumberFormatOptions
 }
 
 const Loader = React.forwardRef<SVGSVGElement, LoaderProps>(
@@ -199,9 +199,9 @@ const Loader = React.forwardRef<SVGSVGElement, LoaderProps>(
             color,
             size,
             ...spinnerProps
-        } = props;
+        } = props
         const LoaderPrimitive =
-            LOADERS[variant in LOADERS ? variant : DEFAULT_SPINNER];
+            LOADERS[variant in LOADERS ? variant : DEFAULT_SPINNER]
 
         return (
             <ProgressBar
@@ -224,9 +224,9 @@ const Loader = React.forwardRef<SVGSVGElement, LoaderProps>(
                     {...spinnerProps}
                 />
             </ProgressBar>
-        );
+        )
     },
-);
-Loader.displayName = 'Loader';
+)
+Loader.displayName = 'Loader'
 
-export { Loader };
+export { Loader }

@@ -1,8 +1,8 @@
-import React from 'react';
+import React from 'react'
 
-import { IconCircleAlert, IconCircleCheck, IconTriangleAlert } from 'hq-icons';
-import { Text } from 'react-aria-components';
-import { tv, type VariantProps } from 'tailwind-variants';
+import { IconCircleAlert, IconCircleCheck, IconTriangleAlert } from 'hq-icons'
+import { Text } from 'react-aria-components'
+import { tv, type VariantProps } from 'tailwind-variants'
 
 const noteStyles = tv({
     base: [
@@ -32,12 +32,12 @@ const noteStyles = tv({
     defaultVariants: {
         variant: 'primary',
     },
-});
+})
 
 interface NoteProps
     extends React.HtmlHTMLAttributes<HTMLDivElement>,
         VariantProps<typeof noteStyles> {
-    hideIndicator?: boolean;
+    hideIndicator?: boolean
 }
 
 const Note = ({
@@ -65,7 +65,7 @@ const Note = ({
                 </Text>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export { Note, type NoteProps };
+export { Note, type NoteProps }

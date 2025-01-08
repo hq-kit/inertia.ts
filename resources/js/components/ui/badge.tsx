@@ -1,6 +1,6 @@
-import React from 'react';
+import React from 'react'
 
-import { tv, type VariantProps } from 'tailwind-variants';
+import { tv, type VariantProps } from 'tailwind-variants'
 
 const badgeVariants = tv({
     base: 'inline-flex items-center outline-none transition-colors gap-x-1.5 py-0.5 text-xs/5 font-medium [&_svg]:size-3',
@@ -29,13 +29,13 @@ const badgeVariants = tv({
         variant: 'primary',
         shape: 'square',
     },
-});
+})
 
 interface BadgeProps
     extends React.HTMLAttributes<HTMLDivElement>,
         VariantProps<typeof badgeVariants> {
-    className?: string;
-    children: React.ReactNode;
+    className?: string
+    children: React.ReactNode
 }
 
 const Badge = ({
@@ -52,7 +52,7 @@ const Badge = ({
         >
             {children}
         </span>
-    );
-};
+    )
+}
 
-export { Badge, badgeVariants };
+export { Badge, badgeVariants }

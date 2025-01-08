@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 import {
     type DialogProps,
@@ -8,11 +8,11 @@ import {
     ModalOverlay,
     type ModalOverlayProps as ModalOverlayPrimitiveProps,
     Modal as ModalPrimitive,
-} from 'react-aria-components';
-import { tv, type VariantProps } from 'tailwind-variants';
+} from 'react-aria-components'
+import { tv, type VariantProps } from 'tailwind-variants'
 
-import { Dialog } from './dialog';
-import { cr } from './utils';
+import { Dialog } from './dialog'
+import { cr } from './utils'
 
 const sheetOverlayStyles = tv({
     base: [
@@ -30,9 +30,9 @@ const sheetOverlayStyles = tv({
             true: 'animate-out fade-out duration-200 ease-in',
         },
     },
-});
+})
 
-type Sides = 'top' | 'bottom' | 'left' | 'right';
+type Sides = 'top' | 'bottom' | 'left' | 'right'
 const generateCompoundVariants = (sides: Array<Sides>) => {
     return sides.map((side) => ({
         side,
@@ -45,8 +45,8 @@ const generateCompoundVariants = (sides: Array<Sides>) => {
                   : side === 'left'
                     ? 'left-2 inset-y-2 rounded-lg ring-1 border-r-0 ring-dark/5 dark:ring-muted'
                     : 'right-2 inset-y-2 rounded-lg ring-1 border-l-0 ring-dark/5 dark:ring-muted',
-    }));
-};
+    }))
+}
 
 const sheetContentStyles = tv({
     base: 'fixed z-50 grid gap-4 bg-background border-dark/5 dark:border-muted text-foreground shadow-lg transition ease-in-out',
@@ -74,29 +74,29 @@ const sheetContentStyles = tv({
         'left',
         'right',
     ]),
-});
+})
 
 const Sheet = ({ children, ...props }: DialogTriggerProps) => {
     return (
         <DialogTriggerPrimitive {...props}>{children}</DialogTriggerPrimitive>
-    );
-};
+    )
+}
 
 interface SheetContentProps
     extends Omit<React.ComponentProps<typeof Modal>, 'children' | 'className'>,
         Omit<ModalOverlayPrimitiveProps, 'className'>,
         VariantProps<typeof sheetOverlayStyles> {
-    'aria-label'?: DialogProps['aria-label'];
-    'aria-labelledby'?: DialogProps['aria-labelledby'];
-    role?: DialogProps['role'];
-    closeButton?: boolean;
-    isBlurred?: boolean;
-    isStack?: boolean;
-    side?: Sides;
+    'aria-label'?: DialogProps['aria-label']
+    'aria-labelledby'?: DialogProps['aria-labelledby']
+    role?: DialogProps['role']
+    closeButton?: boolean
+    isBlurred?: boolean
+    isStack?: boolean
+    side?: Sides
     classNames?: {
-        overlay?: ModalOverlayPrimitiveProps['className'];
-        content?: ModalOverlayPrimitiveProps['className'];
-    };
+        overlay?: ModalOverlayPrimitiveProps['className']
+        content?: ModalOverlayPrimitiveProps['className']
+    }
 }
 
 const SheetContent = ({
@@ -109,7 +109,7 @@ const SheetContent = ({
     isStack = true,
     ...props
 }: SheetContentProps) => {
-    const _isDismissable = role === 'alertdialog' ? false : isDismissable;
+    const _isDismissable = role === 'alertdialog' ? false : isDismissable
     return (
         <ModalOverlay
             isDismissable={_isDismissable}
@@ -118,7 +118,7 @@ const SheetContent = ({
                     ...renderProps,
                     isBlurred,
                     className,
-                });
+                })
             })}
             {...props}
         >
@@ -153,16 +153,16 @@ const SheetContent = ({
                 </Dialog>
             </ModalPrimitive>
         </ModalOverlay>
-    );
-};
+    )
+}
 
-Sheet.Trigger = Dialog.Trigger;
-Sheet.Footer = Dialog.Footer;
-Sheet.Content = SheetContent;
-Sheet.Header = Dialog.Header;
-Sheet.Title = Dialog.Title;
-Sheet.Description = Dialog.Description;
-Sheet.Body = Dialog.Body;
-Sheet.Close = Dialog.Close;
+Sheet.Trigger = Dialog.Trigger
+Sheet.Footer = Dialog.Footer
+Sheet.Content = SheetContent
+Sheet.Header = Dialog.Header
+Sheet.Title = Dialog.Title
+Sheet.Description = Dialog.Description
+Sheet.Body = Dialog.Body
+Sheet.Close = Dialog.Close
 
-export { Sheet };
+export { Sheet }

@@ -1,24 +1,24 @@
-import React from 'react';
+import React from 'react'
 
 import type {
     RadioGroupProps as RadioGroupPrimitiveProps,
     RadioProps as RadioPrimitiveProps,
     ValidationResult,
-} from 'react-aria-components';
+} from 'react-aria-components'
 import {
     RadioGroup as RadioGroupPrimitive,
     Radio as RadioPrimitive,
-} from 'react-aria-components';
-import { tv } from 'tailwind-variants';
+} from 'react-aria-components'
+import { tv } from 'tailwind-variants'
 
-import { Description, FieldError, Label } from './field';
-import { ctr } from './utils';
+import { Description, FieldError, Label } from './field'
+import { ctr } from './utils'
 
 interface RadioGroupProps extends Omit<RadioGroupPrimitiveProps, 'children'> {
-    label?: string;
-    children?: React.ReactNode;
-    description?: string;
-    errorMessage?: string | ((validation: ValidationResult) => string);
+    label?: string
+    children?: React.ReactNode
+    description?: string
+    errorMessage?: string | ((validation: ValidationResult) => string)
 }
 
 const RadioGroup = ({
@@ -40,8 +40,8 @@ const RadioGroup = ({
             {description && <Description>{description}</Description>}
             <FieldError>{errorMessage}</FieldError>
         </RadioGroupPrimitive>
-    );
-};
+    )
+}
 
 const radioStyles = tv({
     base: 'size-4 shrink-0 rounded-full border transition',
@@ -63,10 +63,10 @@ const radioStyles = tv({
             true: 'opacity-50',
         },
     },
-});
+})
 
 interface RadioProps extends RadioPrimitiveProps {
-    description?: string;
+    description?: string
 }
 
 const Radio = ({ description, ...props }: RadioProps) => {
@@ -100,7 +100,7 @@ const Radio = ({ description, ...props }: RadioProps) => {
                 )}
             </RadioPrimitive>
         </>
-    );
-};
+    )
+}
 
-export { Radio, RadioGroup, radioStyles };
+export { Radio, RadioGroup, radioStyles }
